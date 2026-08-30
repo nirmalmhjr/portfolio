@@ -1,0 +1,116 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 4%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    --border: 240 6% 90%;
+    --accent: 240 6% 10%;
+  }
+
+  .dark {
+    --background: 240 10% 4%;
+    --foreground: 0 0% 98%;
+    --muted: 240 4% 12%;
+    --muted-foreground: 240 5% 65%;
+    --border: 240 4% 18%;
+    --accent: 0 0% 98%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer utilities {
+  .text-muted {
+    color: hsl(var(--muted-foreground));
+  }
+  .bg-muted {
+    background-color: hsl(var(--muted));
+  }
+}
+
+/* Prevent theme flash: next-themes swaps the class before paint, but keep
+   the transition off during that swap. */
+.no-transitions * {
+  transition: none !important;
+}
+
+/* rehype-pretty-code: light/dark dual themes via data attributes. */
+code[data-theme],
+code[data-theme] span {
+  color: var(--shiki-light);
+}
+.dark code[data-theme],
+.dark code[data-theme] span {
+  color: var(--shiki-dark);
+}
+
+pre {
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  border: 1px solid hsl(var(--border));
+  background-color: hsl(var(--muted));
+  padding: 1rem 0;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+pre > code {
+  display: grid;
+  counter-reset: line;
+}
+
+pre > code > [data-line] {
+  padding: 0 1rem;
+  border-left: 2px solid transparent;
+}
+
+pre > code > [data-highlighted-line] {
+  background-color: hsl(var(--accent) / 0.08);
+  border-left-color: hsl(var(--muted-foreground));
+}
+
+code[data-line-numbers] > [data-line]::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 1rem;
+  margin-right: 1.5rem;
+  text-align: right;
+  color: hsl(var(--muted-foreground));
+}
+
+[data-rehype-pretty-code-title] {
+  padding: 0.5rem 1rem;
+  border: 1px solid hsl(var(--border));
+  border-bottom: none;
+  border-radius: 0.5rem 0.5rem 0 0;
+  background-color: hsl(var(--muted));
+  font-size: 0.8125rem;
+  font-family: var(--font-mono);
+  color: hsl(var(--muted-foreground));
+}
+
+[data-rehype-pretty-code-title] + pre {
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.heading-anchor {
+  text-decoration: none;
+  color: inherit;
+}
+.heading-anchor:hover {
+  text-decoration: underline;
+}

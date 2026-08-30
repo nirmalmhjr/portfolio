@@ -1,0 +1,41 @@
+---
+title: "A mental model for React Server Components"
+description: "RSC isn't SSR 2.0. It's a boundary between code that runs once on the server and code that ships to the browser."
+date: "2026-06-03"
+tags: ["React", "Next.js"]
+draft: false
+---
+
+The confusing part of Server Components is that they _look_ identical to
+Client Components. The difference is where the code lives.
+
+## Two worlds
+
+|          | Server Component                     | Client Component                           |
+| -------- | ------------------------------------ | ------------------------------------------ |
+| Runs     | On the server, at request/build time | On the server (SSR) **and** in the browser |
+| Can use  | `async`/`await`, filesystem, secrets | `useState`, `useEffect`, event handlers    |
+| Ships JS | No                                   | Yes                                        |
+
+A component is a Server Component by default in the App Router. Adding
+`"use client"` at the top of a file opts it — and everything it imports — into
+the browser bundle.
+
+## The data-fetching win
+
+```tsx title="app/page.tsx"
+export default async function Page() {
+  const posts = await db.post.findMany(); // runs on the server, no API route
+  return <PostList posts={posts} />;
+}
+```
+
+No `useEffect`, no loading spinner plumbing, no exposing the DB query to the
+client.
+
+## Where people trip
+
+- You can't pass a function as a prop from a Server to a Client Component.
+- `"use client"` is a boundary, not a per-component switch — imports inherit it.
+- Client Components can still be server-rendered; "client" means "also runs in
+  the browser," not "only."

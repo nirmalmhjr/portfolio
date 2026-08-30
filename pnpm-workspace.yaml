@@ -1,0 +1,7 @@
+# pnpm 10+ reads build-script allowlist and other settings from this file.
+onlyBuiltDependencies:
+  - unrs-resolver
+  - sharp
+  - esbuild
+allowBuilds:
+  unrs-resolver: true

@@ -1,0 +1,35 @@
+---
+title: "Hello, world — how this blog is built"
+description: "A quick tour of the MDX pipeline powering this site: drop a file in, get a fully routed, SEO-ready post."
+date: "2026-08-30"
+tags: ["Next.js", "MDX"]
+draft: false
+---
+
+This post exists mostly to prove the pipeline works. Here's what happens when I
+add a new `.mdx` file to `content/blog/`:
+
+1. The filename becomes the slug (`hello-world.mdx` → `/blog/hello-world`).
+2. The frontmatter is validated against a [Zod](https://zod.dev) schema — a
+   typo in `date` or a missing `description` fails the build.
+3. Reading time, the sitemap entry, and the RSS item are all derived
+   automatically.
+
+## Code blocks
+
+Syntax highlighting is handled by `rehype-pretty-code` (Shiki under the hood),
+with light and dark themes:
+
+```ts title="greet.ts" showLineNumbers
+export function greet(name: string): string {
+  // this line is highlighted
+  return `Hello, ${name}!`;
+}
+```
+
+Inline code like `const x = 42` works too.
+
+## What's next
+
+Real posts about React internals, the Next.js App Router, and the JavaScript
+event loop are on the way.

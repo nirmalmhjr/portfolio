@@ -1,0 +1,44 @@
+---
+title: "Why React keys matter more than you think"
+description: "Keys aren't just a lint warning — they decide whether React reuses or destroys component state during a re-render."
+date: "2026-07-12"
+tags: ["React", "JavaScript"]
+draft: false
+---
+
+The `key` prop looks like a formality. It isn't. Keys are how React matches
+elements between renders, and getting them wrong causes state to leak between
+list items or reset unexpectedly.
+
+## The reconciliation model
+
+When a list re-renders, React walks the old and new children and pairs them up
+**by key**, not by position:
+
+```jsx title="TodoList.jsx"
+{
+  todos.map((todo) => <TodoRow key={todo.id} todo={todo} />);
+}
+```
+
+If you use the array index as the key and the list reorders, React thinks item
+0 is still item 0 — so the DOM node, its focus, and any local `useState` stay
+put while the _data_ shifts underneath.
+
+## A concrete failure
+
+```jsx
+// Bad: index keys on a reorderable list
+{
+  items.map((item, i) => <input key={i} defaultValue={item.label} />);
+}
+```
+
+Delete the first row and every input below it shows the wrong value, because
+React reused input #1's DOM node for what is now a different item.
+
+## Rules of thumb
+
+- Use a stable, unique ID from your data.
+- Never use the index unless the list is static and append-only.
+- `key` is also a remount escape hatch: change it to force a fresh component.
