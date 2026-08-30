@@ -1,57 +1,50 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { Post } from "@/lib/posts";
-import { tagSlug } from "@/lib/posts";
 import { formatDate } from "@/lib/utils";
 
 export function PostCard({ post }: { post: Post }) {
   const { slug, frontmatter, readingTimeMinutes } = post;
 
   return (
-    <article className="group relative border-b border-border/70 py-8 transition-colors first:pt-0">
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-baseline">
-        <div className="text-muted flex shrink-0 items-center gap-3 font-mono text-xs uppercase tracking-wider sm:w-40 sm:flex-col sm:items-start sm:gap-1">
-          <time dateTime={frontmatter.date}>
-            {formatDate(frontmatter.date)}
-          </time>
-          <span className="sm:text-muted">{readingTimeMinutes} min read</span>
+    <Link
+      href={`/blog/${slug}`}
+      className="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-5 gap-y-2 border-b border-border py-7 transition-colors hover:bg-surface sm:gap-x-8 sm:py-8"
+    >
+      <span className="label whitespace-nowrap pt-1">
+        {formatDate(frontmatter.date)}
+      </span>
+
+      <div className="min-w-0">
+        <h3 className="display flex items-center gap-3 text-[clamp(1.35rem,2.6vw,2rem)] transition-transform duration-300 group-hover:translate-x-2">
+          {frontmatter.title}
           {frontmatter.draft ? (
-            <span className="rounded bg-accent/15 px-1.5 py-0.5 text-accent">
+            <span className="rounded-sm bg-accent/15 px-1.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider text-accent">
               Draft
             </span>
           ) : null}
-        </div>
-
-        <div className="min-w-0 flex-1">
-          <h3 className="font-display text-2xl leading-snug transition-colors group-hover:text-accent">
-            <Link
-              href={`/blog/${slug}`}
-              className="after:absolute after:inset-0"
-            >
-              {frontmatter.title}
-            </Link>
-          </h3>
-          <p className="text-muted mt-2 text-[15px] leading-relaxed">
-            {frontmatter.description}
-          </p>
-          {frontmatter.tags.length > 0 ? (
-            <ul className="mt-3 flex flex-wrap gap-x-3 gap-y-1">
-              {frontmatter.tags.map((tag) => (
-                <li key={tag}>
-                  <Link
-                    href={`/blog/tag/${tagSlug(tag)}`}
-                    className="text-muted relative z-10 font-mono text-xs hover:text-foreground"
-                  >
-                    #{tag}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </div>
-
-        <ArrowUpRight className="text-muted hidden h-5 w-5 shrink-0 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent sm:block" />
+        </h3>
+        <p className="text-muted mt-2 max-w-xl text-sm leading-relaxed">
+          {frontmatter.description}
+        </p>
+        {frontmatter.tags.length > 0 ? (
+          <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
+            {frontmatter.tags.map((tag) => (
+              <li
+                key={tag}
+                className="text-muted font-mono text-[0.7rem] uppercase tracking-wider"
+              >
+                {tag}
+              </li>
+            ))}
+          </ul>
+        ) : null}
       </div>
-    </article>
+
+      <span className="label hidden whitespace-nowrap pt-1 text-right sm:flex sm:items-center sm:gap-2">
+        {readingTimeMinutes} min
+        <ArrowUpRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
+      </span>
+    </Link>
   );
 }

@@ -14,17 +14,17 @@ export default function ContactPage() {
   return (
     <Container as="main">
       <PageHeader
-        label="Contact"
-        title="Let's build something."
+        label="(Contact)"
+        title="Let's Talk"
         description="The fastest way to reach me is email — I read everything and reply to most things within a couple of days. Tell me a bit about what you're working on."
       />
 
-      <div className="mt-10 flex flex-col gap-10">
+      <div className="mt-12 flex flex-col gap-12">
         <AvailableBadge />
         <ContactLinks />
-        <p className="text-muted text-sm">
-          Prefer to copy it?{" "}
-          <span className="select-all font-mono text-foreground">
+        <p className="text-muted font-mono text-xs uppercase tracking-wider">
+          Or copy —{" "}
+          <span className="select-all text-foreground">
             {siteConfig.author.email}
           </span>
         </p>

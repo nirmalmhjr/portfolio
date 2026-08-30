@@ -10,14 +10,13 @@ export function Container({
   children: ReactNode;
   className?: string;
   as?: ElementType;
-  size?: "default" | "wide" | "prose";
+  size?: "default" | "prose";
 }) {
   return (
     <Tag
       className={cn(
         "mx-auto w-full px-5 sm:px-8",
-        size === "default" && "max-w-5xl",
-        size === "wide" && "max-w-6xl",
+        size === "default" && "max-w-[92rem]",
         size === "prose" && "max-w-3xl",
         className
       )}
@@ -37,13 +36,11 @@ export function PageHeader({
   description?: string;
 }) {
   return (
-    <header className="border-b border-border/70 pb-10 pt-4">
-      {label ? <p className="label mb-4">{label}</p> : null}
-      <h1 className="text-balance font-display text-4xl leading-[1.05] sm:text-6xl">
-        {title}
-      </h1>
+    <header className="border-b border-border py-10 sm:py-14">
+      {label ? <p className="label mb-6">{label}</p> : null}
+      <h1 className="display text-display-md">{title}</h1>
       {description ? (
-        <p className="text-muted mt-5 max-w-2xl text-lg leading-relaxed">
+        <p className="text-muted mt-6 max-w-2xl text-lg leading-relaxed">
           {description}
         </p>
       ) : null}

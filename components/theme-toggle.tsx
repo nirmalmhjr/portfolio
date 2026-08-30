@@ -16,7 +16,7 @@ export function ThemeToggle() {
     <button
       type="button"
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
-      className="text-muted hover:bg-muted grid h-9 w-9 place-items-center rounded-md border border-border transition-colors hover:text-foreground"
+      className="text-muted grid h-8 w-8 place-items-center transition-colors hover:text-foreground"
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >
       <Sun className={`h-4 w-4 ${isDark ? "hidden" : "block"}`} aria-hidden />

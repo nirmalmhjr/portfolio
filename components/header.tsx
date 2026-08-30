@@ -8,25 +8,20 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Header() {
   const pathname = usePathname();
+  const lastName = siteConfig.name.split(" ").slice(-1)[0];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border/70 bg-background/70 backdrop-blur-md">
-      <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-5 sm:px-8">
+    <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md">
+      <div className="mx-auto flex h-14 max-w-[92rem] items-center justify-between px-5 sm:px-8">
         <Link
           href="/"
-          className="group flex items-center gap-2.5 font-display text-lg"
+          className="font-display text-sm font-bold uppercase tracking-tight"
         >
-          <span className="grid h-7 w-7 place-items-center rounded-md bg-foreground text-[0.7rem] font-semibold text-background transition-transform group-hover:-rotate-6">
-            {siteConfig.name
-              .split(" ")
-              .map((w) => w[0])
-              .join("")
-              .slice(0, 2)}
-          </span>
-          <span className="hidden sm:inline">{siteConfig.name}</span>
+          {siteConfig.name.split(" ")[0]}
+          <span className="text-muted">{lastName ? ` ${lastName}` : ""}</span>
         </Link>
 
-        <nav className="flex items-center gap-0.5">
+        <nav className="flex items-center gap-1 sm:gap-2">
           {mainNav.map((item) => {
             const active =
               pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -35,18 +30,15 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "relative rounded-md px-3 py-2 text-sm transition-colors hover:text-foreground",
+                  "px-2 py-1 font-mono text-[0.7rem] uppercase tracking-widest transition-colors hover:text-foreground",
                   active ? "text-foreground" : "text-muted"
                 )}
               >
                 {item.title}
-                {active ? (
-                  <span className="absolute inset-x-3 -bottom-[1px] h-[2px] rounded-full bg-accent" />
-                ) : null}
               </Link>
             );
           })}
-          <span className="mx-2 h-4 w-px bg-border" />
+          <span className="mx-1 hidden h-3 w-px bg-border sm:block" />
           <ThemeToggle />
         </nav>
       </div>

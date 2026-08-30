@@ -7,6 +7,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default function OgImage() {
+  const [first, ...rest] = siteConfig.name.split(" ");
   return new ImageResponse(
     <div
       style={{
@@ -15,62 +16,51 @@ export default function OgImage() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        padding: "72px",
-        background: "#f7f4ef",
-        color: "#1f1b17",
+        padding: "64px",
+        background: "#f2efe8",
+        color: "#181613",
         fontFamily: "sans-serif",
       }}
     >
       <div
         style={{
           display: "flex",
-          alignItems: "center",
-          gap: 16,
-          fontSize: 22,
-          letterSpacing: "0.12em",
+          justifyContent: "space-between",
+          fontSize: 20,
+          letterSpacing: "0.18em",
           textTransform: "uppercase",
-          color: "#8a7f72",
+          color: "#7c7263",
         }}
       >
-        <div
-          style={{
-            width: 44,
-            height: 44,
-            borderRadius: 10,
-            background: "#1f1b17",
-            color: "#f7f4ef",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 18,
-          }}
-        >
-          {siteConfig.name
-            .split(" ")
-            .map((w) => w[0])
-            .join("")
-            .slice(0, 2)}
-        </div>
-        {siteConfig.title}
+        <span>{siteConfig.role}</span>
+        <span>Portfolio</span>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <div style={{ fontSize: 88, lineHeight: 1 }}>
-          {siteConfig.name.split(" ")[0]}{" "}
-          <span style={{ color: "#e0491f", fontStyle: "italic" }}>
-            {siteConfig.name.split(" ").slice(1).join(" ")}
-          </span>
-        </div>
-        <div
-          style={{
-            fontSize: 26,
-            color: "#6f6455",
-            marginTop: 24,
-            maxWidth: 920,
-          }}
-        >
-          {siteConfig.description}
-        </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          fontWeight: 700,
+          fontSize: 150,
+          lineHeight: 0.86,
+          letterSpacing: "-0.05em",
+          textTransform: "uppercase",
+        }}
+      >
+        <span>{first}</span>
+        <span style={{ color: "#7c7263" }}>{rest.join(" ")}</span>
+      </div>
+
+      <div
+        style={{
+          borderTop: "1px solid #cfc7b8",
+          paddingTop: 20,
+          fontSize: 24,
+          color: "#4d453a",
+          maxWidth: 940,
+        }}
+      >
+        {siteConfig.description}
       </div>
     </div>,
     { ...size }

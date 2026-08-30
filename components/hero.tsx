@@ -1,90 +1,83 @@
 import Link from "next/link";
-import { ArrowRight, Github, Linkedin, Mail } from "lucide-react";
-import { AvailableBadge } from "@/components/available-badge";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { Reveal } from "@/components/reveal";
 import { siteConfig, socialLinks } from "@/lib/site.config";
 
 const socials = [
-  { href: socialLinks.email, label: "Email", Icon: Mail },
-  { href: socialLinks.github, label: "GitHub", Icon: Github },
-  { href: socialLinks.linkedin, label: "LinkedIn", Icon: Linkedin },
-];
-
-const facts = [
-  ["Location", "Remote · UTC+5:45"],
-  ["Focus", "Frontend · Design systems"],
-  ["Stack", "React · Next.js · TS"],
-  ["Status", "Open to freelance & full-time"],
+  { href: socialLinks.email, label: "Email" },
+  { href: socialLinks.github, label: "GitHub" },
+  { href: socialLinks.linkedin, label: "LinkedIn" },
 ];
 
 export function Hero() {
+  const [first, ...rest] = siteConfig.name.split(" ");
+
   return (
-    <section className="grid items-start gap-12 py-16 sm:py-24 lg:grid-cols-[1.6fr_1fr] lg:gap-16">
-      <div className="animate-fade-up">
-        <AvailableBadge />
-
-        <h1 className="mt-6 text-balance font-display text-5xl leading-[1] sm:text-7xl">
-          {siteConfig.name.split(" ")[0]}{" "}
-          <span className="italic text-accent">
-            {siteConfig.name.split(" ").slice(1).join(" ")}
-          </span>
+    <section className="pb-16 pt-10 sm:pt-16">
+      <Reveal>
+        <p className="label mb-6 sm:mb-10">
+          Portfolio — {new Date().getFullYear()}
+        </p>
+        <h1 className="display text-display-lg">
+          {first}
+          <br />
+          <span className="text-muted">{rest.join(" ")}</span>
         </h1>
+      </Reveal>
 
-        <p className="text-muted mt-4 font-mono text-sm uppercase tracking-[0.16em]">
-          {siteConfig.title}
-        </p>
-
-        <p className="text-muted mt-7 max-w-xl text-pretty text-lg leading-relaxed">
-          {siteConfig.intro}
-        </p>
-
-        <div className="mt-9 flex flex-wrap items-center gap-3">
-          <Link
-            href="/projects"
-            className="group inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-colors hover:bg-accent"
-          >
-            View work
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Link>
-          <Link
-            href="/about"
-            className="hover:bg-muted inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium transition-colors"
-          >
-            About me
-          </Link>
-
-          <div className="ml-1 flex items-center gap-1">
-            {socials.map(({ href, label, Icon }) => (
-              <a
-                key={label}
-                href={href}
-                aria-label={label}
-                className="text-muted grid h-9 w-9 place-items-center rounded-full border border-border transition-colors hover:border-accent hover:text-accent"
-                {...(href.startsWith("http")
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
-              >
-                <Icon className="h-4 w-4" />
-              </a>
-            ))}
-          </div>
+      <div className="meta-row text-muted mt-10 font-mono text-xs uppercase tracking-wider">
+        <div>
+          <span className="text-foreground">{siteConfig.role}</span>
+        </div>
+        <div className="sm:text-center">
+          <span className="text-foreground">{siteConfig.location}</span>
+        </div>
+        <div className="sm:text-right">
+          <span className="inline-flex items-center gap-2 text-foreground">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-accent" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+            </span>
+            {siteConfig.availability}
+          </span>
         </div>
       </div>
 
-      <dl className="animate-fade-up rounded-xl border border-border bg-surface p-6 shadow-card [animation-delay:120ms]">
-        <p className="label mb-5">Currently</p>
-        {facts.map(([k, v], i) => (
-          <div
-            key={k}
-            className={
-              "flex items-start justify-between gap-4 py-3 text-sm " +
-              (i > 0 ? "border-t border-border/70" : "")
-            }
-          >
-            <dt className="text-muted">{k}</dt>
-            <dd className="max-w-[60%] text-right font-medium">{v}</dd>
+      <Reveal delay={80}>
+        <div className="mt-12 grid gap-10 lg:grid-cols-[1.5fr_1fr]">
+          <p className="max-w-2xl font-display text-2xl leading-tight tracking-tight sm:text-3xl">
+            {siteConfig.intro}{" "}
+            <Link
+              href="/projects"
+              className="inline-flex items-baseline gap-1 border-b-2 border-accent/50 text-accent transition-colors hover:border-accent"
+            >
+              See the work
+              <ArrowUpRight className="h-5 w-5 self-center" />
+            </Link>
+          </p>
+
+          <div className="flex flex-col justify-end gap-4">
+            <div className="flex flex-wrap gap-x-6 gap-y-2">
+              {socials.map(({ href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  className="text-muted group inline-flex items-center gap-1 font-mono text-xs uppercase tracking-widest transition-colors hover:text-foreground"
+                  {...(href.startsWith("http")
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                >
+                  {label}
+                  <ArrowUpRight className="h-3 w-3 opacity-0 transition-opacity group-hover:opacity-100" />
+                </a>
+              ))}
+            </div>
+            <p className="text-muted flex items-center gap-2 font-mono text-xs uppercase tracking-widest">
+              <ArrowDown className="h-3.5 w-3.5" /> Scroll
+            </p>
           </div>
-        ))}
-      </dl>
+        </div>
+      </Reveal>
     </section>
   );
 }

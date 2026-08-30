@@ -24,14 +24,14 @@ const components: MDXRemoteProps["components"] = {
     <Image
       {...(props as ImageProps)}
       alt={props.alt ?? ""}
-      className="rounded-lg border"
+      className="border border-border"
     />
   ),
 };
 
 export function MdxContent({ source }: { source: string }) {
   return (
-    <div className="prose max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-headings:font-display prose-pre:p-0">
+    <div className="prose max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-headings:font-display prose-headings:tracking-tight prose-pre:p-0">
       <MDXRemote source={source} components={components} options={mdxOptions} />
     </div>
   );

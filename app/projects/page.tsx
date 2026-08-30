@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Container, PageHeader } from "@/components/container";
 import { ProjectCard } from "@/components/project-card";
+import { Reveal } from "@/components/reveal";
 import { projects } from "@/lib/projects";
 
 export const metadata: Metadata = {
@@ -16,13 +17,15 @@ export default function ProjectsPage() {
   return (
     <Container as="main">
       <PageHeader
-        label={`Projects · ${sorted.length}`}
-        title="Things I've designed, built, and shipped."
-        description="A mix of client work, side projects, and open source. A few more live on my GitHub."
+        label={`(Work) — ${sorted.length} projects`}
+        title="Selected Work"
+        description="Client work, side projects, and open source. A few more live on my GitHub."
       />
-      <div className="mt-12 grid gap-5 sm:grid-cols-2">
+      <div className="mt-4">
         {sorted.map((project, i) => (
-          <ProjectCard key={project.title} project={project} index={i} />
+          <Reveal key={project.title}>
+            <ProjectCard project={project} index={i} />
+          </Reveal>
         ))}
       </div>
     </Container>

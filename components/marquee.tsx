@@ -5,25 +5,27 @@ const ITEMS = [
   "Node.js",
   "Tailwind CSS",
   "PostgreSQL",
-  "Design systems",
-  "Web performance",
+  "Design Systems",
+  "Web Performance",
   "Accessibility",
-  "GraphQL",
+  "Framer Motion",
 ];
 
 function Track({ ariaHidden = false }: { ariaHidden?: boolean }) {
   return (
     <ul
       aria-hidden={ariaHidden || undefined}
-      className="flex shrink-0 items-center gap-12 pr-12"
+      className="flex shrink-0 items-center"
     >
-      {ITEMS.map((item) => (
+      {ITEMS.map((item, i) => (
         <li
           key={item}
-          className="flex items-center gap-12 whitespace-nowrap font-mono text-sm uppercase tracking-[0.1em]"
+          className="display flex items-center whitespace-nowrap px-6 text-[clamp(1.75rem,5vw,3.5rem)]"
         >
-          {item}
-          <span className="text-accent">✦</span>
+          <span className={i % 2 === 1 ? "text-outline" : undefined}>
+            {item}
+          </span>
+          <span className="ml-12 text-accent">✳</span>
         </li>
       ))}
     </ul>
@@ -32,7 +34,7 @@ function Track({ ariaHidden = false }: { ariaHidden?: boolean }) {
 
 export function Marquee() {
   return (
-    <div className="-mx-5 overflow-hidden border-y border-border bg-surface py-4 sm:-mx-8">
+    <div className="full-bleed overflow-hidden border-y border-border bg-surface py-5">
       <div className="flex w-max animate-marquee hover:[animation-play-state:paused] motion-reduce:animate-none">
         <Track />
         <Track ariaHidden />

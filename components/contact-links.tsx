@@ -1,4 +1,4 @@
-import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { siteConfig, socialLinks } from "@/lib/site.config";
 
 const items = [
@@ -6,43 +6,45 @@ const items = [
     href: socialLinks.email,
     label: "Email",
     value: siteConfig.author.email,
-    Icon: Mail,
     external: false,
   },
   {
     href: socialLinks.github,
     label: "GitHub",
     value: `github.com/${siteConfig.author.github}`,
-    Icon: Github,
     external: true,
   },
   {
     href: socialLinks.linkedin,
     label: "LinkedIn",
-    value: `in/${siteConfig.author.linkedin}`,
-    Icon: Linkedin,
+    value: `linkedin.com/in/${siteConfig.author.linkedin}`,
+    external: true,
+  },
+  {
+    href: socialLinks.twitter,
+    label: "Twitter",
+    value: `@${siteConfig.author.twitter}`,
     external: true,
   },
 ];
 
 export function ContactLinks() {
   return (
-    <ul className="divide-y divide-border/70 border-y border-border">
-      {items.map(({ href, label, value, Icon, external }) => (
+    <ul className="border-t border-border">
+      {items.map(({ href, label, value, external }) => (
         <li key={label}>
           <a
             href={href}
-            className="group flex items-center gap-4 py-4 transition-colors hover:text-accent"
+            className="group grid grid-cols-[7rem_1fr_auto] items-center gap-4 border-b border-border py-5 transition-colors hover:bg-surface"
             {...(external
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {})}
           >
-            <Icon className="text-muted h-5 w-5 shrink-0 transition-colors group-hover:text-accent" />
-            <span className="text-muted w-24 shrink-0 font-mono text-xs uppercase tracking-wider">
-              {label}
+            <span className="label">{label}</span>
+            <span className="min-w-0 truncate font-display text-lg transition-transform duration-300 group-hover:translate-x-2 sm:text-xl">
+              {value}
             </span>
-            <span className="min-w-0 flex-1 truncate">{value}</span>
-            <ArrowUpRight className="text-muted h-4 w-4 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
+            <ArrowUpRight className="text-muted h-4 w-4 transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
           </a>
         </li>
       ))}

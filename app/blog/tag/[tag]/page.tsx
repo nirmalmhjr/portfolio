@@ -60,16 +60,15 @@ export default async function TagPage({
   return (
     <Container as="main">
       <PageHeader
-        label="Tag"
+        label={`(Tag) — ${posts.length} post${posts.length === 1 ? "" : "s"}`}
         title={tag}
-        description={`${posts.length} post${posts.length === 1 ? "" : "s"} tagged “${tag}”.`}
       />
 
       <div className="mt-10">
         <TagFilter activeTag={tag} />
       </div>
 
-      <div className="mt-4 border-t border-border/70">
+      <div className="mt-8 border-t border-border">
         {pagePosts.map((post) => (
           <PostCard key={post.slug} post={post} />
         ))}

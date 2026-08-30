@@ -8,20 +8,15 @@ export function TagFilter({ activeTag }: { activeTag?: string }) {
 
   const normalizedActive = activeTag?.toLowerCase();
 
-  const pill =
-    "rounded-full border px-3 py-1 font-mono text-xs transition-colors";
+  const base =
+    "border px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-widest transition-colors";
+  const on = "border-foreground bg-foreground text-background";
+  const off =
+    "border-border text-muted hover:border-foreground hover:text-foreground";
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <Link
-        href="/blog"
-        className={cn(
-          pill,
-          !normalizedActive
-            ? "border-foreground bg-foreground text-background"
-            : "text-muted border-border hover:border-foreground hover:text-foreground"
-        )}
-      >
+      <Link href="/blog" className={cn(base, !normalizedActive ? on : off)}>
         All
       </Link>
       {tags.map(({ tag, count }) => {
@@ -30,19 +25,10 @@ export function TagFilter({ activeTag }: { activeTag?: string }) {
           <Link
             key={tag}
             href={`/blog/tag/${tagSlug(tag)}`}
-            className={cn(
-              pill,
-              active
-                ? "border-foreground bg-foreground text-background"
-                : "text-muted border-border hover:border-foreground hover:text-foreground"
-            )}
+            className={cn(base, active ? on : off)}
           >
             {tag}
-            <span
-              className={active ? "ml-1.5 opacity-60" : "ml-1.5 opacity-50"}
-            >
-              {count}
-            </span>
+            <span className="ml-2 opacity-50">{count}</span>
           </Link>
         );
       })}

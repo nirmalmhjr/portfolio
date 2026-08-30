@@ -43,9 +43,9 @@ export default async function BlogPage({
   return (
     <Container as="main">
       <PageHeader
-        label={`Writing · ${posts.length} posts`}
-        title="Notes on React, Next.js, and the JavaScript underneath."
-        description="Short, focused posts on how things actually work — and the mistakes that taught me."
+        label={`(Writing) — ${posts.length} posts`}
+        title="Writing"
+        description="Short, focused posts on React, Next.js, and the JavaScript underneath — how things actually work, and the mistakes that taught me."
       />
 
       <div className="mt-10">
@@ -53,7 +53,7 @@ export default async function BlogPage({
       </div>
 
       {pagePosts.length > 0 ? (
-        <div className="mt-4 border-t border-border/70">
+        <div className="mt-8 border-t border-border">
           {pagePosts.map((post) => (
             <PostCard key={post.slug} post={post} />
           ))}

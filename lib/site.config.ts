@@ -19,6 +19,11 @@ export const siteConfig = {
   intro:
     "Full-stack engineer focused on the frontend. I care about performance, developer experience, and shipping things that feel good to use.",
 
+  /** Hero meta row. */
+  role: "Full-Stack Developer",
+  location: "Remote · Kathmandu, NP",
+  availability: "Available for work",
+
   locale: "en_US",
   /** Default OG image. Generated dynamically by app/opengraph-image.tsx. */
   ogImage: "/opengraph-image",

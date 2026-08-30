@@ -98,15 +98,15 @@ export default async function PostPage({
     <Container as="article" size="prose">
       <JsonLd data={articleJsonLd} />
 
-      <div className="border-b border-border/70 pb-10 pt-4">
+      <div className="border-b border-border py-10">
         <Link
           href="/blog"
-          className="text-muted font-mono text-xs uppercase tracking-wider transition-colors hover:text-foreground"
+          className="label transition-colors hover:text-foreground"
         >
           ← Writing
         </Link>
 
-        <div className="text-muted mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs uppercase tracking-wider">
+        <div className="text-muted mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs uppercase tracking-wider">
           <time dateTime={frontmatter.date}>
             {formatDate(frontmatter.date)}
           </time>
@@ -120,10 +120,10 @@ export default async function PostPage({
           ) : null}
         </div>
 
-        <h1 className="mt-4 text-balance font-display text-4xl leading-[1.08] sm:text-5xl">
+        <h1 className="display mt-5 text-[clamp(2rem,6vw,3.75rem)]">
           {frontmatter.title}
         </h1>
-        <p className="text-muted mt-5 text-lg leading-relaxed">
+        <p className="text-muted mt-6 text-lg leading-relaxed">
           {frontmatter.description}
         </p>
 
@@ -133,9 +133,9 @@ export default async function PostPage({
               <li key={tag}>
                 <Link
                   href={`/blog/tag/${tagSlug(tag)}`}
-                  className="text-muted font-mono text-xs hover:text-accent"
+                  className="text-muted font-mono text-[0.7rem] uppercase tracking-wider hover:text-accent"
                 >
-                  #{tag}
+                  {tag}
                 </Link>
               </li>
             ))}
@@ -143,26 +143,26 @@ export default async function PostPage({
         ) : null}
       </div>
 
-      <div className="py-12">
+      <div className="py-14">
         <MdxContent source={content} />
       </div>
 
       {more.length > 0 ? (
         <aside className="border-t border-border pt-10">
-          <p className="label mb-6">Keep reading</p>
-          <div className="grid gap-5 sm:grid-cols-2">
+          <p className="label mb-8">Keep reading</p>
+          <div className="border-t border-border">
             {more.map((p) => (
               <Link
                 key={p.slug}
                 href={`/blog/${p.slug}`}
-                className="group rounded-xl border border-border bg-surface p-5 transition-colors hover:border-accent/50"
+                className="group flex items-baseline justify-between gap-4 border-b border-border py-5 transition-colors hover:bg-surface"
               >
-                <p className="text-muted font-mono text-xs uppercase tracking-wider">
-                  {formatDate(p.frontmatter.date)}
-                </p>
-                <h3 className="mt-2 font-display text-xl leading-snug transition-colors group-hover:text-accent">
+                <h3 className="display text-[clamp(1.15rem,2.4vw,1.6rem)] transition-transform duration-300 group-hover:translate-x-2">
                   {p.frontmatter.title}
                 </h3>
+                <span className="label shrink-0">
+                  {formatDate(p.frontmatter.date)}
+                </span>
               </Link>
             ))}
           </div>
