@@ -8,13 +8,18 @@ export function TagFilter({ activeTag }: { activeTag?: string }) {
 
   const normalizedActive = activeTag?.toLowerCase();
 
+  const pill =
+    "rounded-full border px-3 py-1 font-mono text-xs transition-colors";
+
   return (
-    <div className="mb-8 flex flex-wrap gap-2">
+    <div className="flex flex-wrap items-center gap-2">
       <Link
         href="/blog"
         className={cn(
-          "hover:bg-muted rounded-full border px-3 py-1 text-xs transition-colors",
-          !normalizedActive && "bg-muted font-medium"
+          pill,
+          !normalizedActive
+            ? "border-foreground bg-foreground text-background"
+            : "text-muted border-border hover:border-foreground hover:text-foreground"
         )}
       >
         All
@@ -26,12 +31,18 @@ export function TagFilter({ activeTag }: { activeTag?: string }) {
             key={tag}
             href={`/blog/tag/${tagSlug(tag)}`}
             className={cn(
-              "hover:bg-muted rounded-full border px-3 py-1 text-xs transition-colors",
-              active && "bg-muted font-medium"
+              pill,
+              active
+                ? "border-foreground bg-foreground text-background"
+                : "text-muted border-border hover:border-foreground hover:text-foreground"
             )}
           >
             {tag}
-            <span className="text-muted ml-1">{count}</span>
+            <span
+              className={active ? "ml-1.5 opacity-60" : "ml-1.5 opacity-50"}
+            >
+              {count}
+            </span>
           </Link>
         );
       })}

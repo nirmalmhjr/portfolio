@@ -41,22 +41,25 @@ export default async function BlogPage({
   const pagePosts = posts.slice(start, start + siteConfig.postsPerPage);
 
   return (
-    <Container as="main" className="py-12">
+    <Container as="main">
       <PageHeader
-        title="Blog"
-        description="Notes on React, Next.js, and the JavaScript underneath."
+        label={`Writing · ${posts.length} posts`}
+        title="Notes on React, Next.js, and the JavaScript underneath."
+        description="Short, focused posts on how things actually work — and the mistakes that taught me."
       />
 
-      <TagFilter />
+      <div className="mt-10">
+        <TagFilter />
+      </div>
 
       {pagePosts.length > 0 ? (
-        <div>
+        <div className="mt-4 border-t border-border/70">
           {pagePosts.map((post) => (
             <PostCard key={post.slug} post={post} />
           ))}
         </div>
       ) : (
-        <p className="text-muted text-sm">No posts yet.</p>
+        <p className="text-muted mt-10 text-sm">No posts yet.</p>
       )}
 
       <Pagination

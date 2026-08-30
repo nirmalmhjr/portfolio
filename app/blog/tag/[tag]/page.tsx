@@ -58,15 +58,18 @@ export default async function TagPage({
   const pagePosts = posts.slice(start, start + siteConfig.postsPerPage);
 
   return (
-    <Container as="main" className="py-12">
+    <Container as="main">
       <PageHeader
-        title={`Tagged “${tag}”`}
-        description={`${posts.length} post${posts.length === 1 ? "" : "s"}`}
+        label="Tag"
+        title={tag}
+        description={`${posts.length} post${posts.length === 1 ? "" : "s"} tagged “${tag}”.`}
       />
 
-      <TagFilter activeTag={tag} />
+      <div className="mt-10">
+        <TagFilter activeTag={tag} />
+      </div>
 
-      <div>
+      <div className="mt-4 border-t border-border/70">
         {pagePosts.map((post) => (
           <PostCard key={post.slug} post={post} />
         ))}

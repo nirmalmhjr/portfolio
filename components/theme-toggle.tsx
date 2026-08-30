@@ -10,21 +10,17 @@ export function ThemeToggle() {
 
   useEffect(() => setMounted(true), []);
 
-  const isDark = resolvedTheme === "dark";
+  const isDark = mounted && resolvedTheme === "dark";
 
   return (
     <button
       type="button"
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
-      className="hover:bg-muted inline-flex h-9 w-9 items-center justify-center rounded-md border transition-colors"
+      className="text-muted hover:bg-muted grid h-9 w-9 place-items-center rounded-md border border-border transition-colors hover:text-foreground"
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >
-      {/* Render a stable icon until mounted to avoid hydration mismatch. */}
-      {mounted && isDark ? (
-        <Sun className="h-4 w-4" />
-      ) : (
-        <Moon className="h-4 w-4" />
-      )}
+      <Sun className={`h-4 w-4 ${isDark ? "hidden" : "block"}`} aria-hidden />
+      <Moon className={`h-4 w-4 ${isDark ? "block" : "hidden"}`} aria-hidden />
     </button>
   );
 }

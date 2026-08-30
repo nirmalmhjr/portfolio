@@ -31,7 +31,7 @@ const components: MDXRemoteProps["components"] = {
 
 export function MdxContent({ source }: { source: string }) {
   return (
-    <div className="prose prose-neutral max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-pre:p-0">
+    <div className="prose max-w-none dark:prose-invert prose-headings:scroll-mt-24 prose-headings:font-display prose-pre:p-0">
       <MDXRemote source={source} components={components} options={mdxOptions} />
     </div>
   );

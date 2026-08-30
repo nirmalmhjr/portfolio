@@ -14,14 +14,15 @@ export default function ProjectsPage() {
   const sorted = [...projects].sort((a, b) => b.year - a.year);
 
   return (
-    <Container as="main" className="py-12">
+    <Container as="main">
       <PageHeader
-        title="Projects"
-        description="Things I've designed, built, and shipped. A few more live on my GitHub."
+        label={`Projects · ${sorted.length}`}
+        title="Things I've designed, built, and shipped."
+        description="A mix of client work, side projects, and open source. A few more live on my GitHub."
       />
-      <div className="grid gap-4 sm:grid-cols-2">
-        {sorted.map((project) => (
-          <ProjectCard key={project.title} project={project} />
+      <div className="mt-12 grid gap-5 sm:grid-cols-2">
+        {sorted.map((project, i) => (
+          <ProjectCard key={project.title} project={project} index={i} />
         ))}
       </div>
     </Container>

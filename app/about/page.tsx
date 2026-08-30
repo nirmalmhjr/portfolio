@@ -9,76 +9,108 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
+function SectionLabel({ children }: { children: string }) {
+  return (
+    <h2 className="label sticky top-20 hidden pt-1 lg:block">{children}</h2>
+  );
+}
+
+function Row({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="grid gap-4 border-t border-border/70 py-10 first:border-t-0 lg:grid-cols-[10rem_1fr]">
+      {children}
+    </div>
+  );
+}
+
 export default function AboutPage() {
   return (
-    <Container as="main" className="py-12">
-      <PageHeader title="About" />
+    <Container as="main">
+      <PageHeader
+        label="About"
+        title="Building for the web, close to the product."
+        description={bio[0]}
+      />
 
-      <section className="text-muted space-y-4 text-[15px] leading-7">
-        {bio.map((para, i) => (
-          <p key={i}>{para}</p>
-        ))}
-      </section>
+      <div className="mt-4">
+        <Row>
+          <SectionLabel>Bio</SectionLabel>
+          <div className="text-muted space-y-4 text-[15px] leading-7 lg:text-base">
+            {bio.slice(1).map((para, i) => (
+              <p key={i}>{para}</p>
+            ))}
+          </div>
+        </Row>
 
-      <section className="mt-14">
-        <h2 className="text-lg font-semibold tracking-tight">Skills</h2>
-        <dl className="mt-4 space-y-4">
-          {skills.map((group) => (
-            <div
-              key={group.category}
-              className="grid gap-1 sm:grid-cols-[10rem_1fr]"
-            >
-              <dt className="text-sm font-medium">{group.category}</dt>
-              <dd className="text-muted text-sm">{group.items.join(", ")}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      <section className="mt-14">
-        <h2 className="text-lg font-semibold tracking-tight">Experience</h2>
-        <div className="mt-4 space-y-8">
-          {experience.map((job) => (
-            <article key={`${job.company}-${job.start}`}>
-              <div className="flex flex-wrap items-baseline justify-between gap-x-3">
-                <h3 className="font-medium">
-                  {job.role} · {job.company}
-                </h3>
-                <span className="text-muted text-xs">
-                  {job.start} – {job.end}
-                </span>
+        <Row>
+          <SectionLabel>Skills</SectionLabel>
+          <dl className="space-y-5">
+            {skills.map((group) => (
+              <div key={group.category}>
+                <dt className="text-muted font-mono text-xs uppercase tracking-wider">
+                  {group.category}
+                </dt>
+                <dd className="mt-1.5 text-[15px]">
+                  {group.items.join(" · ")}
+                </dd>
               </div>
-              <p className="text-muted text-xs">{job.location}</p>
-              <p className="text-muted mt-2 text-sm">{job.summary}</p>
-              <ul className="text-muted mt-2 list-disc space-y-1 pl-5 text-sm">
-                {job.highlights.map((h, i) => (
-                  <li key={i}>{h}</li>
-                ))}
-              </ul>
-            </article>
-          ))}
-        </div>
-      </section>
+            ))}
+          </dl>
+        </Row>
 
-      <section className="mt-14">
-        <h2 className="text-lg font-semibold tracking-tight">Education</h2>
-        <div className="mt-4 space-y-4">
-          {education.map((ed) => (
-            <div
-              key={ed.school}
-              className="flex flex-wrap items-baseline justify-between gap-x-3"
-            >
-              <div>
-                <p className="font-medium">{ed.degree}</p>
-                <p className="text-muted text-sm">
-                  {ed.school} · {ed.location}
+        <Row>
+          <SectionLabel>Experience</SectionLabel>
+          <div className="space-y-10">
+            {experience.map((job) => (
+              <article key={`${job.company}-${job.start}`}>
+                <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+                  <h3 className="font-display text-xl">
+                    {job.role}{" "}
+                    <span className="text-muted">· {job.company}</span>
+                  </h3>
+                  <span className="text-muted font-mono text-xs">
+                    {job.start} – {job.end}
+                  </span>
+                </div>
+                <p className="text-muted mt-0.5 font-mono text-xs">
+                  {job.location}
                 </p>
+                <p className="text-muted mt-3 text-[15px]">{job.summary}</p>
+                <ul className="mt-3 space-y-1.5">
+                  {job.highlights.map((h, i) => (
+                    <li
+                      key={i}
+                      className="text-muted relative pl-5 text-[15px] before:absolute before:left-0 before:text-accent before:content-['—']"
+                    >
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </Row>
+
+        <Row>
+          <SectionLabel>Education</SectionLabel>
+          <div className="space-y-4">
+            {education.map((ed) => (
+              <div
+                key={ed.school}
+                className="flex flex-wrap items-baseline justify-between gap-x-3"
+              >
+                <div>
+                  <p className="font-display text-lg">{ed.degree}</p>
+                  <p className="text-muted text-sm">
+                    {ed.school} · {ed.location}
+                  </p>
+                </div>
+                <span className="text-muted font-mono text-xs">{ed.year}</span>
               </div>
-              <span className="text-muted text-xs">{ed.year}</span>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </Row>
+      </div>
     </Container>
   );
 }

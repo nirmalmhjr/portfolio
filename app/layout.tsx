@@ -1,16 +1,31 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { Grain } from "@/components/grain";
 import { JsonLd } from "@/components/json-ld";
 import { absoluteUrl, siteConfig, socialLinks } from "@/lib/site.config";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+  axes: ["SOFT", "opsz"],
+  style: ["normal", "italic"],
+});
+
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -81,14 +96,17 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="font-sans">
+      <body className="font-sans antialiased">
         <ThemeProvider>
           <JsonLd data={personJsonLd} />
-          <Header />
-          <div className="min-h-[calc(100vh-4rem)]">{children}</div>
-          <Footer />
+          <Grain />
+          <div id="top" className="relative flex min-h-dvh flex-col">
+            <Header />
+            <div className="flex-1">{children}</div>
+            <Footer />
+          </div>
         </ThemeProvider>
       </body>
     </html>
