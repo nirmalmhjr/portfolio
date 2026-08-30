@@ -43,17 +43,17 @@ export default async function BlogPage({
   return (
     <Container as="main">
       <PageHeader
-        label={`(Writing) — ${posts.length} posts`}
-        title="Writing"
+        eyebrow="Writing"
+        title="Blog"
         description="Short, focused posts on React, Next.js, and the JavaScript underneath — how things actually work, and the mistakes that taught me."
       />
 
-      <div className="mt-10">
+      <div className="mb-6">
         <TagFilter />
       </div>
 
       {pagePosts.length > 0 ? (
-        <div className="mt-8 border-t border-border">
+        <div className="flex flex-col">
           {pagePosts.map((post) => (
             <PostCard key={post.slug} post={post} />
           ))}

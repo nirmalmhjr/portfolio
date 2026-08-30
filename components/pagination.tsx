@@ -21,18 +21,15 @@ export function Pagination({
 
   return (
     <nav
-      className="mt-16 flex items-center justify-between border-t border-border pt-8"
+      className="mt-12 flex items-center justify-between text-sm"
       aria-label="Pagination"
     >
       <PageLink href={href(currentPage - 1)} disabled={prevDisabled} rel="prev">
         ← Newer
       </PageLink>
-
-      <span className="label">
-        {String(currentPage).padStart(2, "0")} —{" "}
-        {String(totalPages).padStart(2, "0")}
+      <span className="text-muted text-xs">
+        Page {currentPage} of {totalPages}
       </span>
-
       <PageLink href={href(currentPage + 1)} disabled={nextDisabled} rel="next">
         Older →
       </PageLink>
@@ -52,10 +49,10 @@ function PageLink({
   children: React.ReactNode;
 }) {
   const className = cn(
-    "border border-border px-4 py-2 font-mono text-[0.7rem] uppercase tracking-widest transition-colors",
+    "rounded-full border border-border px-4 py-1.5 font-medium transition-colors",
     disabled
       ? "pointer-events-none opacity-40"
-      : "hover:border-foreground hover:bg-foreground hover:text-background"
+      : "hover:border-accent/50 hover:text-accent"
   );
 
   if (disabled) {

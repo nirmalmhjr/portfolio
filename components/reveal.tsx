@@ -4,8 +4,8 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * Fade + rise on scroll into view. `prefers-reduced-motion` and the fallback in
- * globals.css keep content visible if motion is off or JS fails to run.
+ * Gentle fade + rise on scroll into view. `prefers-reduced-motion` and the
+ * globals.css / <noscript> fallbacks keep content visible if motion is off.
  */
 export function Reveal({
   children,
@@ -33,7 +33,7 @@ export function Reveal({
           observer.disconnect();
         }
       },
-      { rootMargin: "0px 0px -12% 0px" }
+      { rootMargin: "0px 0px -10% 0px" }
     );
     observer.observe(el);
     return () => observer.disconnect();

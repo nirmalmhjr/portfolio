@@ -8,20 +8,18 @@ import { ThemeToggle } from "@/components/theme-toggle";
 
 export function Header() {
   const pathname = usePathname();
-  const lastName = siteConfig.name.split(" ").slice(-1)[0];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md">
-      <div className="mx-auto flex h-14 max-w-[92rem] items-center justify-between px-5 sm:px-8">
+    <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-2xl items-center justify-between px-5 sm:px-6">
         <Link
           href="/"
-          className="font-display text-sm font-bold uppercase tracking-tight"
+          className="text-[0.95rem] font-bold tracking-tight transition-colors hover:text-accent"
         >
-          {siteConfig.name.split(" ")[0]}
-          <span className="text-muted">{lastName ? ` ${lastName}` : ""}</span>
+          {siteConfig.name}
         </Link>
 
-        <nav className="flex items-center gap-1 sm:gap-2">
+        <nav className="flex items-center gap-1">
           {mainNav.map((item) => {
             const active =
               pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -30,15 +28,15 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "px-2 py-1 font-mono text-[0.7rem] uppercase tracking-widest transition-colors hover:text-foreground",
-                  active ? "text-foreground" : "text-muted"
+                  "hover:bg-muted rounded-lg px-2.5 py-1.5 text-sm font-medium transition-colors",
+                  active ? "text-accent" : "text-muted hover:text-foreground"
                 )}
               >
                 {item.title}
               </Link>
             );
           })}
-          <span className="mx-1 hidden h-3 w-px bg-border sm:block" />
+          <span className="mx-1 h-4 w-px bg-border" />
           <ThemeToggle />
         </nav>
       </div>

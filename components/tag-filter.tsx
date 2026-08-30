@@ -7,12 +7,9 @@ export function TagFilter({ activeTag }: { activeTag?: string }) {
   if (tags.length === 0) return null;
 
   const normalizedActive = activeTag?.toLowerCase();
-
-  const base =
-    "border px-3 py-1.5 font-mono text-[0.7rem] uppercase tracking-widest transition-colors";
-  const on = "border-foreground bg-foreground text-background";
-  const off =
-    "border-border text-muted hover:border-foreground hover:text-foreground";
+  const base = "rounded-full px-3 py-1 text-sm font-medium transition-colors";
+  const on = "bg-accent text-accent-foreground";
+  const off = "bg-muted text-muted hover:text-foreground";
 
   return (
     <div className="flex flex-wrap items-center gap-2">
@@ -28,7 +25,7 @@ export function TagFilter({ activeTag }: { activeTag?: string }) {
             className={cn(base, active ? on : off)}
           >
             {tag}
-            <span className="ml-2 opacity-50">{count}</span>
+            <span className="ml-1.5 opacity-60">{count}</span>
           </Link>
         );
       })}

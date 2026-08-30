@@ -5,23 +5,24 @@ export default function NotFound() {
   return (
     <Container
       as="main"
-      className="flex min-h-[70vh] flex-col justify-center py-24"
+      className="flex min-h-[60vh] flex-col items-center justify-center py-20 text-center"
     >
-      <p className="label mb-6">(Error 404)</p>
-      <h1 className="display text-display-md">Page not found</h1>
-      <p className="text-muted mt-6 max-w-md">
-        The link is broken or the page has moved.
+      <p className="text-6xl">🧭</p>
+      <h1 className="mt-6 text-2xl font-bold">Well, this is awkward.</h1>
+      <p className="text-muted mt-2 max-w-sm">
+        That page doesn&apos;t exist — or it moved and forgot to leave a
+        forwarding address.
       </p>
-      <div className="mt-10 flex flex-wrap gap-3">
+      <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm">
         <Link
           href="/"
-          className="border border-foreground bg-foreground px-5 py-2.5 font-mono text-[0.7rem] uppercase tracking-widest text-background transition-colors hover:bg-transparent hover:text-foreground"
+          className="rounded-full bg-accent px-5 py-2.5 font-semibold text-accent-foreground transition-transform hover:scale-[1.03]"
         >
           Go home
         </Link>
         <Link
           href="/blog"
-          className="text-muted border border-border px-5 py-2.5 font-mono text-[0.7rem] uppercase tracking-widest transition-colors hover:border-foreground hover:text-foreground"
+          className="rounded-full border border-border px-5 py-2.5 font-medium transition-colors hover:border-accent/50 hover:text-accent"
         >
           Read the blog
         </Link>

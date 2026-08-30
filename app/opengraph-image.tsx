@@ -7,7 +7,12 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default function OgImage() {
-  const [first, ...rest] = siteConfig.name.split(" ");
+  const initials = siteConfig.name
+    .split(" ")
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2);
+
   return new ImageResponse(
     <div
       style={{
@@ -16,51 +21,51 @@ export default function OgImage() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        padding: "64px",
-        background: "#f2efe8",
-        color: "#181613",
+        padding: "72px",
+        background: "#fdfcfb",
+        color: "#2a2a33",
         fontFamily: "sans-serif",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          fontSize: 20,
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
-          color: "#7c7263",
-        }}
-      >
-        <span>{siteConfig.role}</span>
-        <span>Portfolio</span>
+      <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+        <div
+          style={{
+            width: 72,
+            height: 72,
+            borderRadius: 20,
+            background: "#efeafe",
+            color: "#6d4aff",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 30,
+            fontWeight: 700,
+          }}
+        >
+          {initials}
+        </div>
+        <span style={{ fontSize: 24, color: "#6b6b78" }}>
+          {siteConfig.title}
+        </span>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          fontWeight: 700,
-          fontSize: 150,
-          lineHeight: 0.86,
-          letterSpacing: "-0.05em",
-          textTransform: "uppercase",
-        }}
-      >
-        <span>{first}</span>
-        <span style={{ color: "#7c7263" }}>{rest.join(" ")}</span>
-      </div>
-
-      <div
-        style={{
-          borderTop: "1px solid #cfc7b8",
-          paddingTop: 20,
-          fontSize: 24,
-          color: "#4d453a",
-          maxWidth: 940,
-        }}
-      >
-        {siteConfig.description}
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div
+          style={{ fontSize: 76, fontWeight: 700, letterSpacing: "-0.03em" }}
+        >
+          Hey, I&apos;m {siteConfig.name.split(" ")[0]} 👋
+        </div>
+        <div
+          style={{
+            fontSize: 28,
+            color: "#6b6b78",
+            marginTop: 20,
+            maxWidth: 940,
+            lineHeight: 1.4,
+          }}
+        >
+          {siteConfig.description}
+        </div>
       </div>
     </div>,
     { ...size }

@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import type { Post } from "@/lib/posts";
 import { formatDate } from "@/lib/utils";
 
@@ -9,42 +8,34 @@ export function PostCard({ post }: { post: Post }) {
   return (
     <Link
       href={`/blog/${slug}`}
-      className="group grid grid-cols-[auto_1fr_auto] items-baseline gap-x-5 gap-y-2 border-b border-border py-7 transition-colors hover:bg-surface sm:gap-x-8 sm:py-8"
+      className="hover:bg-muted group -mx-3 block rounded-xl px-3 py-4 transition-colors"
     >
-      <span className="label whitespace-nowrap pt-1">
-        {formatDate(frontmatter.date)}
-      </span>
-
-      <div className="min-w-0">
-        <h3 className="display flex items-center gap-3 text-[clamp(1.35rem,2.6vw,2rem)] transition-transform duration-300 group-hover:translate-x-2">
+      <div className="flex items-baseline gap-3">
+        <h3 className="font-bold leading-snug transition-colors group-hover:text-accent">
           {frontmatter.title}
-          {frontmatter.draft ? (
-            <span className="rounded-sm bg-accent/15 px-1.5 py-0.5 font-mono text-[0.6rem] uppercase tracking-wider text-accent">
-              Draft
-            </span>
-          ) : null}
         </h3>
-        <p className="text-muted mt-2 max-w-xl text-sm leading-relaxed">
-          {frontmatter.description}
-        </p>
-        {frontmatter.tags.length > 0 ? (
-          <ul className="mt-3 flex flex-wrap gap-x-4 gap-y-1">
-            {frontmatter.tags.map((tag) => (
-              <li
-                key={tag}
-                className="text-muted font-mono text-[0.7rem] uppercase tracking-wider"
-              >
-                {tag}
-              </li>
-            ))}
-          </ul>
+        {frontmatter.draft ? (
+          <span className="rounded-md bg-accent-soft px-1.5 py-0.5 text-[0.65rem] font-semibold uppercase tracking-wide text-accent">
+            Draft
+          </span>
         ) : null}
       </div>
 
-      <span className="label hidden whitespace-nowrap pt-1 text-right sm:flex sm:items-center sm:gap-2">
-        {readingTimeMinutes} min
-        <ArrowUpRight className="h-3.5 w-3.5 -translate-x-1 opacity-0 transition-all group-hover:translate-x-0 group-hover:opacity-100" />
-      </span>
+      <p className="text-muted mt-1.5 text-sm leading-relaxed">
+        {frontmatter.description}
+      </p>
+
+      <p className="text-muted mt-2 flex items-center gap-2 text-xs">
+        <time dateTime={frontmatter.date}>{formatDate(frontmatter.date)}</time>
+        <span aria-hidden>·</span>
+        <span>{readingTimeMinutes} min read</span>
+        {frontmatter.tags.length > 0 ? (
+          <>
+            <span aria-hidden>·</span>
+            <span>{frontmatter.tags.join(", ")}</span>
+          </>
+        ) : null}
+      </p>
     </Link>
   );
 }

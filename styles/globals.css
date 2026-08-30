@@ -4,29 +4,32 @@
 
 @layer base {
   :root {
-    /* Warm bone light theme */
-    --background: 43 24% 95%;
-    --surface: 42 20% 91%;
-    --foreground: 30 6% 9%;
-    --muted: 40 14% 88%;
-    --muted-foreground: 32 5% 40%;
-    --border: 36 12% 80%;
-    --accent: 231 84% 55%;
+    /* Warm light theme */
+    --background: 40 33% 99%;
+    --surface: 0 0% 100%;
+    --foreground: 240 10% 18%;
+    --muted: 40 16% 95%;
+    --muted-foreground: 240 4% 46%;
+    --border: 40 12% 90%;
+    --accent: 255 88% 66%;
+    --accent-soft: 255 90% 96%;
     --accent-foreground: 0 0% 100%;
-    --ring: 231 84% 55%;
+    --ring: 255 88% 66%;
+    --radius: 0.75rem;
   }
 
   .dark {
-    /* Warm ink dark theme */
-    --background: 30 7% 7%;
-    --surface: 30 6% 11%;
-    --foreground: 42 16% 92%;
-    --muted: 30 5% 15%;
-    --muted-foreground: 36 6% 56%;
-    --border: 30 5% 19%;
-    --accent: 231 96% 70%;
-    --accent-foreground: 30 8% 8%;
-    --ring: 231 96% 70%;
+    /* Deep navy dark theme */
+    --background: 222 32% 10%;
+    --surface: 221 28% 13%;
+    --foreground: 220 22% 90%;
+    --muted: 221 24% 16%;
+    --muted-foreground: 220 12% 62%;
+    --border: 221 20% 20%;
+    --accent: 255 95% 78%;
+    --accent-soft: 255 40% 20%;
+    --accent-foreground: 222 40% 12%;
+    --ring: 255 95% 78%;
   }
 
   * {
@@ -47,7 +50,6 @@
     *::after {
       animation-duration: 0.01ms !important;
       animation-delay: 0 !important;
-      animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
     .reveal {
@@ -59,63 +61,70 @@
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
-    font-feature-settings: "cv11", "ss01";
+    font-size: 1.0625rem;
+    line-height: 1.6;
     text-rendering: optimizeLegibility;
-    /* `clip` (not `hidden`) contains .full-bleed without breaking sticky. */
-    overflow-x: clip;
   }
 
   ::selection {
-    background-color: hsl(var(--foreground));
-    color: hsl(var(--background));
+    background-color: hsl(var(--accent) / 0.25);
   }
 
   :focus-visible {
     outline: 2px solid hsl(var(--ring));
-    outline-offset: 3px;
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    font-family: var(--font-display), "Inter", system-ui, sans-serif;
-    font-weight: 500;
-    letter-spacing: -0.03em;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: hsl(var(--foreground));
   }
 }
 
 @layer components {
-  /* Monospace overline label */
-  .label {
-    font-family: var(--font-mono), ui-monospace, monospace;
-    font-size: 0.6875rem;
-    letter-spacing: 0.2em;
+  /* Small tracked overline label */
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: hsl(var(--muted-foreground));
   }
 
-  /* Oversized brutalist display type — used for hero + section headers */
-  .display {
-    font-family: var(--font-display), "Inter", system-ui, sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 0.9;
-    text-transform: uppercase;
+  /* Inline text link with a sliding underline */
+  .link {
+    color: hsl(var(--accent));
+    font-weight: 500;
+    text-decoration: none;
+    background-image: linear-gradient(hsl(var(--accent)), hsl(var(--accent)));
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 1.5px;
+    transition: background-size 0.2s ease;
+  }
+  .link:hover {
+    background-size: 100% 2px;
   }
 
-  /* Hairline meta row (role / location / status) */
-  .meta-row {
-    display: grid;
-    gap: 1rem;
-    border-top: 1px solid hsl(var(--border));
-    border-bottom: 1px solid hsl(var(--border));
-    padding-block: 0.75rem;
+  .card {
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--surface));
+    border-radius: var(--radius);
+    transition:
+      transform 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
   }
-  @media (min-width: 640px) {
-    .meta-row {
-      grid-template-columns: repeat(3, 1fr);
-    }
+  .card-hover:hover {
+    transform: translateY(-3px);
+    border-color: hsl(var(--accent) / 0.5);
+    box-shadow: 0 12px 40px -16px hsl(var(--accent) / 0.35);
   }
 }
 
@@ -129,37 +138,26 @@
   .bg-surface {
     background-color: hsl(var(--surface));
   }
-  .font-display {
-    font-family: var(--font-display), "Inter", system-ui, sans-serif;
+  .bg-accent-soft {
+    background-color: hsl(var(--accent-soft));
   }
-
-  .full-bleed {
-    width: 100vw;
-    margin-left: 50%;
-    transform: translateX(-50%);
-  }
-
   .balance {
     text-wrap: balance;
   }
+  .pretty {
+    text-wrap: pretty;
+  }
 
-  /* Reveal on scroll — toggled by <Reveal> */
   .reveal {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(10px);
   }
   .reveal.is-visible {
     opacity: 1;
     transform: none;
     transition:
-      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  /* Outlined (stroke-only) text for the marquee */
-  .text-outline {
-    -webkit-text-stroke: 1px hsl(var(--foreground));
-    color: transparent;
+      opacity 0.5s ease,
+      transform 0.5s ease;
   }
 }
 
@@ -167,6 +165,7 @@
 
 figure[data-rehype-pretty-code-figure] {
   margin: 1.75rem 0;
+  border-radius: var(--radius);
   border: 1px solid hsl(var(--border));
   background-color: hsl(var(--surface));
   overflow: hidden;
@@ -175,7 +174,6 @@ figure[data-rehype-pretty-code-figure] {
 figure[data-rehype-pretty-code-figure] pre {
   margin: 0;
   border: 0;
-  border-radius: 0;
   background: transparent;
   padding: 1rem 0;
   overflow-x: auto;
@@ -184,13 +182,11 @@ figure[data-rehype-pretty-code-figure] pre {
 }
 
 [data-rehype-pretty-code-title] {
-  padding: 0.6rem 1rem;
+  padding: 0.55rem 1rem;
   border-bottom: 1px solid hsl(var(--border));
   background-color: hsl(var(--muted));
   font-family: var(--font-mono), monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  font-size: 0.72rem;
   color: hsl(var(--muted-foreground));
 }
 
@@ -204,7 +200,7 @@ code[data-line-numbers] > [data-line]::before {
   width: 1rem;
   margin-right: 1.4rem;
   text-align: right;
-  color: hsl(var(--muted-foreground) / 0.6);
+  color: hsl(var(--muted-foreground) / 0.55);
 }
 
 pre > code {
@@ -220,7 +216,7 @@ pre > code > [data-highlighted-line] {
 }
 mark[data-highlighted-chars] {
   background-color: hsl(var(--accent) / 0.16);
-  border-radius: 0.2rem;
+  border-radius: 0.25rem;
   padding: 0.1rem 0.15rem;
 }
 
@@ -239,10 +235,16 @@ code[data-theme] span {
   background-color: hsl(var(--muted));
   border: 1px solid hsl(var(--border));
   padding: 0.1rem 0.35rem;
-  border-radius: 0.25rem;
+  border-radius: 0.3rem;
 }
 
-.heading-anchor {
-  text-decoration: none;
+/* Heading anchors (rehype-autolink-headings) must not inherit prose link styles */
+.prose a.heading-anchor {
   color: inherit;
+  font-weight: inherit;
+  background-image: none;
+  text-decoration: none;
+}
+.prose a.heading-anchor:hover {
+  color: hsl(var(--accent));
 }

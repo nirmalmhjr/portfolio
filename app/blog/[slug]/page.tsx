@@ -95,18 +95,22 @@ export default async function PostPage({
   };
 
   return (
-    <Container as="article" size="prose">
+    <Container as="article">
       <JsonLd data={articleJsonLd} />
 
-      <div className="border-b border-border py-10">
+      <div className="pb-8 pt-6 sm:pt-10">
         <Link
           href="/blog"
-          className="label transition-colors hover:text-foreground"
+          className="text-muted text-sm font-medium transition-colors hover:text-accent"
         >
-          ← Writing
+          ← Back to blog
         </Link>
 
-        <div className="text-muted mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-xs uppercase tracking-wider">
+        <h1 className="mt-6 text-balance text-3xl leading-tight sm:text-4xl">
+          {frontmatter.title}
+        </h1>
+
+        <div className="text-muted mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
           <time dateTime={frontmatter.date}>
             {formatDate(frontmatter.date)}
           </time>
@@ -120,20 +124,13 @@ export default async function PostPage({
           ) : null}
         </div>
 
-        <h1 className="display mt-5 text-[clamp(2rem,6vw,3.75rem)]">
-          {frontmatter.title}
-        </h1>
-        <p className="text-muted mt-6 text-lg leading-relaxed">
-          {frontmatter.description}
-        </p>
-
         {frontmatter.tags.length > 0 ? (
-          <ul className="mt-6 flex flex-wrap gap-x-4 gap-y-1">
+          <ul className="mt-4 flex flex-wrap gap-2">
             {frontmatter.tags.map((tag) => (
               <li key={tag}>
                 <Link
                   href={`/blog/tag/${tagSlug(tag)}`}
-                  className="text-muted font-mono text-[0.7rem] uppercase tracking-wider hover:text-accent"
+                  className="bg-muted text-muted rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors hover:text-accent"
                 >
                   {tag}
                 </Link>
@@ -143,26 +140,28 @@ export default async function PostPage({
         ) : null}
       </div>
 
-      <div className="py-14">
+      <hr className="border-border" />
+
+      <div className="py-10">
         <MdxContent source={content} />
       </div>
 
       {more.length > 0 ? (
-        <aside className="border-t border-border pt-10">
-          <p className="label mb-8">Keep reading</p>
-          <div className="border-t border-border">
+        <aside className="border-t border-border pt-8">
+          <h2 className="text-sm font-bold">Keep reading</h2>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
             {more.map((p) => (
               <Link
                 key={p.slug}
                 href={`/blog/${p.slug}`}
-                className="group flex items-baseline justify-between gap-4 border-b border-border py-5 transition-colors hover:bg-surface"
+                className="card card-hover group p-4"
               >
-                <h3 className="display text-[clamp(1.15rem,2.4vw,1.6rem)] transition-transform duration-300 group-hover:translate-x-2">
+                <p className="text-muted text-xs">
+                  {formatDate(p.frontmatter.date)}
+                </p>
+                <h3 className="mt-1 font-bold leading-snug transition-colors group-hover:text-accent">
                   {p.frontmatter.title}
                 </h3>
-                <span className="label shrink-0">
-                  {formatDate(p.frontmatter.date)}
-                </span>
               </Link>
             ))}
           </div>

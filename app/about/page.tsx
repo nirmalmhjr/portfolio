@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Container, PageHeader } from "@/components/container";
-import { Reveal } from "@/components/reveal";
 import { bio, education, experience, skills } from "@/lib/resume";
-import { siteConfig } from "@/lib/site.config";
 
 export const metadata: Metadata = {
   title: "About",
@@ -11,76 +9,63 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
-function Row({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="grid gap-4 border-b border-border py-12 lg:grid-cols-[12rem_1fr] lg:gap-12">
-      <h2 className="label pt-1">{label}</h2>
-      <div>{children}</div>
-    </div>
-  );
-}
-
 export default function AboutPage() {
   return (
     <Container as="main">
-      <PageHeader label="(About)" title={`I'm ${siteConfig.name}`} />
+      <PageHeader eyebrow="About" title="A bit about me" />
 
-      <Reveal>
-        <p className="max-w-3xl py-12 font-display text-2xl leading-tight tracking-tight sm:text-3xl">
-          {bio[0]}
-        </p>
-      </Reveal>
+      <div className="text-muted space-y-4 text-[1.0625rem] leading-relaxed">
+        {bio.map((para, i) => (
+          <p key={i}>{para}</p>
+        ))}
+      </div>
 
-      <Row label="Bio">
-        <div className="text-muted max-w-2xl space-y-4 text-[15px] leading-7">
-          {bio.slice(1).map((para, i) => (
-            <p key={i}>{para}</p>
-          ))}
-        </div>
-      </Row>
-
-      <Row label="Skills">
-        <dl className="space-y-6">
+      <section className="mt-12">
+        <h2 className="text-xl font-bold">Skills</h2>
+        <dl className="mt-4 space-y-4">
           {skills.map((group) => (
-            <div key={group.category}>
-              <dt className="label">{group.category}</dt>
-              <dd className="mt-2 font-display text-lg tracking-tight sm:text-xl">
-                {group.items.join(", ")}
+            <div key={group.category} className="sm:flex sm:gap-6">
+              <dt className="text-muted w-40 shrink-0 text-sm font-semibold">
+                {group.category}
+              </dt>
+              <dd className="mt-1 flex flex-wrap gap-1.5 sm:mt-0">
+                {group.items.map((item) => (
+                  <span
+                    key={item}
+                    className="bg-muted rounded-md px-2 py-0.5 text-sm"
+                  >
+                    {item}
+                  </span>
+                ))}
               </dd>
             </div>
           ))}
         </dl>
-      </Row>
+      </section>
 
-      <Row label="Experience">
-        <div className="space-y-12">
+      <section className="mt-12">
+        <h2 className="text-xl font-bold">Experience</h2>
+        <div className="mt-4 space-y-8">
           {experience.map((job) => (
             <article key={`${job.company}-${job.start}`}>
-              <div className="flex flex-wrap items-baseline justify-between gap-x-4">
-                <h3 className="display text-[clamp(1.5rem,3vw,2rem)]">
-                  {job.role}
+              <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+                <h3 className="font-bold">
+                  {job.role}{" "}
+                  <span className="text-muted font-normal">
+                    · {job.company}
+                  </span>
                 </h3>
-                <span className="label">
-                  {job.start} — {job.end}
+                <span className="text-muted text-xs">
+                  {job.start} – {job.end}
                 </span>
               </div>
-              <p className="text-muted mt-1 font-mono text-xs uppercase tracking-wider">
-                {job.company} · {job.location}
-              </p>
-              <p className="text-muted mt-4 max-w-xl text-[15px]">
-                {job.summary}
-              </p>
-              <ul className="mt-4 space-y-2">
+              <p className="text-muted mt-0.5 text-xs">{job.location}</p>
+              <p className="text-muted mt-2 text-sm">{job.summary}</p>
+              <ul className="mt-2 space-y-1.5">
                 {job.highlights.map((h, i) => (
                   <li
                     key={i}
-                    className="text-muted relative max-w-xl pl-6 text-[15px] before:absolute before:left-0 before:text-accent before:content-['→']"
+                    className="text-muted relative pl-5 text-sm before:absolute before:left-0 before:text-accent before:content-['–']"
                   >
                     {h}
                   </li>
@@ -89,28 +74,27 @@ export default function AboutPage() {
             </article>
           ))}
         </div>
-      </Row>
+      </section>
 
-      <Row label="Education">
-        <div className="space-y-6">
+      <section className="mt-12">
+        <h2 className="text-xl font-bold">Education</h2>
+        <div className="mt-4 space-y-3">
           {education.map((ed) => (
             <div
               key={ed.school}
-              className="flex flex-wrap items-baseline justify-between gap-x-4"
+              className="flex flex-wrap items-baseline justify-between gap-x-3"
             >
               <div>
-                <p className="font-display text-lg tracking-tight sm:text-xl">
-                  {ed.degree}
-                </p>
-                <p className="text-muted mt-1 font-mono text-xs uppercase tracking-wider">
+                <p className="font-semibold">{ed.degree}</p>
+                <p className="text-muted text-sm">
                   {ed.school} · {ed.location}
                 </p>
               </div>
-              <span className="label">{ed.year}</span>
+              <span className="text-muted text-xs">{ed.year}</span>
             </div>
           ))}
         </div>
-      </Row>
+      </section>
     </Container>
   );
 }
