@@ -1,29 +1,29 @@
 import type { Metadata } from "next";
-import { Container, PageHeader } from "@/components/container";
-import { ContactLinks } from "@/components/contact-links";
 import { AvailableBadge } from "@/components/available-badge";
+import { ContactCard } from "@/components/contact-card";
+import { Container, PageHeader } from "@/components/container";
 import { siteConfig } from "@/lib/site.config";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Get in touch with ${siteConfig.name}.`,
+  description: `Get in touch with ${siteConfig.name}, a frontend developer in ${siteConfig.location}.`,
   alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {
   return (
-    <Container as="main">
+    <main>
       <PageHeader
         eyebrow="Contact"
-        title="Get in touch"
-        description="The fastest way to reach me is email — I read everything and reply to most things within a couple of days. Tell me a bit about what you're working on."
-      />
-
-      <div className="mb-8">
-        <AvailableBadge />
-      </div>
-
-      <ContactLinks />
-    </Container>
+        watermark="Hello"
+        title="Let's talk."
+        description="I'm open to full-time and contract frontend roles, remote or in Kathmandu. Email is the fastest way to reach me."
+      >
+        <AvailableBadge className="mt-8" />
+      </PageHeader>
+      <Container className="pb-24">
+        <ContactCard title="Send me an email." />
+      </Container>
+    </main>
   );
 }

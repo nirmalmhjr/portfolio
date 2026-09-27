@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Container, PageHeader } from "@/components/container";
-import { PostCard } from "@/components/post-card";
 import { Pagination } from "@/components/pagination";
+import { PostCard } from "@/components/post-card";
 import { TagFilter } from "@/components/tag-filter";
 import { getAllTags, getPostsByTag, tagSlug } from "@/lib/posts";
 import { siteConfig } from "@/lib/site.config";
@@ -28,7 +28,7 @@ export async function generateMetadata({
   if (!tag) return {};
 
   return {
-    title: `Posts tagged “${tag}”`,
+    title: `Posts about ${tag}`,
     description: `All blog posts about ${tag}.`,
     alternates: { canonical: `/blog/tag/${tagSlug(tag)}` },
   };
@@ -58,28 +58,30 @@ export default async function TagPage({
   const pagePosts = posts.slice(start, start + siteConfig.postsPerPage);
 
   return (
-    <Container as="main">
+    <main>
       <PageHeader
         eyebrow="Tag"
-        title={`Posts on ${tag}`}
+        watermark={tag}
+        title={`Posts about ${tag}`}
         description={`${posts.length} post${posts.length === 1 ? "" : "s"} tagged “${tag}”.`}
-      />
+      >
+        <div className="mt-8">
+          <TagFilter activeTag={tag} />
+        </div>
+      </PageHeader>
 
-      <div className="mb-6">
-        <TagFilter activeTag={tag} />
-      </div>
-
-      <div className="flex flex-col">
-        {pagePosts.map((post) => (
-          <PostCard key={post.slug} post={post} />
-        ))}
-      </div>
-
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        basePath={`/blog/tag/${tagSlug(tag)}`}
-      />
-    </Container>
+      <Container className="pb-24">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {pagePosts.map((post) => (
+            <PostCard key={post.slug} post={post} />
+          ))}
+        </div>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          basePath={`/blog/tag/${tagSlug(tag)}`}
+        />
+      </Container>
+    </main>
   );
 }

@@ -6,29 +6,35 @@ export function TagFilter({ activeTag }: { activeTag?: string }) {
   const tags = getAllTags();
   if (tags.length === 0) return null;
 
-  const normalizedActive = activeTag?.toLowerCase();
-  const base = "rounded-full px-3 py-1 text-sm font-medium transition-colors";
-  const on = "bg-accent text-accent-foreground";
-  const off = "bg-muted text-muted hover:text-foreground";
+  const active = activeTag?.toLowerCase();
+  const base =
+    "inline-flex h-9 items-center gap-2 rounded-full px-3.5 text-sm font-medium transition-colors";
+  const on = "bg-fg text-canvas";
+  const off = "border border-line text-muted hover:text-fg";
 
   return (
-    <div className="flex flex-wrap items-center gap-2">
-      <Link href="/blog" className={cn(base, !normalizedActive ? on : off)}>
+    <nav aria-label="Filter posts by tag" className="flex flex-wrap gap-2">
+      <Link
+        href="/blog"
+        aria-current={!active ? "page" : undefined}
+        className={cn(base, !active ? on : off)}
+      >
         All
       </Link>
       {tags.map(({ tag, count }) => {
-        const active = normalizedActive === tag.toLowerCase();
+        const isActive = active === tag.toLowerCase();
         return (
           <Link
             key={tag}
             href={`/blog/tag/${tagSlug(tag)}`}
-            className={cn(base, active ? on : off)}
+            aria-current={isActive ? "page" : undefined}
+            className={cn(base, isActive ? on : off)}
           >
             {tag}
-            <span className="ml-1.5 opacity-60">{count}</span>
+            <span className="font-mono text-[11px] opacity-60">{count}</span>
           </Link>
         );
       })}
-    </div>
+    </nav>
   );
 }

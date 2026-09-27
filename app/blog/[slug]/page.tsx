@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
 import { Container } from "@/components/container";
-import { MdxContent } from "@/components/mdx-content";
+import { GlowBackdrop } from "@/components/glow-backdrop";
 import { JsonLd } from "@/components/json-ld";
+import { MdxContent } from "@/components/mdx-content";
+import { PostCard } from "@/components/post-card";
 import { getAllPosts, getPostBySlug, tagSlug } from "@/lib/posts";
 import { absoluteUrl, siteConfig } from "@/lib/site.config";
 import { formatDate } from "@/lib/utils";
@@ -95,78 +98,74 @@ export default async function PostPage({
   };
 
   return (
-    <Container as="article">
+    <main>
       <JsonLd data={articleJsonLd} />
 
-      <div className="pb-8 pt-6 sm:pt-10">
-        <Link
-          href="/blog"
-          className="text-muted text-sm font-medium transition-colors hover:text-accent"
-        >
-          ← Back to blog
-        </Link>
+      <header className="relative isolate overflow-hidden pb-10 pt-[132px] sm:pt-[160px]">
+        <GlowBackdrop />
+        <Container className="max-w-[52rem]">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-fg"
+          >
+            <ArrowLeft aria-hidden className="h-3.5 w-3.5" />
+            Back to blog
+          </Link>
 
-        <h1 className="mt-6 text-balance text-3xl leading-tight sm:text-4xl">
-          {frontmatter.title}
-        </h1>
+          <h1 className="mt-6 text-[clamp(2.1rem,5vw,3.2rem)] font-bold leading-[1.08] tracking-[-0.04em]">
+            {frontmatter.title}
+          </h1>
 
-        <div className="text-muted mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-          <time dateTime={frontmatter.date}>
-            {formatDate(frontmatter.date)}
-          </time>
-          <span aria-hidden>·</span>
-          <span>{readingTimeMinutes} min read</span>
-          {frontmatter.updated ? (
-            <>
-              <span aria-hidden>·</span>
-              <span>Updated {formatDate(frontmatter.updated)}</span>
-            </>
+          <p className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[13px] text-faint">
+            <time dateTime={frontmatter.date}>
+              {formatDate(frontmatter.date)}
+            </time>
+            <span aria-hidden>·</span>
+            <span>{readingTimeMinutes} min read</span>
+            {frontmatter.updated ? (
+              <>
+                <span aria-hidden>·</span>
+                <span>Updated {formatDate(frontmatter.updated)}</span>
+              </>
+            ) : null}
+          </p>
+
+          {frontmatter.tags.length > 0 ? (
+            <ul className="mt-5 flex flex-wrap gap-1.5">
+              {frontmatter.tags.map((tag) => (
+                <li key={tag}>
+                  <Link
+                    href={`/blog/tag/${tagSlug(tag)}`}
+                    className="pill transition-colors hover:text-fg"
+                  >
+                    {tag}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           ) : null}
-        </div>
+        </Container>
+      </header>
 
-        {frontmatter.tags.length > 0 ? (
-          <ul className="mt-4 flex flex-wrap gap-2">
-            {frontmatter.tags.map((tag) => (
-              <li key={tag}>
-                <Link
-                  href={`/blog/tag/${tagSlug(tag)}`}
-                  className="bg-muted text-muted rounded-full px-2.5 py-0.5 text-xs font-medium transition-colors hover:text-accent"
-                >
-                  {tag}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-      </div>
-
-      <hr className="border-border" />
-
-      <div className="py-10">
+      <Container
+        as="article"
+        className="max-w-[52rem] border-t border-line py-12"
+      >
         <MdxContent source={content} />
-      </div>
+      </Container>
 
       {more.length > 0 ? (
-        <aside className="border-t border-border pt-8">
-          <h2 className="text-sm font-bold">Keep reading</h2>
-          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <Container as="aside" className="max-w-[52rem] pb-24">
+          <h2 className="font-mono text-xs font-medium uppercase tracking-[0.1em] text-faint">
+            Keep reading
+          </h2>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
             {more.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/blog/${p.slug}`}
-                className="card card-hover group p-4"
-              >
-                <p className="text-muted text-xs">
-                  {formatDate(p.frontmatter.date)}
-                </p>
-                <h3 className="mt-1 font-bold leading-snug transition-colors group-hover:text-accent">
-                  {p.frontmatter.title}
-                </h3>
-              </Link>
+              <PostCard key={p.slug} post={p} />
             ))}
           </div>
-        </aside>
+        </Container>
       ) : null}
-    </Container>
+    </main>
   );
 }

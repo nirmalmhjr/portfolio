@@ -1,33 +1,31 @@
 import type { Metadata } from "next";
-import { Container, PageHeader } from "@/components/container";
-import { ProjectCard } from "@/components/project-card";
-import { Reveal } from "@/components/reveal";
+import { ContactCard } from "@/components/contact-card";
+import { Container, PageHeader, Section } from "@/components/container";
+import { ProjectShowcase } from "@/components/project-showcase";
 import { projects } from "@/lib/projects";
 
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Selected projects — web apps, developer tools, and open-source work.",
+    "Client websites, landing pages and CMS dashboards built with Next.js, TypeScript and React, plus personal projects.",
   alternates: { canonical: "/projects" },
 };
 
 export default function ProjectsPage() {
-  const sorted = [...projects].sort((a, b) => b.year - a.year);
-
   return (
-    <Container as="main" size="wide">
+    <main>
       <PageHeader
         eyebrow="Projects"
-        title="Things I've built"
-        description="A mix of client work, side projects, and open source. A few more live on my GitHub."
+        watermark="Work"
+        title="Work I've shipped"
+        description="Client projects from my jobs, plus a few personal builds. Each card says exactly which part I built. Drag the sliders to compare redesigns with the old sites."
       />
-      <div className="grid gap-4 sm:grid-cols-2">
-        {sorted.map((project) => (
-          <Reveal key={project.title}>
-            <ProjectCard project={project} />
-          </Reveal>
-        ))}
-      </div>
-    </Container>
+      <Container className="pb-24">
+        <ProjectShowcase projects={projects} />
+      </Container>
+      <Section>
+        <ContactCard title="Have a project in mind?" />
+      </Section>
+    </main>
   );
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export function Pagination({
@@ -8,7 +9,7 @@ export function Pagination({
 }: {
   currentPage: number;
   totalPages: number;
-  /** e.g. "/blog" or "/blog/tag/react" — page is added as ?page=N */
+  /** e.g. "/blog" or "/blog/tag/react". The page is added as ?page=N. */
   basePath: string;
 }) {
   if (totalPages <= 1) return null;
@@ -16,21 +17,26 @@ export function Pagination({
   const href = (page: number) =>
     page <= 1 ? basePath : `${basePath}?page=${page}`;
 
-  const prevDisabled = currentPage <= 1;
-  const nextDisabled = currentPage >= totalPages;
-
   return (
     <nav
-      className="mt-12 flex items-center justify-between text-sm"
       aria-label="Pagination"
+      className="mt-12 flex items-center justify-between text-sm"
     >
-      <PageLink href={href(currentPage - 1)} disabled={prevDisabled} rel="prev">
+      <PageLink
+        href={href(currentPage - 1)}
+        disabled={currentPage <= 1}
+        rel="prev"
+      >
         ← Newer
       </PageLink>
-      <span className="text-muted text-xs">
+      <span className="font-mono text-xs text-faint">
         Page {currentPage} of {totalPages}
       </span>
-      <PageLink href={href(currentPage + 1)} disabled={nextDisabled} rel="next">
+      <PageLink
+        href={href(currentPage + 1)}
+        disabled={currentPage >= totalPages}
+        rel="next"
+      >
         Older →
       </PageLink>
     </nav>
@@ -46,13 +52,11 @@ function PageLink({
   href: string;
   disabled: boolean;
   rel: "prev" | "next";
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   const className = cn(
-    "rounded-full border border-border px-4 py-1.5 font-medium transition-colors",
-    disabled
-      ? "pointer-events-none opacity-40"
-      : "hover:border-accent/50 hover:text-accent"
+    "rounded-full border border-line-strong px-4 py-2 font-medium transition-colors",
+    disabled ? "pointer-events-none opacity-40" : "hover:bg-raised"
   );
 
   if (disabled) {

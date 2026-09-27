@@ -19,6 +19,9 @@ const siteUrl = (
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
+// /uses renders a 404 until lib/uses.json has content, so keep it out of the sitemap.
+const usesIsEmpty = require("./lib/uses.json").length === 0;
+
 function readPublishedPosts() {
   if (!fs.existsSync(BLOG_DIR)) return [];
   return fs
@@ -38,7 +41,13 @@ module.exports = {
   changefreq: "weekly",
   priority: 0.7,
   // Non-page routes that Next emits into the build manifest.
-  exclude: ["/rss.xml", "/icon.svg", "/opengraph-image", "/opengraph-image/*"],
+  exclude: [
+    "/rss.xml",
+    "/icon.svg",
+    "/opengraph-image",
+    "/opengraph-image/*",
+    ...(usesIsEmpty ? ["/uses"] : []),
+  ],
   robotsTxtOptions: {
     policies: [{ userAgent: "*", allow: "/" }],
     additionalSitemaps: [`${siteUrl}/sitemap.xml`],

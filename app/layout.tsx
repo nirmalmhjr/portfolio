@@ -1,29 +1,40 @@
-import type { Metadata } from "next";
-import { Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "@/styles/globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
 import { JsonLd } from "@/components/json-ld";
+import { SpotlightTracker } from "@/components/spotlight-tracker";
+import { ThemeProvider } from "@/components/theme-provider";
 import { absoluteUrl, siteConfig, socialLinks } from "@/lib/site.config";
 
-const hanken = Hanken_Grotesk({
+const sans = Geist({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const mono = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
 });
 
+const serif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
+  style: "italic",
+  variable: "--font-serif",
+  display: "swap",
+});
+
+const defaultTitle = `${siteConfig.name} | ${siteConfig.title}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.name} — ${siteConfig.title}`,
-    template: `%s — ${siteConfig.name}`,
+    default: defaultTitle,
+    template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
   authors: [{ name: siteConfig.author.name, url: siteConfig.url }],
@@ -32,7 +43,7 @@ export const metadata: Metadata = {
     canonical: "/",
     types: {
       "application/rss+xml": [
-        { url: "/rss.xml", title: `${siteConfig.name} — Blog` },
+        { url: "/rss.xml", title: `${siteConfig.name} | Blog` },
       ],
     },
   },
@@ -40,7 +51,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: siteConfig.locale,
     url: siteConfig.url,
-    title: `${siteConfig.name} — ${siteConfig.title}`,
+    title: defaultTitle,
     description: siteConfig.description,
     siteName: siteConfig.name,
     images: [
@@ -54,16 +65,22 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.name} — ${siteConfig.title}`,
+    title: defaultTitle,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    creator: `@${siteConfig.author.twitter}`,
   },
   robots: {
     index: true,
     follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f5f5f7" },
+    { media: "(prefers-color-scheme: dark)", color: "#1a1b20" },
+  ],
 };
 
 const personJsonLd = {
@@ -74,8 +91,13 @@ const personJsonLd = {
   email: `mailto:${siteConfig.author.email}`,
   jobTitle: siteConfig.title,
   description: siteConfig.description,
-  image: absoluteUrl(siteConfig.ogImage),
-  sameAs: [socialLinks.github, socialLinks.linkedin, socialLinks.twitter],
+  image: absoluteUrl("/me.jpg"),
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Kathmandu",
+    addressCountry: "NP",
+  },
+  sameAs: [socialLinks.github, socialLinks.linkedin].filter(Boolean),
 };
 
 export default function RootLayout({
@@ -87,19 +109,21 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${hanken.variable} ${jetbrainsMono.variable}`}
+      className={`${sans.variable} ${mono.variable} ${serif.variable}`}
     >
-      <head>
-        <noscript>
-          {/* Without JS the IntersectionObserver never runs — show everything. */}
-          <style>{`.reveal{opacity:1 !important;transform:none !important}`}</style>
-        </noscript>
-      </head>
-      <body className="font-sans antialiased">
+      <body className="font-sans text-base leading-relaxed antialiased">
         <ThemeProvider>
           <JsonLd data={personJsonLd} />
-          <div id="top" className="flex min-h-dvh flex-col">
-            <Header />
+          <a
+            href="#content"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:rounded-full focus:bg-fg focus:px-4 focus:py-2 focus:text-canvas"
+          >
+            Skip to content
+          </a>
+          <div aria-hidden className="noise" />
+          <SpotlightTracker />
+          <Header />
+          <div id="content" className="flex min-h-dvh flex-col">
             <div className="flex-1">{children}</div>
             <Footer />
           </div>

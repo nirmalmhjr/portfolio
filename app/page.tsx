@@ -1,53 +1,150 @@
-import { Container } from "@/components/container";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { BeforeCode } from "@/components/before-code";
+import { ContactCard } from "@/components/contact-card";
+import { Section } from "@/components/container";
+import { ExperienceTimeline } from "@/components/experience-timeline";
 import { Hero } from "@/components/hero";
-import { SectionHeading } from "@/components/section-heading";
-import { ProjectCard } from "@/components/project-card";
 import { PostCard } from "@/components/post-card";
-import { Cta } from "@/components/cta";
-import { Reveal } from "@/components/reveal";
-import { featuredProjects } from "@/lib/projects";
+import {
+  BeyondCode,
+  EducationGrid,
+  ServicesGrid,
+  SkillsGrid,
+  TestimonialsGrid,
+} from "@/components/profile-sections";
+import { ProjectShowcase } from "@/components/project-showcase";
+import { SectionHeading } from "@/components/section-heading";
 import { getAllPosts } from "@/lib/posts";
+import { projects } from "@/lib/projects";
+import { experience, story } from "@/lib/resume";
+import { testimonials } from "@/lib/testimonials";
 
 export default function HomePage() {
   const latestPosts = getAllPosts()
     .filter((p) => !p.frontmatter.draft)
-    .slice(0, 4);
+    .slice(0, 3);
 
   return (
-    <Container as="main">
+    <main>
       <Hero />
 
-      <Reveal className="py-10">
+      <Section id="projects">
         <SectionHeading
-          title="Featured projects"
-          link={{ href: "/projects", label: "View all" }}
+          watermark="Work"
+          eyebrow="Projects"
+          title="Work I've shipped"
+          description="Client projects from my jobs, plus a few personal builds. Each card says exactly which part I built."
+          link={{ href: "/projects", label: "View all projects" }}
         />
-        <div className="grid gap-4 sm:grid-cols-2">
-          {featuredProjects.map((project) => (
-            <ProjectCard key={project.title} project={project} />
-          ))}
-        </div>
-      </Reveal>
+        <ProjectShowcase projects={projects} />
+      </Section>
 
-      <Reveal className="py-10">
+      <Section id="experience">
         <SectionHeading
-          title="Latest posts"
-          link={{ href: "/blog", label: "View all" }}
+          watermark="Experience"
+          eyebrow="Experience"
+          title="Where I've worked"
         />
-        {latestPosts.length > 0 ? (
-          <div className="flex flex-col">
+        <ExperienceTimeline items={experience} />
+      </Section>
+
+      <Section id="about">
+        <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-14">
+          <div>
+            <SectionHeading
+              watermark="About"
+              eyebrow="About me"
+              title={
+                <>
+                  From ledgers to{" "}
+                  <em className="text-gradient pr-[0.05em] font-serif font-normal tracking-[-0.01em]">
+                    layouts
+                  </em>
+                  .
+                </>
+              }
+            />
+            <div className="mt-6 grid max-w-[58ch] gap-4 text-[17px] leading-[1.75] text-muted">
+              {story.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </div>
+            <BeyondCode />
+            <Link
+              href="/about"
+              className="mt-7 inline-flex items-center gap-1.5 text-sm text-ink hover:underline hover:underline-offset-[3px]"
+            >
+              More about me
+              <ArrowRight aria-hidden className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+          <div className="lg:pt-2">
+            <BeforeCode />
+          </div>
+        </div>
+      </Section>
+
+      <Section id="services">
+        <SectionHeading
+          watermark="Services"
+          eyebrow="What I do"
+          title="How I can help your team"
+          description="I focus on the frontend: the part of the product people actually see and use."
+        />
+        <ServicesGrid />
+      </Section>
+
+      <Section id="skills">
+        <SectionHeading
+          watermark="Stack"
+          eyebrow="Technical skills"
+          title="What I work with"
+          description="Highlighted tools are what I use every day. Vue and Nuxt are from earlier roles."
+        />
+        <SkillsGrid />
+      </Section>
+
+      {testimonials.length > 0 ? (
+        <Section id="testimonials">
+          <SectionHeading
+            watermark="Kind words"
+            eyebrow="Testimonials"
+            title="What people say"
+          />
+          <TestimonialsGrid />
+        </Section>
+      ) : null}
+
+      {latestPosts.length > 0 ? (
+        <Section id="blog">
+          <SectionHeading
+            watermark="Writing"
+            eyebrow="Blog"
+            title="Latest articles"
+            description="What I learn while building, written down so it sticks."
+            link={{ href: "/blog", label: "Read all articles" }}
+          />
+          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {latestPosts.map((post) => (
               <PostCard key={post.slug} post={post} />
             ))}
           </div>
-        ) : (
-          <p className="text-muted text-sm">No posts yet — check back soon.</p>
-        )}
-      </Reveal>
+        </Section>
+      ) : null}
 
-      <Reveal className="py-10">
-        <Cta />
-      </Reveal>
-    </Container>
+      <Section id="education">
+        <SectionHeading
+          watermark="Education"
+          eyebrow="Education & training"
+          title="Business degree, self-taught code"
+        />
+        <EducationGrid />
+      </Section>
+
+      <Section id="contact">
+        <ContactCard />
+      </Section>
+    </main>
   );
 }

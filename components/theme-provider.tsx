@@ -3,6 +3,7 @@
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import type { ComponentProps } from "react";
 
+/** Soft dark by default; visitors switch with the toggle in the header. */
 export function ThemeProvider({
   children,
   ...props
@@ -10,8 +11,8 @@ export function ThemeProvider({
   return (
     <NextThemesProvider
       attribute="class"
-      defaultTheme="system"
-      enableSystem
+      defaultTheme="dark"
+      enableSystem={false}
       disableTransitionOnChange
       storageKey="theme"
       {...props}
