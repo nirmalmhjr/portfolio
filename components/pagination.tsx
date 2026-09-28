@@ -9,13 +9,13 @@ export function Pagination({
 }: {
   currentPage: number;
   totalPages: number;
-  /** e.g. "/blog" or "/blog/tag/react". The page is added as ?page=N. */
+  /** e.g. "/blog". Later pages live at `${basePath}/page/N`. */
   basePath: string;
 }) {
   if (totalPages <= 1) return null;
 
   const href = (page: number) =>
-    page <= 1 ? basePath : `${basePath}?page=${page}`;
+    page <= 1 ? basePath : `${basePath}/page/${page}`;
 
   return (
     <nav

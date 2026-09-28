@@ -13,46 +13,53 @@
   /* Light theme. Colors are "R G B" channels (see tailwind.config.ts). */
   :root {
     color-scheme: light;
-    --canvas: 245 245 247;
+    --canvas: 246 245 243;
     --surface: 255 255 255;
-    --raised: 238 239 242;
-    --fg: 17 18 22;
-    --muted: 85 90 100;
-    --faint: 107 112 122;
-    --line: rgba(17, 18, 22, 0.09);
-    --line-strong: rgba(17, 18, 22, 0.16);
-    --grid: rgba(17, 18, 22, 0.05);
-    --watermark: rgba(17, 18, 22, 0.045);
+    --raised: 238 236 233;
+    --fg: 20 18 16;
+    --muted: 87 83 78;
+    --faint: 110 105 99;
+    --line: rgba(20, 18, 16, 0.09);
+    --line-strong: rgba(20, 18, 16, 0.16);
+    --grid: rgba(20, 18, 16, 0.05);
+    --watermark: rgba(20, 18, 16, 0.045);
     --card-shadow:
-      0 1px 2px rgba(17, 18, 22, 0.04), 0 8px 28px rgba(17, 18, 22, 0.06);
-    --a1: 124 131 255;
-    --a2: 192 132 252;
-    --ink: 79 70 229;
-    --ok: 15 157 99;
-    --warn: 180 83 9;
-    --glow: 0.24;
+      0 1px 2px rgba(20, 18, 16, 0.04), 0 8px 28px rgba(20, 18, 16, 0.06);
+    /* Amber to rose. a1/a2 are for fills and glows; g1/g2 for gradient text. */
+    --a1: 245 158 11;
+    --a2: 251 113 133;
+    --g1: 180 83 9;
+    --g2: 190 18 60;
+    --ink: 180 83 9;
+    --ok: 15 130 80;
+    --info: 3 105 161;
+    --glow: 0.22;
     --noise: 0.025;
   }
 
-  /* Soft dark theme (the default). */
+  /* Deep dark theme (the default). */
   .dark {
     color-scheme: dark;
-    --canvas: 26 27 32;
-    --surface: 33 35 41;
-    --raised: 42 44 51;
-    --fg: 236 238 241;
-    --muted: 167 171 180;
-    --faint: 138 143 153;
-    --line: rgba(255, 255, 255, 0.09);
-    --line-strong: rgba(255, 255, 255, 0.16);
-    --grid: rgba(255, 255, 255, 0.05);
-    --watermark: rgba(255, 255, 255, 0.045);
+    --canvas: 8 9 10;
+    --surface: 15 16 18;
+    --raised: 23 25 28;
+    --fg: 247 248 248;
+    --muted: 143 148 157;
+    --faint: 125 130 140;
+    --line: rgba(255, 255, 255, 0.08);
+    --line-strong: rgba(255, 255, 255, 0.14);
+    --grid: rgba(255, 255, 255, 0.045);
+    --watermark: rgba(255, 255, 255, 0.035);
     --card-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
-    --ink: 174 179 255;
+    --a1: 251 191 36;
+    --a2: 251 113 133;
+    --g1: 251 191 36;
+    --g2: 251 113 133;
+    --ink: 252 211 77;
     --ok: 74 222 155;
-    --warn: 246 184 92;
-    --glow: 0.42;
-    --noise: 0.035;
+    --info: 125 211 252;
+    --glow: 0.45;
+    --noise: 0.05;
   }
 
   * {
@@ -153,7 +160,7 @@
   }
 
   .text-gradient {
-    background-image: linear-gradient(100deg, rgb(var(--a1)), rgb(var(--a2)));
+    background-image: linear-gradient(100deg, rgb(var(--g1)), rgb(var(--g2)));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
@@ -304,8 +311,8 @@
     background-color: rgb(var(--ok) / 0.13);
   }
   .status-soon {
-    color: rgb(var(--warn));
-    background-color: rgb(var(--warn) / 0.14);
+    color: rgb(var(--info));
+    background-color: rgb(var(--info) / 0.14);
   }
   .status-done {
     color: rgb(var(--muted));
@@ -509,6 +516,16 @@
   }
   .ba-before {
     clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+  }
+  .ba img {
+    transition: object-position 1.2s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  @media (hover: hover) {
+    .project:hover .ba img,
+    .project:focus-within .ba img {
+      object-position: 50% 100%;
+      transition: object-position 9s cubic-bezier(0.45, 0, 0.3, 1);
+    }
   }
   .ba-line {
     position: absolute;

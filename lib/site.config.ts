@@ -49,7 +49,7 @@ export const siteConfig = {
     github: "nirmalmhjr",
     /** Add your LinkedIn handle to show it in the header, footer and contact page. */
     // linkedin: "https://www.linkedin.com/in/nirmal-maharjan-513290a9/",
-    linkedin: "nirmal-maharjan-513290a9/",
+    linkedin: "nirmal-maharjan-513290a9",
   },
 
   /** Posts per page on the blog listing. */
@@ -68,11 +68,16 @@ export const socialLinks = {
     : null,
 } as const;
 
+/**
+ * Header navigation. "/#id" items scroll to a section on the homepage (and
+ * light up while that section is on screen); the rest are separate pages.
+ */
 export const mainNav = [
-  { title: "Projects", href: "/projects" },
-  { title: "About", href: "/about" },
+  { title: "Projects", href: "/#projects" },
+  { title: "Experience", href: "/#experience" },
+  { title: "About", href: "/#about" },
+  { title: "Skills", href: "/#skills" },
   { title: "Blog", href: "/blog" },
-  { title: "Uses", href: "/uses" },
   { title: "Contact", href: "/contact" },
 ] as const;
 

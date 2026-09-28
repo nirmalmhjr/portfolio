@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Download } from "lucide-react";
 import type { ReactNode } from "react";
 import { buttonClass } from "@/components/button";
-import { projects } from "@/lib/projects";
+import { learningProjects, workProjects } from "@/lib/projects";
 import {
   beforeCode,
   education,
@@ -33,16 +33,15 @@ function shortTitle(title: string): string {
 
 function Heading({ children }: { children: ReactNode }) {
   return (
-    <h2 className="mb-2 mt-5 border-b border-[#d9dbe1] pb-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[#4f46e5] print:mb-1.5 print:mt-3">
+    <h2 className="mb-2 mt-5 border-b border-[#d9dbe1] pb-1 text-[11px] font-bold uppercase tracking-[0.12em] text-[#b45309] print:mb-1.5 print:mt-3">
       {children}
     </h2>
   );
 }
 
 export default function ResumePage() {
-  const shown = projects.filter((p) => !p.placeholder);
-  const clientProjects = shown.filter((p) => p.kind === "client");
-  const personalProjects = shown.filter((p) => p.kind === "personal");
+  const clientProjects = workProjects.filter((p) => !p.placeholder);
+  const personalProjects = learningProjects;
 
   return (
     <main className="px-4 pb-24 pt-[112px] sm:pt-[132px] print:p-0">
@@ -73,17 +72,26 @@ export default function ResumePage() {
             {siteConfig.title} · Next.js, TypeScript, React
           </p>
           <p className="mt-2 flex flex-wrap gap-x-3 gap-y-0.5 text-[12px] text-[#555a64]">
-            <a href={`mailto:${siteConfig.author.email}`}>
+            <a
+              href={`mailto:${siteConfig.author.email}`}
+              className="inline-block py-1 print:py-0"
+            >
               {siteConfig.author.email}
             </a>
             <span aria-hidden>·</span>
-            <a href={socialLinks.github}>
+            <a
+              href={socialLinks.github}
+              className="inline-block py-1 print:py-0"
+            >
               github.com/{siteConfig.author.github}
             </a>
             {socialLinks.linkedin ? (
               <>
                 <span aria-hidden>·</span>
-                <a href={socialLinks.linkedin}>
+                <a
+                  href={socialLinks.linkedin}
+                  className="inline-block py-1 print:py-0"
+                >
                   linkedin.com/in/{siteConfig.author.linkedin}
                 </a>
               </>
@@ -91,7 +99,12 @@ export default function ResumePage() {
             {portfolioUrl ? (
               <>
                 <span aria-hidden>·</span>
-                <a href={siteConfig.url}>{portfolioUrl}</a>
+                <a
+                  href={siteConfig.url}
+                  className="inline-block py-1 print:py-0"
+                >
+                  {portfolioUrl}
+                </a>
               </>
             ) : null}
             <span aria-hidden>·</span>
@@ -173,7 +186,7 @@ export default function ResumePage() {
               {project.url ? (
                 <a
                   href={project.url}
-                  className="inline-block whitespace-nowrap py-1 text-[12px] text-[#4f46e5] print:py-0"
+                  className="inline-block whitespace-nowrap py-1 text-[12px] text-[#b45309] print:py-0"
                 >
                   {project.displayUrl}
                   {project.status === "launching-soon" ? " (preview)" : ""}
@@ -189,7 +202,7 @@ export default function ResumePage() {
                 {project.url ? (
                   <a
                     href={project.url}
-                    className="inline-block py-1 text-[#4f46e5] underline underline-offset-2 print:py-0"
+                    className="inline-block py-1 text-[#b45309] underline underline-offset-2 print:py-0"
                   >
                     {project.title}
                   </a>

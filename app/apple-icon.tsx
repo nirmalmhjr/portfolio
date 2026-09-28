@@ -13,16 +13,16 @@ export default function AppleIcon() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#1a1b20",
+        backgroundColor: "#08090a",
         backgroundImage:
-          "radial-gradient(circle at 20% 10%, rgba(124,131,255,0.55), transparent 55%), radial-gradient(circle at 90% 90%, rgba(192,132,252,0.45), transparent 50%)",
-        color: "#eceef1",
+          "radial-gradient(circle at 20% 10%, rgba(251,191,36,0.5), transparent 55%), radial-gradient(circle at 90% 90%, rgba(251,113,133,0.4), transparent 50%)",
+        color: "#f7f8f8",
         fontSize: 76,
         fontWeight: 800,
         letterSpacing: "-0.04em",
       }}
     >
-      NM<span style={{ color: "#aeb3ff" }}>.</span>
+      NM<span style={{ color: "#fcd34d" }}>.</span>
     </div>,
     { ...size }
   );

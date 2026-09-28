@@ -14,6 +14,9 @@ import zentry from "@/public/projects/zentry.jpg";
 /**
  * Projects shown on the homepage and /projects, in display order.
  * Screenshots live in public/projects/.
+ *
+ * Client work ("client") appears under Work. Learning builds ("personal")
+ * appear in their own "Things I built to learn" section.
  */
 
 export type ProjectKind = "client" | "personal";
@@ -25,7 +28,11 @@ export type ProjectMedia =
   | { type: "scroll"; image: StaticImageData; alt: string; badge?: string }
   /** A single viewport screenshot that zooms slightly on hover. */
   | { type: "image"; image: StaticImageData; alt: string }
-  /** Drag to compare an old design with the redesign. */
+  /**
+   * Drag to compare an old design with the redesign. Both images are saved
+   * full-page screenshots, so this keeps working after the old site is gone.
+   * On hover, both pages scroll down together.
+   */
   | {
       type: "compare";
       before: StaticImageData;
@@ -58,8 +65,12 @@ export interface Project {
   featured?: boolean;
   /** Share of the work, shown as meters on the featured card. */
   contribution?: { label: string; value: number; display: string }[];
-  /** Placeholder cards are not counted in the filter totals. */
+  /** Placeholder cards (e.g. unlaunched work) have no link or "my part". */
   placeholder?: boolean;
+  /** For learning builds: what the project taught me. */
+  learned?: string;
+  /** Keep the entry but leave it off the site (e.g. while a demo is down). */
+  hidden?: boolean;
 }
 
 export const projects: Project[] = [
@@ -74,6 +85,8 @@ export const projects: Project[] = [
       "The new website for an AI-first technology company. Every page is dynamic and managed through a custom CMS.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     primaryTech: ["Next.js", "TypeScript"],
+    // After launch: set status to "live", url to https://pbinfosystems.com/,
+    // linkLabel to "Visit site" and displayUrl to "pbinfosystems.com".
     url: "https://v2.pbinfosystems.com/",
     linkLabel: "View v2 preview",
     displayUrl: "v2.pbinfosystems.com",
@@ -100,6 +113,7 @@ export const projects: Project[] = [
       "An AI-powered learning platform for schools, colleges, coaching centers and consultancies in Nepal.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     primaryTech: ["Next.js", "TypeScript"],
+    // After launch: same as Plex Bit above, with plexler.com.
     url: "https://v2.plexler.com/",
     linkLabel: "View v2 preview",
     displayUrl: "v2.plexler.com",
@@ -207,6 +221,7 @@ export const projects: Project[] = [
     myPart: "Personal build, solo",
     description:
       "A developer event listing platform with dynamic routing and API integration.",
+    learned: "Full-stack Next.js: dynamic routes, API routes and MongoDB.",
     tech: ["Next.js", "Tailwind CSS", "MongoDB"],
     primaryTech: ["Next.js"],
     url: "https://devevents-sooty-iota.vercel.app/",
@@ -222,6 +237,7 @@ export const projects: Project[] = [
     myPart: "Personal build, solo",
     description:
       "An Apple-style product page with animations that play as you scroll.",
+    learned: "Scroll-triggered animation with GSAP and ScrollTrigger.",
     tech: ["React", "Tailwind CSS", "GSAP"],
     url: "https://macbookm4gsapclone.vercel.app/",
     linkLabel: "Live demo",
@@ -240,10 +256,37 @@ export const projects: Project[] = [
     myPart: "Personal build, solo",
     description:
       "A futuristic gaming landing page with an immersive layout and motion.",
+    learned: "Complex, layered layouts and motion that stays smooth.",
     tech: ["React", "Tailwind CSS"],
     url: "https://zentryclone-six.vercel.app/",
     linkLabel: "Live demo",
     displayUrl: "zentryclone-six.vercel.app",
     media: { type: "image", image: zentry, alt: "Zentry landing page clone" },
   },
+  {
+    slug: "amazon-clone",
+    title: "Amazon Clone",
+    kind: "personal",
+    status: "demo",
+    // Hidden because the live demo returned a 500 error on 2026-09-28.
+    // Once it works again, remove `hidden` and add a screenshot.
+    hidden: true,
+    myPart: "Personal build, solo",
+    description:
+      "An e-commerce storefront inspired by Amazon, built with Next.js.",
+    // TODO: add `learned` (what this project taught you) and the full tech list.
+    tech: ["Next.js"],
+    url: "https://nextjs-amazon-clone-dun.vercel.app/",
+    linkLabel: "Live demo",
+    displayUrl: "nextjs-amazon-clone-dun.vercel.app",
+    media: { type: "placeholder" },
+  },
 ];
+
+const visible = projects.filter((p) => !p.hidden);
+
+/** Client work, featured project first. */
+export const workProjects = visible.filter((p) => p.kind === "client");
+
+/** Personal projects built to learn new tools. */
+export const learningProjects = visible.filter((p) => p.kind === "personal");

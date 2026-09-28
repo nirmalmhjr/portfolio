@@ -12,10 +12,10 @@ import {
   StrengthsGrid,
   TestimonialsGrid,
 } from "@/components/profile-sections";
-import { ProjectShowcase } from "@/components/project-showcase";
+import { LearningGrid, WorkGrid } from "@/components/project-showcase";
 import { SectionHeading } from "@/components/section-heading";
 import { getAllPosts } from "@/lib/posts";
-import { projects } from "@/lib/projects";
+import { learningProjects, workProjects } from "@/lib/projects";
 import { experience, story } from "@/lib/resume";
 import { testimonials } from "@/lib/testimonials";
 
@@ -33,10 +33,9 @@ export default function HomePage() {
           watermark="Work"
           eyebrow="Projects"
           title="Work I've built"
-          description="Client projects from my jobs, plus a few personal builds. Each card says exactly which part I built."
-          link={{ href: "/projects", label: "View all projects" }}
+          description="Client projects from my jobs. Each card says exactly which part I built."
         />
-        <ProjectShowcase projects={projects} />
+        <WorkGrid projects={workProjects} />
       </Section>
 
       <Section id="strengths">
@@ -56,16 +55,6 @@ export default function HomePage() {
           title="Where I've worked"
         />
         <ExperienceTimeline items={experience} />
-      </Section>
-
-      <Section id="skills">
-        <SectionHeading
-          watermark="Stack"
-          eyebrow="Technical skills"
-          title="What I work with"
-          description="Highlighted tools are what I use every day. Vue and Nuxt are from earlier roles."
-        />
-        <SkillsGrid />
       </Section>
 
       <Section id="about">
@@ -102,6 +91,26 @@ export default function HomePage() {
             <BeforeCode />
           </div>
         </div>
+      </Section>
+
+      <Section id="skills">
+        <SectionHeading
+          watermark="Stack"
+          eyebrow="Technical skills"
+          title="What I work with"
+          description="Highlighted tools are what I use every day. Vue and Nuxt are from earlier roles."
+        />
+        <SkillsGrid />
+      </Section>
+
+      <Section id="playground">
+        <SectionHeading
+          watermark="Playground"
+          eyebrow="Learning builds"
+          title="Things I built to learn"
+          description="Personal projects and clones where I practised new tools on my own time. Not client work, just learning by building."
+        />
+        <LearningGrid projects={learningProjects} />
       </Section>
 
       {testimonials.length > 0 ? (

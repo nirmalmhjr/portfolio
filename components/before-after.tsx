@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils";
 /**
  * Drag (or use the arrow keys) to compare an old design with the redesign.
  * The first time it scrolls into view, the handle nudges to show it can move.
+ * Both images are full-page screenshots; hovering the card scrolls them
+ * down together (see .ba img in globals.css).
  */
 export function BeforeAfter({
   before,
@@ -70,6 +72,9 @@ export function BeforeAfter({
         placeholder="blur"
         className="ba-before pointer-events-none object-cover object-top"
       />
+      <span aria-hidden className="shot-hint">
+        Hover to scroll ↓
+      </span>
       <span className="ba-tag ba-tag-before">Before</span>
       <span className="ba-tag ba-tag-after">{afterLabel}</span>
       <span aria-hidden className="ba-line" />

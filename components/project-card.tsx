@@ -18,7 +18,7 @@ function MyPart({ children }: { children: ReactNode }) {
   );
 }
 
-function ProjectLink({ project }: { project: Project }) {
+export function ProjectLink({ project }: { project: Project }) {
   if (!project.url) return null;
   return (
     <a

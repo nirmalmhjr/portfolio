@@ -1,85 +1,35 @@
-"use client";
-
+import Image from "next/image";
 import { ArrowDown, ChevronsLeftRight } from "lucide-react";
-import { useState } from "react";
-import { FeaturedProjectCard, ProjectCard } from "@/components/project-card";
-import type { Project, ProjectKind } from "@/lib/projects";
+import {
+  FeaturedProjectCard,
+  ProjectCard,
+  ProjectLink,
+} from "@/components/project-card";
+import { TechPills } from "@/components/pills";
+import type { Project } from "@/lib/projects";
 import { cn } from "@/lib/utils";
 
-type Filter = "all" | ProjectKind;
-
-const filters: { value: Filter; label: string; short: string }[] = [
-  { value: "all", label: "All", short: "All" },
-  { value: "client", label: "Client work", short: "Client" },
-  { value: "personal", label: "Personal", short: "Personal" },
-];
-
-/** Filter tabs plus the project grid (featured card first). */
-export function ProjectShowcase({ projects }: { projects: Project[] }) {
-  const [filter, setFilter] = useState<Filter>("all");
-
-  const counted = projects.filter((p) => !p.placeholder);
-  const count = (f: Filter) =>
-    f === "all" ? counted.length : counted.filter((p) => p.kind === f).length;
-  const visible = projects.filter((p) => filter === "all" || p.kind === filter);
-
+/** Client work: the featured project first, then a grid. */
+export function WorkGrid({ projects }: { projects: Project[] }) {
   const hasCompare = projects.some((p) => p.media.type === "compare");
-  const hasScroll = projects.some((p) => p.media.type === "scroll");
 
   return (
     <div>
-      <div className="mt-9 flex flex-wrap items-center justify-between gap-x-5 gap-y-3">
-        <div
-          role="group"
-          aria-label="Filter projects"
-          className="flex w-full gap-1 rounded-full border border-line bg-surface p-1 shadow-[var(--card-shadow)] sm:w-auto"
-        >
-          {filters.map((f) => {
-            const active = filter === f.value;
-            return (
-              <button
-                key={f.value}
-                type="button"
-                aria-pressed={active}
-                onClick={() => setFilter(f.value)}
-                className={cn(
-                  "inline-flex h-9 flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-full px-3 text-sm font-medium transition-colors sm:flex-none sm:px-3.5",
-                  active ? "bg-fg text-canvas" : "text-muted hover:text-fg"
-                )}
-              >
-                <span className="sm:hidden">{f.short}</span>
-                <span className="hidden sm:inline">{f.label}</span>
-                <span
-                  className={cn(
-                    "rounded-full px-1.5 py-1 font-mono text-[11px] leading-none",
-                    active ? "bg-canvas/20 text-canvas" : "bg-raised text-faint"
-                  )}
-                >
-                  {count(f.value)}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-
-        <p className="flex flex-wrap gap-4 text-[13px] text-muted">
-          {hasCompare ? (
-            <span className="inline-flex items-center gap-1.5">
-              <ChevronsLeftRight aria-hidden className="h-3.5 w-3.5" />
-              Drag to compare redesigns
-            </span>
-          ) : null}
-          {hasScroll ? (
-            <span className="hidden items-center gap-1.5 [@media(hover:hover)]:inline-flex">
-              <ArrowDown aria-hidden className="h-3.5 w-3.5" />
-              Hover a site to scroll it
-            </span>
-          ) : null}
-        </p>
-      </div>
+      <p className="mt-8 flex flex-wrap gap-4 text-[13px] text-muted">
+        {hasCompare ? (
+          <span className="inline-flex items-center gap-1.5">
+            <ChevronsLeftRight aria-hidden className="h-3.5 w-3.5" />
+            Drag to compare a redesign with the old site
+          </span>
+        ) : null}
+        <span className="hidden items-center gap-1.5 [@media(hover:hover)]:inline-flex">
+          <ArrowDown aria-hidden className="h-3.5 w-3.5" />
+          Hover a site to scroll through it
+        </span>
+      </p>
 
       <div className="mt-5 grid gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
-        {visible.map((project) =>
+        {projects.map((project) =>
           project.featured ? (
             <FeaturedProjectCard key={project.slug} project={project} />
           ) : (
@@ -87,6 +37,59 @@ export function ProjectShowcase({ projects }: { projects: Project[] }) {
           )
         )}
       </div>
+    </div>
+  );
+}
+
+/** Smaller cards for personal projects built to learn new tools. */
+export function LearningGrid({ projects }: { projects: Project[] }) {
+  return (
+    <div
+      className={cn(
+        "mt-12 grid gap-4 sm:grid-cols-2",
+        // Four across only when the row fills up; otherwise three.
+        projects.length % 4 === 0 ? "lg:grid-cols-4" : "lg:grid-cols-3"
+      )}
+    >
+      {projects.map((project) => (
+        <article key={project.slug} className="project card spot flex flex-col">
+          <div className="p-3 pb-0">
+            <div className="shot shot-zoom rounded-[10px] border border-line">
+              {project.media.type === "image" ||
+              project.media.type === "scroll" ? (
+                <Image
+                  src={project.media.image}
+                  alt={project.media.alt}
+                  fill
+                  sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+                  placeholder="blur"
+                  className="object-cover object-top"
+                />
+              ) : null}
+            </div>
+          </div>
+          <div className="flex flex-1 flex-col gap-2.5 px-4 pb-5 pt-4">
+            <h3 className="text-[17px] font-semibold tracking-[-0.015em]">
+              {project.title}
+            </h3>
+            <p className="text-sm text-muted">{project.description}</p>
+            {project.learned ? (
+              <p className="text-sm text-fg">
+                <span className="mr-1.5 font-mono text-[10px] font-medium uppercase tracking-[0.08em] text-ink">
+                  Learned
+                </span>
+                {project.learned}
+              </p>
+            ) : null}
+            <TechPills
+              tech={project.tech}
+              primary={project.primaryTech}
+              className="mt-auto pt-1"
+            />
+            <ProjectLink project={project} />
+          </div>
+        </article>
+      ))}
     </div>
   );
 }

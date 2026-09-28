@@ -40,7 +40,7 @@ const config: Config = {
         a2: "rgb(var(--a2) / <alpha-value>)",
         ink: "rgb(var(--ink) / <alpha-value>)",
         ok: "rgb(var(--ok) / <alpha-value>)",
-        warn: "rgb(var(--warn) / <alpha-value>)",
+        info: "rgb(var(--info) / <alpha-value>)",
       },
       borderColor: {
         DEFAULT: "var(--line)",

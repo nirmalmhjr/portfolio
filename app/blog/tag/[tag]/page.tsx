@@ -1,11 +1,9 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Container, PageHeader } from "@/components/container";
-import { Pagination } from "@/components/pagination";
 import { PostCard } from "@/components/post-card";
 import { TagFilter } from "@/components/tag-filter";
 import { getAllTags, getPostsByTag, tagSlug } from "@/lib/posts";
-import { siteConfig } from "@/lib/site.config";
 
 export const dynamicParams = false;
 
@@ -36,26 +34,15 @@ export async function generateMetadata({
 
 export default async function TagPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ tag: string }>;
-  searchParams: Promise<{ page?: string }>;
 }) {
   const { tag: tagParam } = await params;
-  const { page } = await searchParams;
   const tag = resolveTag(tagParam);
   if (!tag) notFound();
 
-  const currentPage = Math.max(1, Number(page) || 1);
+  // Static page listing every post with this tag (no pagination needed).
   const posts = getPostsByTag(tag).filter((p) => !p.frontmatter.draft);
-  const totalPages = Math.max(
-    1,
-    Math.ceil(posts.length / siteConfig.postsPerPage)
-  );
-  if (currentPage > totalPages) notFound();
-
-  const start = (currentPage - 1) * siteConfig.postsPerPage;
-  const pagePosts = posts.slice(start, start + siteConfig.postsPerPage);
 
   return (
     <main>
@@ -72,15 +59,10 @@ export default async function TagPage({
 
       <Container className="pb-24">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {pagePosts.map((post) => (
+          {posts.map((post) => (
             <PostCard key={post.slug} post={post} />
           ))}
         </div>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          basePath={`/blog/tag/${tagSlug(tag)}`}
-        />
       </Container>
     </main>
   );

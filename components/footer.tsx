@@ -2,12 +2,12 @@ import Link from "next/link";
 import { Github, Linkedin, Mail, Rss } from "lucide-react";
 import { iconButtonClass } from "@/components/button";
 import { Container } from "@/components/container";
-import { getNav } from "@/lib/nav";
+import { getNav, hasPublishedPosts } from "@/lib/nav";
 import { siteConfig, socialLinks } from "@/lib/site.config";
 
 export function Footer() {
   const nav = getNav();
-  const hasBlog = nav.some((item) => item.href === "/blog");
+  const hasBlog = hasPublishedPosts();
 
   return (
     <footer className="border-t border-line py-10 text-sm text-faint print:hidden">

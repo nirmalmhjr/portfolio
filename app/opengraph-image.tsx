@@ -15,10 +15,10 @@ export default function OgImage() {
         flexDirection: "column",
         justifyContent: "space-between",
         padding: "72px",
-        color: "#eceef1",
-        backgroundColor: "#1a1b20",
+        color: "#f7f8f8",
+        backgroundColor: "#08090a",
         backgroundImage:
-          "radial-gradient(circle at 12% 0%, rgba(124,131,255,0.45), transparent 45%), radial-gradient(circle at 95% 30%, rgba(192,132,252,0.35), transparent 40%)",
+          "radial-gradient(circle at 12% 0%, rgba(251,191,36,0.38), transparent 45%), radial-gradient(circle at 95% 30%, rgba(251,113,133,0.3), transparent 40%)",
         fontFamily: "sans-serif",
       }}
     >
@@ -28,7 +28,7 @@ export default function OgImage() {
         >
           NM
         </div>
-        <div style={{ fontSize: 40, fontWeight: 800, color: "#aeb3ff" }}>.</div>
+        <div style={{ fontSize: 40, fontWeight: 800, color: "#fcd34d" }}>.</div>
         <div
           style={{
             display: "flex",
@@ -69,7 +69,7 @@ export default function OgImage() {
           }}
         >
           Frontend Developer ·&nbsp;
-          <span style={{ color: "#aeb3ff" }}>Next.js &amp; TypeScript</span>
+          <span style={{ color: "#fcd34d" }}>Next.js &amp; TypeScript</span>
         </div>
         <div style={{ fontSize: 26, marginTop: 28, color: "#8a8f99" }}>
           {siteConfig.location}
