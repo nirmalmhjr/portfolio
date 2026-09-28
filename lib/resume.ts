@@ -22,7 +22,7 @@ export const facts = [
     label: "building production frontends",
   },
   { value: "8+", label: "client projects built" },
-  { value: "2", label: "admin dashboards built end to end" },
+  { value: "3", label: "admin dashboards built end to end" },
   { value: "8 yrs", label: "client-facing work before code" },
 ];
 
@@ -50,9 +50,9 @@ export const experience: ExperienceItem[] = [
     end: "Present",
     current: true,
     highlights: [
+      "Built the Paradise Hills Resort website and its admin dashboard entirely on my own (launching soon).",
       "Built the entire CMS admin dashboard that powers the company's new website, and about half of the site's frontend.",
-      "Redesigned the landing pages for three client products: Plexler (an AI learning platform), Sierra Adventurer and Prabhu Adventure.",
-      "Built reusable inner-page components for Prabhu Adventure.",
+      "Redesigned the landing pages for Plexler (an AI learning platform), Sierra Adventurer and Prabhu Adventure, plus reusable inner-page components for Prabhu.",
     ],
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     primaryTech: ["Next.js", "TypeScript"],
@@ -204,7 +204,7 @@ export const strengths: {
   {
     title: "Dashboards end to end",
     description:
-      "I built the full CMS dashboard behind the new Plex Bit website and the admin dashboard for Galli Maps.",
+      "I built the admin dashboards for Paradise Hills Resort (solo), the new Plex Bit website and Galli Maps.",
     icon: "dashboard",
   },
   {

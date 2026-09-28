@@ -10,6 +10,7 @@ import meromenu from "@/public/projects/meromenu.jpg";
 import devevents from "@/public/projects/devevents.jpg";
 import macbook from "@/public/projects/macbook.jpg";
 import zentry from "@/public/projects/zentry.jpg";
+import paradiseHills from "@/public/projects/paradise-hills.jpg";
 
 /**
  * Projects shown on the homepage and /projects, in display order.
@@ -101,6 +102,31 @@ export const projects: Project[] = [
     contribution: [
       { label: "Website frontend", value: 50, display: "~50%" },
       { label: "CMS admin dashboard", value: 100, display: "100%" },
+    ],
+  },
+  {
+    slug: "paradise-hills",
+    title: "Paradise Hills Resort",
+    kind: "client",
+    status: "launching-soon",
+    featured: true,
+    myPart: "Website + admin dashboard, built solo",
+    description:
+      "The website for a nature retreat resort, with an availability search for bookings, rooms, events and a gallery, plus the admin dashboard that manages it all.",
+    tech: ["Next.js", "TypeScript", "Tailwind CSS"],
+    primaryTech: ["Next.js", "TypeScript"],
+    // After launch: set status to "live" and point url/displayUrl at the live domain.
+    url: "https://paradisehills.pbinfosystems.com/",
+    linkLabel: "View preview",
+    displayUrl: "paradisehills.pbinfosystems.com",
+    media: {
+      type: "scroll",
+      image: paradiseHills,
+      alt: "Paradise Hills Resort website",
+    },
+    contribution: [
+      { label: "Website frontend", value: 100, display: "100%" },
+      { label: "Admin dashboard", value: 100, display: "100%" },
     ],
   },
   {

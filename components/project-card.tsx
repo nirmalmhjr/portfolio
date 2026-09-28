@@ -136,10 +136,27 @@ export function ProjectCard({ project }: { project: Project }) {
 }
 
 /** Full-width card for the headline project, with contribution meters. */
-export function FeaturedProjectCard({ project }: { project: Project }) {
+export function FeaturedProjectCard({
+  project,
+  reverse = false,
+}: {
+  project: Project;
+  /** Put the screenshot on the right (alternates between featured cards). */
+  reverse?: boolean;
+}) {
   return (
-    <article className="project card spot grid sm:col-span-2 lg:col-span-3 lg:grid-cols-[1.35fr_1fr]">
-      <div className="project-media p-3.5 pb-0 sm:p-[22px] sm:pb-0 lg:grid lg:content-center lg:pb-[22px]">
+    <article
+      className={cn(
+        "project card spot grid sm:col-span-2 lg:col-span-3",
+        reverse ? "lg:grid-cols-[1fr_1.35fr]" : "lg:grid-cols-[1.35fr_1fr]"
+      )}
+    >
+      <div
+        className={cn(
+          "project-media p-3.5 pb-0 sm:p-[22px] sm:pb-0 lg:grid lg:content-center lg:pb-[22px]",
+          reverse && "lg:order-2"
+        )}
+      >
         <BrowserFrame
           url={project.displayUrl}
           secure={Boolean(project.url)}
@@ -151,7 +168,12 @@ export function FeaturedProjectCard({ project }: { project: Project }) {
           />
         </BrowserFrame>
       </div>
-      <div className="grid content-center gap-3.5 px-5 pb-6 pt-5 sm:px-6 lg:py-[30px] lg:pl-3 lg:pr-[30px]">
+      <div
+        className={cn(
+          "grid content-center gap-3.5 px-5 pb-6 pt-5 sm:px-6 lg:py-[30px]",
+          reverse ? "lg:pl-[30px] lg:pr-3" : "lg:pl-3 lg:pr-[30px]"
+        )}
+      >
         <div className="flex flex-wrap items-center gap-2">
           <span className="pill pill-hot">
             <Star aria-hidden className="h-3 w-3" />

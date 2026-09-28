@@ -31,7 +31,13 @@ export function WorkGrid({ projects }: { projects: Project[] }) {
       <div className="mt-5 grid gap-[18px] sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) =>
           project.featured ? (
-            <FeaturedProjectCard key={project.slug} project={project} />
+            <FeaturedProjectCard
+              key={project.slug}
+              project={project}
+              reverse={
+                projects.filter((p) => p.featured).indexOf(project) % 2 === 1
+              }
+            />
           ) : (
             <ProjectCard key={project.slug} project={project} />
           )
