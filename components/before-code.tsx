@@ -49,7 +49,7 @@ export function BeforeCode() {
       <p className="-mt-px flex flex-wrap justify-between gap-3 border-t-[3px] border-double border-line-strong pt-3.5 font-mono text-[13px] font-medium">
         <span>Total</span>
         <span className="text-ink">
-          8 yrs business + {siteConfig.experience} frontend
+          8 yrs business + {siteConfig.experienceYears} yrs frontend
         </span>
       </p>
     </div>

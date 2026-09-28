@@ -62,7 +62,7 @@ export function ProjectShowcase({ projects }: { projects: Project[] }) {
           })}
         </div>
 
-        <p className="flex flex-wrap gap-4 text-[13px] text-faint">
+        <p className="flex flex-wrap gap-4 text-[13px] text-muted">
           {hasCompare ? (
             <span className="inline-flex items-center gap-1.5">
               <ChevronsLeftRight aria-hidden className="h-3.5 w-3.5" />

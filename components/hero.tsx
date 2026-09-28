@@ -1,6 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, Code, Download, Github, Mail } from "lucide-react";
+import { Code, Download, Github, Linkedin, Mail } from "lucide-react";
 import { AvailableBadge } from "@/components/available-badge";
 import { buttonClass, iconButtonClass } from "@/components/button";
 import { Container } from "@/components/container";
@@ -35,24 +34,34 @@ export function Hero() {
             </p>
             <p className="rise mt-4 font-mono text-[13px] leading-[1.8] text-faint [animation-delay:120ms]">
               <b className="font-medium text-muted">
-                {siteConfig.experience} experience
+                {siteConfig.experienceYears} years experience
               </b>{" "}
               · Next.js · TypeScript · React · Tailwind CSS
             </p>
             <p className="rise mt-5 max-w-[54ch] text-[17px] leading-[1.7] text-muted [animation-delay:180ms]">
-              I build fast, responsive websites, landing pages and CMS
-              dashboards. Before I started coding, I spent{" "}
+              I build and ship production websites, landing pages and CMS
+              dashboards for real clients. Before code, I spent{" "}
               <strong className="font-medium text-fg">
                 eight years in finance and pharma sales
               </strong>
-              , so I understand the business side of what I build.
+              , so I&apos;m at home with clients, deadlines and the business
+              side of a product.
+            </p>
+            <p className="rise mt-4 text-[15px] text-muted [animation-delay:180ms]">
+              <span className="font-mono text-xs uppercase tracking-[0.08em] text-ink">
+                Looking for
+              </span>{" "}
+              <span className="text-fg">{siteConfig.lookingFor}</span>
             </p>
 
             <div className="rise mt-[30px] flex flex-wrap items-center gap-3 [animation-delay:240ms]">
-              <Link href="/projects" className={buttonClass("primary")}>
-                See my work
-                <ArrowRight aria-hidden />
-              </Link>
+              <a
+                href={socialLinks.hireEmail}
+                className={buttonClass("primary")}
+              >
+                <Mail aria-hidden />
+                Email me
+              </a>
               <a
                 href={siteConfig.resumeUrl}
                 download={siteConfig.resumeFileName}
@@ -71,13 +80,17 @@ export function Hero() {
                 >
                   <Github aria-hidden />
                 </a>
-                <a
-                  href={socialLinks.email}
-                  aria-label="Email"
-                  className={iconButtonClass}
-                >
-                  <Mail aria-hidden />
-                </a>
+                {socialLinks.linkedin ? (
+                  <a
+                    href={socialLinks.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn profile"
+                    className={iconButtonClass}
+                  >
+                    <Linkedin aria-hidden />
+                  </a>
+                ) : null}
               </div>
             </div>
           </div>

@@ -14,12 +14,26 @@ export const siteConfig = {
   title: "Frontend Developer",
   /** Default meta description. */
   description:
-    "Frontend developer in Kathmandu building fast, responsive websites, landing pages and CMS dashboards with Next.js and TypeScript.",
+    "Frontend developer in Kathmandu, Nepal, building production websites, landing pages and CMS dashboards with Next.js, TypeScript and React.",
+  /** Search keywords for the homepage. */
+  keywords: [
+    "Frontend Developer Nepal",
+    "Frontend Developer Kathmandu",
+    "Next.js Developer Nepal",
+    "React Developer Kathmandu",
+    "TypeScript",
+    "Tailwind CSS",
+    "Nirmal Maharjan",
+  ],
 
   location: "Kathmandu, Nepal",
   availability: "Open to new opportunities",
-  /** Shown in the hero credentials line and the ledger total. */
-  experience: "1.5+ years",
+  /** What you're looking for; shown in the hero and on the contact card. */
+  // TODO: confirm the kind of role you want.
+  lookingFor: "Full-time frontend roles, remote or in Kathmandu",
+  timezone: "UTC+5:45",
+  /** Years of frontend experience, used in the hero, facts row and ledger. */
+  experienceYears: "1.5+",
 
   /** Served from /public. Replace the file to update your CV. */
   resumeUrl: "/resume.pdf",
@@ -34,7 +48,8 @@ export const siteConfig = {
     email: "nirmalmhjr@gmail.com",
     github: "nirmalmhjr",
     /** Add your LinkedIn handle to show it in the header, footer and contact page. */
-    linkedin: "",
+    // linkedin: "https://www.linkedin.com/in/nirmal-maharjan-513290a9/",
+    linkedin: "nirmal-maharjan-513290a9/",
   },
 
   /** Posts per page on the blog listing. */
@@ -43,6 +58,10 @@ export const siteConfig = {
 
 export const socialLinks = {
   email: `mailto:${siteConfig.author.email}`,
+  /** Email link with a subject line, for "Email me" buttons. */
+  hireEmail: `mailto:${siteConfig.author.email}?subject=${encodeURIComponent(
+    "Frontend developer role"
+  )}`,
   github: `https://github.com/${siteConfig.author.github}`,
   linkedin: siteConfig.author.linkedin
     ? `https://www.linkedin.com/in/${siteConfig.author.linkedin}`

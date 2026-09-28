@@ -65,10 +65,13 @@ module.exports = {
     for (const p of posts)
       for (const t of p.tags ?? []) tags.add(t.toLowerCase());
 
-    const extra = [
-      "/blog",
-      ...[...tags].map((t) => `/blog/tag/${encodeURIComponent(t)}`),
-    ];
+    const extra =
+      posts.length > 0
+        ? [
+            "/blog",
+            ...[...tags].map((t) => `/blog/tag/${encodeURIComponent(t)}`),
+          ]
+        : [];
     return Promise.all(extra.map((loc) => config.transform(config, loc)));
   },
 };

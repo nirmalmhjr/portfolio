@@ -6,6 +6,8 @@ import { Header } from "@/components/header";
 import { JsonLd } from "@/components/json-ld";
 import { SpotlightTracker } from "@/components/spotlight-tracker";
 import { ThemeProvider } from "@/components/theme-provider";
+import { getNav } from "@/lib/nav";
+import { education, experience } from "@/lib/resume";
 import { absoluteUrl, siteConfig, socialLinks } from "@/lib/site.config";
 
 const sans = Geist({
@@ -28,7 +30,7 @@ const serif = Instrument_Serif({
   display: "swap",
 });
 
-const defaultTitle = `${siteConfig.name} | ${siteConfig.title}`;
+const defaultTitle = `${siteConfig.name} | ${siteConfig.title} in Kathmandu, Nepal`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -37,6 +39,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  keywords: [...siteConfig.keywords],
   authors: [{ name: siteConfig.author.name, url: siteConfig.url }],
   creator: siteConfig.author.name,
   alternates: {
@@ -97,6 +100,19 @@ const personJsonLd = {
     addressLocality: "Kathmandu",
     addressCountry: "NP",
   },
+  knowsAbout: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "JavaScript",
+    "Tailwind CSS",
+    "Frontend development",
+  ],
+  worksFor: { "@type": "Organization", name: experience[0]?.company },
+  alumniOf: education.map((e) => ({
+    "@type": "EducationalOrganization",
+    name: e.place,
+  })),
   sameAs: [socialLinks.github, socialLinks.linkedin].filter(Boolean),
 };
 
@@ -122,7 +138,7 @@ export default function RootLayout({
           </a>
           <div aria-hidden className="noise" />
           <SpotlightTracker />
-          <Header />
+          <Header items={getNav()} />
           <div id="content" className="flex min-h-dvh flex-col">
             <div className="flex-1">{children}</div>
             <Footer />

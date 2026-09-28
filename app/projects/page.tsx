@@ -17,14 +17,15 @@ export default function ProjectsPage() {
       <PageHeader
         eyebrow="Projects"
         watermark="Work"
-        title="Work I've shipped"
+        title="Work I've built"
         description="Client projects from my jobs, plus a few personal builds. Each card says exactly which part I built. Drag the sliders to compare redesigns with the old sites."
       />
       <Container className="pb-24">
+        <h2 className="sr-only">All projects</h2>
         <ProjectShowcase projects={projects} />
       </Container>
       <Section>
-        <ContactCard title="Have a project in mind?" />
+        <ContactCard title="Like what you see? Let's talk." />
       </Section>
     </main>
   );

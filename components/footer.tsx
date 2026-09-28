@@ -2,14 +2,15 @@ import Link from "next/link";
 import { Github, Linkedin, Mail, Rss } from "lucide-react";
 import { iconButtonClass } from "@/components/button";
 import { Container } from "@/components/container";
-import { mainNav, siteConfig, socialLinks } from "@/lib/site.config";
-import { uses } from "@/lib/uses";
-
-const nav = mainNav.filter((item) => item.href !== "/uses" || uses.length > 0);
+import { getNav } from "@/lib/nav";
+import { siteConfig, socialLinks } from "@/lib/site.config";
 
 export function Footer() {
+  const nav = getNav();
+  const hasBlog = nav.some((item) => item.href === "/blog");
+
   return (
-    <footer className="border-t border-line py-10 text-sm text-faint">
+    <footer className="border-t border-line py-10 text-sm text-faint print:hidden">
       <Container className="flex flex-wrap items-center justify-between gap-x-8 gap-y-5">
         <p>
           <span className="font-extrabold text-fg">
@@ -27,14 +28,16 @@ export function Footer() {
                 </Link>
               </li>
             ))}
-            <li>
-              <a
-                href="/rss.xml"
-                className="inline-flex items-center gap-1 hover:text-fg"
-              >
-                <Rss aria-hidden className="h-3.5 w-3.5" /> RSS
-              </a>
-            </li>
+            {hasBlog ? (
+              <li>
+                <a
+                  href="/rss.xml"
+                  className="inline-flex items-center gap-1 hover:text-fg"
+                >
+                  <Rss aria-hidden className="h-3.5 w-3.5" /> RSS
+                </a>
+              </li>
+            ) : null}
           </ul>
         </nav>
 

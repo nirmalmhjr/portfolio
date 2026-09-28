@@ -1,5 +1,7 @@
+import { siteConfig } from "@/lib/site.config";
+
 /**
- * Profile content: story, experience, skills, education and services.
+ * Profile content: story, experience, skills, education and strengths.
  * Based on Nirmal's résumé (Nov 2025) plus the current role.
  */
 
@@ -13,11 +15,15 @@ export const story = [
 export const languages = ["Nepali", "Newari", "English", "Hindi"];
 export const hobbies = ["⚽ Futsal", "♫ Music"];
 
+/** The four figures under the hero. Keep each one verifiable. */
 export const facts = [
-  { value: "1.5+ yrs", label: "building production frontends" },
-  { value: "8+", label: "client projects delivered" },
-  { value: "8 yrs", label: "in finance and sales before code" },
-  { value: "4", label: "languages spoken" },
+  {
+    value: `${siteConfig.experienceYears} yrs`,
+    label: "building production frontends",
+  },
+  { value: "8+", label: "client projects built" },
+  { value: "2", label: "admin dashboards built end to end" },
+  { value: "8 yrs", label: "client-facing work before code" },
 ];
 
 export interface ExperienceItem {
@@ -44,9 +50,9 @@ export const experience: ExperienceItem[] = [
     end: "Present",
     current: true,
     highlights: [
-      "Built around half of the frontend and the entire CMS dashboard for the company's new website.",
-      "Redesigned the landing pages for Plexler, Sierra Adventurer and Prabhu Adventure, plus inner page components for Prabhu Adventure.",
-      "Work mainly in Next.js, TypeScript and Tailwind CSS.",
+      "Built the entire CMS admin dashboard that powers the company's new website, and about half of the site's frontend.",
+      "Redesigned the landing pages for three client products: Plexler (an AI learning platform), Sierra Adventurer and Prabhu Adventure.",
+      "Built reusable inner-page components for Prabhu Adventure.",
     ],
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     primaryTech: ["Next.js", "TypeScript"],
@@ -58,10 +64,10 @@ export const experience: ExperienceItem[] = [
     start: "Dec 2024",
     end: "Jun 2025",
     highlights: [
-      "Built the redesigned gallimaps.com website with better responsiveness and user experience.",
-      "Built the internal admin dashboard for managing the website, using React and Tailwind CSS.",
+      "Built the redesigned public website for Galli Maps, a Nepali maps app with 200K+ downloads.",
+      "Built the internal admin dashboard the team uses to manage the website, in React and Tailwind CSS.",
       "Built Product Management, Order Processing and Bulk Message modules for the Nepal Dairy Project in Next.js.",
-      "Worked with the backend team to integrate APIs.",
+      "Worked closely with the backend team to integrate REST APIs.",
     ],
     tech: ["React", "Next.js", "Tailwind CSS", "REST APIs"],
     primaryTech: ["React", "Next.js"],
@@ -72,8 +78,8 @@ export const experience: ExperienceItem[] = [
     start: "Jun 2024",
     end: "Sep 2024",
     highlights: [
-      "Migrated meromenu.com, a restaurant management system, from Vue 2/Nuxt 2 to Vue 3/Nuxt 3 on my own.",
-      "Modernized the codebase for better performance and long-term maintenance.",
+      "Migrated meromenu.com, a live restaurant management system, from Vue 2/Nuxt 2 to Vue 3/Nuxt 3 on my own, within my first year as a developer.",
+      "Modernized the codebase for better performance and easier long-term maintenance.",
     ],
     tech: ["Vue 3", "Nuxt 3"],
   },
@@ -181,35 +187,36 @@ export const skills: SkillGroup[] = [
   },
 ];
 
-export type ServiceIcon = "landing" | "dashboard" | "code" | "migrate";
+export type StrengthIcon = "code" | "dashboard" | "migrate" | "business";
 
-export const services: {
+/** "What I bring": each point is backed by a project or role on the page. */
+export const strengths: {
   title: string;
   description: string;
-  icon: ServiceIcon;
+  icon: StrengthIcon;
 }[] = [
   {
-    title: "Landing pages & redesigns",
+    title: "Production Next.js & TypeScript",
     description:
-      "Modern, responsive landing pages, like my redesigns for Plexler, Sierra Adventurer and Prabhu Adventure.",
-    icon: "landing",
-  },
-  {
-    title: "CMS & admin dashboards",
-    description:
-      "Dashboards that let teams manage their own content and data, like the Plex Bit CMS.",
-    icon: "dashboard",
-  },
-  {
-    title: "Next.js web apps",
-    description:
-      "Fast, SEO-friendly apps built with the App Router, TypeScript and Tailwind CSS.",
+      "I build and ship client websites and landing pages at Plex Bit, from design to production.",
     icon: "code",
   },
   {
-    title: "Upgrades & migrations",
+    title: "Dashboards end to end",
     description:
-      "Modernizing older codebases, like moving meromenu.com from Vue 2 to Vue 3.",
+      "I built the full CMS dashboard behind the new Plex Bit website and the admin dashboard for Galli Maps.",
+    icon: "dashboard",
+  },
+  {
+    title: "Learns fast, owns the work",
+    description:
+      "Within my first year as a developer, I migrated a live product from Vue 2 to Vue 3 on my own.",
     icon: "migrate",
+  },
+  {
+    title: "Business and client sense",
+    description:
+      "Eight years in finance and sales taught me to understand requirements, talk to clients and hit deadlines.",
+    icon: "business",
   },
 ];

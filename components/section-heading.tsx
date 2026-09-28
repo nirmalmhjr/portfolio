@@ -20,9 +20,7 @@ export function SectionHeading({
     <div className="flex flex-wrap items-end justify-between gap-6">
       <div className="relative">
         {watermark ? (
-          <span aria-hidden className="watermark">
-            {watermark}
-          </span>
+          <span aria-hidden className="watermark" data-text={watermark} />
         ) : null}
         <p className="eyebrow">{eyebrow}</p>
         <h2 className="mt-3.5 text-[clamp(2rem,4.5vw,3rem)] font-bold leading-[1.05] tracking-[-0.04em]">

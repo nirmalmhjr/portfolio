@@ -6,14 +6,11 @@ import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { buttonClass, iconButtonClass } from "@/components/button";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { mainNav, siteConfig } from "@/lib/site.config";
-import { uses } from "@/lib/uses";
+import type { NavItem } from "@/lib/nav";
+import { siteConfig } from "@/lib/site.config";
 import { cn } from "@/lib/utils";
 
-// The Uses page stays hidden until lib/uses.ts has content.
-const nav = mainNav.filter((item) => item.href !== "/uses" || uses.length > 0);
-
-export function Header() {
+export function Header({ items: nav }: { items: NavItem[] }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -33,13 +30,10 @@ export function Header() {
 
   return (
     <>
-      <header className="fixed left-1/2 top-[calc(env(safe-area-inset-top,0px)+14px)] z-50 flex w-[min(1184px,calc(100%-32px))] -translate-x-1/2 items-center justify-between gap-3 rounded-full border border-line bg-canvas/75 py-[7px] pl-[18px] pr-[7px] backdrop-blur-xl backdrop-saturate-150 sm:w-[min(1184px,calc(100%-48px))] lg:w-[min(1184px,calc(100%-96px))]">
-        <Link
-          href="/"
-          aria-label={`${siteConfig.name}, home`}
-          className="text-xl font-extrabold tracking-[-0.04em]"
-        >
+      <header className="fixed left-1/2 top-[calc(env(safe-area-inset-top,0px)+14px)] z-50 flex w-[min(1184px,calc(100%-32px))] -translate-x-1/2 items-center justify-between gap-3 rounded-full border border-line bg-canvas/75 py-[7px] pl-[18px] pr-[7px] backdrop-blur-xl backdrop-saturate-150 sm:w-[min(1184px,calc(100%-48px))] lg:w-[min(1184px,calc(100%-96px))] print:hidden">
+        <Link href="/" className="text-xl font-extrabold tracking-[-0.04em]">
           NM<span className="text-ink">.</span>
+          <span className="sr-only"> {siteConfig.name}, home</span>
         </Link>
 
         <nav aria-label="Main" className="hidden md:block">
@@ -63,16 +57,15 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <a
-            href={siteConfig.resumeUrl}
-            download={siteConfig.resumeFileName}
+          <Link
+            href="/resume"
             className={buttonClass(
               "primary",
               "hidden h-[38px] px-4 text-sm md:inline-flex"
             )}
           >
             Résumé
-          </a>
+          </Link>
           <button
             type="button"
             className={cn(iconButtonClass, "md:hidden")}

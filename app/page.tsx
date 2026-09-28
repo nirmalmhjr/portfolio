@@ -8,9 +8,8 @@ import { Hero } from "@/components/hero";
 import { PostCard } from "@/components/post-card";
 import {
   BeyondCode,
-  EducationGrid,
-  ServicesGrid,
   SkillsGrid,
+  StrengthsGrid,
   TestimonialsGrid,
 } from "@/components/profile-sections";
 import { ProjectShowcase } from "@/components/project-showcase";
@@ -33,11 +32,21 @@ export default function HomePage() {
         <SectionHeading
           watermark="Work"
           eyebrow="Projects"
-          title="Work I've shipped"
+          title="Work I've built"
           description="Client projects from my jobs, plus a few personal builds. Each card says exactly which part I built."
           link={{ href: "/projects", label: "View all projects" }}
         />
         <ProjectShowcase projects={projects} />
+      </Section>
+
+      <Section id="strengths">
+        <SectionHeading
+          watermark="Strengths"
+          eyebrow="What I bring"
+          title="Why teams hire me"
+          description="Each point is backed by real work on this page."
+        />
+        <StrengthsGrid />
       </Section>
 
       <Section id="experience">
@@ -47,6 +56,16 @@ export default function HomePage() {
           title="Where I've worked"
         />
         <ExperienceTimeline items={experience} />
+      </Section>
+
+      <Section id="skills">
+        <SectionHeading
+          watermark="Stack"
+          eyebrow="Technical skills"
+          title="What I work with"
+          description="Highlighted tools are what I use every day. Vue and Nuxt are from earlier roles."
+        />
+        <SkillsGrid />
       </Section>
 
       <Section id="about">
@@ -85,26 +104,6 @@ export default function HomePage() {
         </div>
       </Section>
 
-      <Section id="services">
-        <SectionHeading
-          watermark="Services"
-          eyebrow="What I do"
-          title="How I can help your team"
-          description="I focus on the frontend: the part of the product people actually see and use."
-        />
-        <ServicesGrid />
-      </Section>
-
-      <Section id="skills">
-        <SectionHeading
-          watermark="Stack"
-          eyebrow="Technical skills"
-          title="What I work with"
-          description="Highlighted tools are what I use every day. Vue and Nuxt are from earlier roles."
-        />
-        <SkillsGrid />
-      </Section>
-
       {testimonials.length > 0 ? (
         <Section id="testimonials">
           <SectionHeading
@@ -132,15 +131,6 @@ export default function HomePage() {
           </div>
         </Section>
       ) : null}
-
-      <Section id="education">
-        <SectionHeading
-          watermark="Education"
-          eyebrow="Education & training"
-          title="Business degree, self-taught code"
-        />
-        <EducationGrid />
-      </Section>
 
       <Section id="contact">
         <ContactCard />

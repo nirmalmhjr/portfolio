@@ -1,7 +1,7 @@
 import {
   Code,
+  Handshake,
   LayoutDashboard,
-  LayoutTemplate,
   RefreshCw,
   type LucideIcon,
 } from "lucide-react";
@@ -9,26 +9,26 @@ import {
   education,
   hobbies,
   languages,
-  services,
   skills,
+  strengths,
   training,
-  type ServiceIcon,
+  type StrengthIcon,
 } from "@/lib/resume";
 import { testimonials } from "@/lib/testimonials";
 import { cn } from "@/lib/utils";
 
-const serviceIcons: Record<ServiceIcon, LucideIcon> = {
-  landing: LayoutTemplate,
-  dashboard: LayoutDashboard,
+const strengthIcons: Record<StrengthIcon, LucideIcon> = {
   code: Code,
+  dashboard: LayoutDashboard,
   migrate: RefreshCw,
+  business: Handshake,
 };
 
-export function ServicesGrid() {
+export function StrengthsGrid() {
   return (
     <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {services.map((service) => {
-        const Icon = serviceIcons[service.icon];
+      {strengths.map((service) => {
+        const Icon = strengthIcons[service.icon];
         return (
           <article
             key={service.title}

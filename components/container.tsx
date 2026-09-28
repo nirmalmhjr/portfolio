@@ -65,9 +65,7 @@ export function PageHeader({
       <GlowBackdrop />
       <Container className="relative">
         {watermark ? (
-          <span aria-hidden className="watermark">
-            {watermark}
-          </span>
+          <span aria-hidden className="watermark" data-text={watermark} />
         ) : null}
         <p className="eyebrow">{eyebrow}</p>
         <h1 className="mt-4 max-w-[22ch] text-[clamp(2.5rem,6vw,4.25rem)] font-bold leading-[1.02] tracking-[-0.045em]">

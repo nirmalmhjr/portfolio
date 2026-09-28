@@ -1,4 +1,4 @@
-import { Download } from "lucide-react";
+import { Download, Mail } from "lucide-react";
 import type { ReactNode } from "react";
 import { buttonClass } from "@/components/button";
 import { CopyButton } from "@/components/copy-button";
@@ -20,7 +20,7 @@ function ContactRow({
       <span className="block font-mono text-[11px] font-medium uppercase leading-none tracking-[0.08em] text-faint">
         {label}
       </span>
-      <span className="mt-1.5 block select-all break-all font-mono text-[15px] leading-tight">
+      <span className="mt-1.5 block select-all break-words font-mono text-[15px] leading-tight">
         {value}
       </span>
     </span>
@@ -51,7 +51,7 @@ function ContactRow({
 }
 
 export function ContactCard({
-  title = "Let's work together.",
+  title = "Hiring a frontend developer? Let's talk.",
 }: {
   title?: string;
 }) {
@@ -67,17 +67,23 @@ export function ContactCard({
           {title}
         </h2>
         <p className="mt-3.5 max-w-[48ch] text-[17px] text-muted">
-          Have a project, a role, or just want to talk frontend? Send me an
-          email and I&apos;ll reply within a day.
+          Send me a short note about the role and I&apos;ll get back to you. My
+          résumé is one click away.
         </p>
-        <a
-          href={siteConfig.resumeUrl}
-          download={siteConfig.resumeFileName}
-          className={buttonClass("primary", "mt-8")}
-        >
-          <Download aria-hidden />
-          Download résumé
-        </a>
+        <div className="mt-8 flex flex-wrap gap-3">
+          <a href={socialLinks.hireEmail} className={buttonClass("primary")}>
+            <Mail aria-hidden />
+            Email me
+          </a>
+          <a
+            href={siteConfig.resumeUrl}
+            download={siteConfig.resumeFileName}
+            className={buttonClass("ghost")}
+          >
+            <Download aria-hidden />
+            Download résumé
+          </a>
+        </div>
       </div>
 
       <div className="grid gap-2.5">
@@ -98,7 +104,11 @@ export function ContactCard({
             href={socialLinks.linkedin}
           />
         ) : null}
-        <ContactRow label="Location" value={siteConfig.location} />
+        <ContactRow label="Looking for" value={siteConfig.lookingFor} />
+        <ContactRow
+          label="Location"
+          value={`${siteConfig.location} (${siteConfig.timezone})`}
+        />
       </div>
     </div>
   );

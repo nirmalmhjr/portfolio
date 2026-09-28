@@ -194,6 +194,9 @@
     text-transform: uppercase;
     color: var(--watermark);
   }
+  .watermark::before {
+    content: attr(data-text);
+  }
 
   /* ---------- Surfaces ---------- */
   .card {
@@ -784,4 +787,22 @@ code[data-theme] span {
 }
 .prose a.heading-anchor:hover {
   color: rgb(var(--ink));
+}
+
+/* ---------- Print (used by /resume and its PDF) ---------- */
+
+@page {
+  size: A4;
+  margin: 10mm 13mm;
+}
+
+@media print {
+  html,
+  body {
+    color-scheme: light !important;
+    background: #fff !important;
+  }
+  .noise {
+    display: none;
+  }
 }
