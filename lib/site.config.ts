@@ -3,11 +3,26 @@
  * Page content lives in lib/resume.ts and lib/projects.ts.
  */
 
+const DEFAULT_SITE_URL = "https://nirmal-maharjan.com.np";
+
+/**
+ * Validates NEXT_PUBLIC_SITE_URL so a blank, whitespace-only or malformed
+ * value set in Vercel's dashboard can never break the build (new URL() would
+ * throw and fail `next build` otherwise). Falls back to the real domain.
+ */
+function resolveSiteUrl(): string {
+  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (!raw) return DEFAULT_SITE_URL;
+  try {
+    return new URL(raw).toString().replace(/\/$/, "");
+  } catch {
+    return DEFAULT_SITE_URL;
+  }
+}
+
 export const siteConfig = {
   /** Your domain. NEXT_PUBLIC_SITE_URL overrides it (e.g. for a preview deploy). */
-  url:
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-    "https://nirmal-maharjan.com.np",
+  url: resolveSiteUrl(),
 
   name: "Nirmal Maharjan",
   /** Short title used in the hero, page titles and Person JSON-LD. */
