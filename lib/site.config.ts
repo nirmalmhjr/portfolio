@@ -4,10 +4,10 @@
  */
 
 export const siteConfig = {
-  /** Set NEXT_PUBLIC_SITE_URL when you deploy (e.g. https://nirmal.dev). */
+  /** Your domain. NEXT_PUBLIC_SITE_URL overrides it (e.g. for a preview deploy). */
   url:
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
-    "https://example.com",
+    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
+    "https://nirmal-maharjan.com.np",
 
   name: "Nirmal Maharjan",
   /** Short title used in the hero, page titles and Person JSON-LD. */

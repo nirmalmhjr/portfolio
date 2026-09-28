@@ -8,7 +8,7 @@
  * @type {import('next-sitemap').IConfig}
  */
 const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL || "https://example.com"
+  process.env.NEXT_PUBLIC_SITE_URL || "https://nirmal-maharjan.com.np"
 ).replace(/\/$/, "");
 
 // /uses renders a 404 until lib/uses.json has content, so keep it out of the sitemap.

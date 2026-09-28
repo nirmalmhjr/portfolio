@@ -69,9 +69,10 @@ export default function ResumePage() {
             {siteConfig.name}
           </h1>
           <p className="mt-0.5 text-[15px] font-medium text-[#111216]">
-            {siteConfig.title} · Next.js, TypeScript, React
+            {siteConfig.title} · Next.js, TypeScript, React ·{" "}
+            {siteConfig.location}
           </p>
-          <p className="mt-2 flex flex-wrap gap-x-3 gap-y-0.5 text-[12px] text-[#555a64]">
+          <p className="mt-2 flex flex-wrap gap-x-2.5 gap-y-0.5 text-[12px] text-[#555a64]">
             <a
               href={`mailto:${siteConfig.author.email}`}
               className="inline-block py-1 print:py-0"
@@ -107,8 +108,6 @@ export default function ResumePage() {
                 </a>
               </>
             ) : null}
-            <span aria-hidden>·</span>
-            <span>{siteConfig.location}</span>
           </p>
         </header>
 
