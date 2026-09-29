@@ -1,4 +1,5 @@
 import type { StaticImageData } from "next/image";
+import amazon from "@/public/projects/amazon-clone.png";
 import plexbitBefore from "@/public/projects/plexbit-before.jpg";
 import plexbitAfter from "@/public/projects/plexbit-after.jpg";
 import plexlerBefore from "@/public/projects/plexler-before.jpg";
@@ -244,6 +245,8 @@ export const projects: Project[] = [
     title: "DevEvents",
     kind: "personal",
     status: "demo",
+    // Hidden to keep the learning grid at 3 cards; swapped for amazon-clone.
+    hidden: true,
     myPart: "Personal build, solo",
     description:
       "A developer event listing platform with dynamic routing and API integration.",
@@ -297,20 +300,19 @@ export const projects: Project[] = [
     title: "Amazon Clone",
     kind: "personal",
     status: "demo",
-    // Hidden because the live demo returned a 500 error on 2026-09-28.
-    // Once it works again, remove `hidden` and add a screenshot.
-    hidden: true,
     myPart: "Personal build, solo",
     description:
       "An e-commerce storefront inspired by Amazon, built with Next.js.",
-    // TODO: add `learned` (what this project taught you) and the full tech list.
-    tech: ["Next.js"],
+    learned:
+      "Full-stack e-commerce: auth, cart and checkout with Stripe, backed by a MongoDB product catalog.",
+    tech: ["Next.js", "MongoDB", "Stripe", "NextAuth", "Tailwind CSS"],
+    primaryTech: ["Next.js", "MongoDB"],
     // url: "https://nextjs-amazon-clone-dun.vercel.app/",
     url: "https://amazon.nirmal-maharjan.com.np/",
     linkLabel: "Live demo",
     // displayUrl: "nextjs-amazon-clone-dun.vercel.app",
     displayUrl: "amazon.nirmal-maharjan.com.np",
-    media: { type: "placeholder" },
+    media: { type: "image", image: amazon, alt: "Amazon Clone" },
   },
 ];
 
