@@ -7,6 +7,7 @@ import {
   WorkGrid,
 } from "@/components/project-showcase";
 import { SectionHeading } from "@/components/section-heading";
+import { SectionLink } from "@/components/section-link";
 import {
   learningProjects,
   smallBuilds,
@@ -27,7 +28,11 @@ const sections = [
     label: "Client work",
     count: workProjects.filter((p) => !p.placeholder).length,
   },
-  { id: "playground", label: "Learning builds", count: learningProjects.length },
+  {
+    id: "playground",
+    label: "Learning builds",
+    count: learningProjects.length,
+  },
   { id: "small-builds", label: "First steps", count: smallBuilds.length },
 ];
 
@@ -40,9 +45,12 @@ export default function ProjectsPage() {
         title="Everything I've built"
         description="Client work from my jobs, projects I built to learn new tools, and the small apps where it all started."
       >
-        <nav aria-label="Project sections" className="mt-8 flex flex-wrap gap-2">
+        <nav
+          aria-label="Project sections"
+          className="mt-8 flex flex-wrap gap-2"
+        >
           {sections.map((section) => (
-            <a
+            <SectionLink
               key={section.id}
               href={`#${section.id}`}
               className="inline-flex items-center gap-2 rounded-full border border-line-strong bg-surface/60 px-4 py-2 text-sm text-fg transition-colors hover:bg-raised"
@@ -51,7 +59,7 @@ export default function ProjectsPage() {
               <span className="font-mono text-[12px] tabular-nums text-faint">
                 {section.count}
               </span>
-            </a>
+            </SectionLink>
           ))}
         </nav>
       </PageHeader>

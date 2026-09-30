@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { buttonClass, iconButtonClass } from "@/components/button";
+import { SectionLink } from "@/components/section-link";
 import { ThemeToggle } from "@/components/theme-toggle";
 import type { NavItem } from "@/lib/nav";
 import { siteConfig } from "@/lib/site.config";
@@ -93,6 +94,14 @@ export function Header({ items }: { items: NavItem[] }) {
 
   useEffect(() => setOpen(false), [pathname]);
 
+  // Arriving at "/#experience" from another page: Next.js has already
+  // scrolled to the section by now, so drop the hash to keep the URL clean.
+  useEffect(() => {
+    if (pathname === "/" && window.location.hash) {
+      window.history.replaceState(null, "", "/");
+    }
+  }, [pathname]);
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
@@ -127,7 +136,7 @@ export function Header({ items }: { items: NavItem[] }) {
               const active = item.href === activeHref;
               return (
                 <li key={item.href} className="relative">
-                  <Link
+                  <SectionLink
                     href={item.href}
                     data-active={active}
                     aria-current={active ? "page" : undefined}
@@ -137,7 +146,7 @@ export function Header({ items }: { items: NavItem[] }) {
                     )}
                   >
                     {item.title}
-                  </Link>
+                  </SectionLink>
                 </li>
               );
             })}
@@ -178,7 +187,7 @@ export function Header({ items }: { items: NavItem[] }) {
           {items.map((item) => {
             const active = item.href === activeHref;
             return (
-              <Link
+              <SectionLink
                 key={item.href}
                 href={item.href}
                 aria-current={active ? "page" : undefined}
@@ -189,7 +198,7 @@ export function Header({ items }: { items: NavItem[] }) {
                 )}
               >
                 {item.title}
-              </Link>
+              </SectionLink>
             );
           })}
           <Link
