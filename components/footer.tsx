@@ -19,7 +19,7 @@ export function Footer() {
           © {new Date().getFullYear()} {siteConfig.name}
         </p>
 
-        <nav aria-label="Footer">
+        {/* <nav aria-label="Footer">
           <ul className="flex flex-wrap gap-x-4 gap-y-2">
             {nav.map((item) => (
               <li key={item.href}>
@@ -39,7 +39,7 @@ export function Footer() {
               </li>
             ) : null}
           </ul>
-        </nav>
+        </nav> */}
 
         <div className="flex gap-1.5">
           <a
