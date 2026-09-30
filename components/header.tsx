@@ -76,10 +76,14 @@ export function Header({ items }: { items: NavItem[] }) {
 
   useEffect(() => {
     const update = () => {
-      const el = listRef.current?.querySelector<HTMLElement>(
-        '[data-active="true"]'
-      );
-      setPill(el ? { left: el.offsetLeft, width: el.offsetWidth } : null);
+      const list = listRef.current;
+      const el = list?.querySelector<HTMLElement>('[data-active="true"]');
+      if (!list || !el) return setPill(null);
+      // Measure against the list: each link sits in a positioned <li>, so its
+      // offsetLeft would always be 0 and the pill would never move.
+      const left =
+        el.getBoundingClientRect().left - list.getBoundingClientRect().left;
+      setPill({ left, width: el.offsetWidth });
     };
     update();
     document.fonts?.ready.then(update);
@@ -144,6 +148,7 @@ export function Header({ items }: { items: NavItem[] }) {
           <ThemeToggle />
           <Link
             href="/resume"
+            scroll={false}
             className={buttonClass(
               "primary",
               "hidden h-[38px] px-4 text-sm md:inline-flex"
@@ -189,6 +194,7 @@ export function Header({ items }: { items: NavItem[] }) {
           })}
           <Link
             href="/resume"
+            scroll={false}
             onClick={() => setOpen(false)}
             className="rounded-xl px-3.5 py-3 text-ink hover:bg-raised"
           >

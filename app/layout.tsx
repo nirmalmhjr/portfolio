@@ -118,8 +118,11 @@ const personJsonLd = {
 
 export default function RootLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  /** app/@modal: the résumé dialog when /resume is opened from the site. */
+  modal: React.ReactNode;
 }) {
   return (
     <html
@@ -143,6 +146,7 @@ export default function RootLayout({
             <div className="flex-1">{children}</div>
             <Footer />
           </div>
+          {modal}
         </ThemeProvider>
       </body>
     </html>
