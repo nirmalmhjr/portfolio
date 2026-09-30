@@ -91,8 +91,8 @@ export const projects: Project[] = [
     myPart: "Company website + CMS dashboard",
     description:
       "The new website for an AI-first technology company. Every page is dynamic and managed through a custom CMS.",
-    tech: ["Next.js", "TypeScript", "Tailwind CSS"],
-    primaryTech: ["Next.js", "TypeScript"],
+    tech: ["Next.js", "TypeScript", "Tailwind CSS","TanStack Query"],
+    primaryTech: ["Next.js", "TypeScript","TanStack Query"],
     // After launch: set status to "live", url to https://pbinfosystems.com/,
     // linkLabel to "Visit site" and displayUrl to "pbinfosystems.com".
     url: "https://v2.pbinfosystems.com/",
@@ -120,8 +120,8 @@ export const projects: Project[] = [
     myPart: "Website + admin dashboard, built solo",
     description:
       "The website for a nature retreat resort, with an availability search for bookings, rooms, events and a gallery, plus the admin dashboard that manages it all.",
-    tech: ["Next.js", "TypeScript", "Tailwind CSS"],
-    primaryTech: ["Next.js", "TypeScript"],
+    tech: ["Next.js", "TypeScript", "Tailwind CSS","TanStack Query"],
+    primaryTech: ["Next.js", "TypeScript","TanStack Query"],
     // After launch: set status to "live" and point url/displayUrl at the live domain.
     url: "https://paradisehills.pbinfosystems.com/",
     linkLabel: "View preview",
@@ -147,7 +147,7 @@ export const projects: Project[] = [
     description:
       "A multi-vendor e-commerce platform currently in development. Contributed to the development of various frontend features and core functionality across the platform as part of the development team.",
     tech: ["Next.js", "TypeScript", "TanStack Query", "Tailwind CSS"],
-    primaryTech: ["Next.js", "TypeScript"],
+    primaryTech: ["Next.js", "TypeScript","TanStack Query"],
     url: "https://luxe.pbinfosystems.com/",
     linkLabel: "View work in progress",
     displayUrl: "luxe.pbinfosystems.com",
