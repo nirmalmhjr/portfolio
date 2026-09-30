@@ -50,6 +50,8 @@ function ContactRow({
   );
 }
 
+const highlight = "Let's talk";
+
 export function ContactCard({
   title = "Hiring a frontend developer? Let's talk.",
 }: {
@@ -64,7 +66,17 @@ export function ContactCard({
       <div>
         <p className="eyebrow">Contact</p>
         <h2 className="mt-3.5 max-w-[14ch] text-[clamp(2rem,4.5vw,3rem)] font-bold leading-[1.05] tracking-[-0.04em]">
-          {title}
+          {title.includes(highlight) ? (
+            <>
+              {title.slice(0, title.indexOf(highlight))}
+              <em className="text-gradient pr-[0.05em] font-serif font-semibold tracking-[0.04em]">
+                {highlight}
+              </em>
+              {title.slice(title.indexOf(highlight) + highlight.length)}
+            </>
+          ) : (
+            title
+          )}
         </h2>
         <p className="mt-3.5 max-w-[48ch] text-[17px] text-muted">
           Send me a short note about the role and I&apos;ll get back to you. My
