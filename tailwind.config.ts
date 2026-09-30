@@ -63,7 +63,7 @@ const config: Config = {
       },
       animation: {
         drift: "drift 22s ease-in-out infinite alternate",
-        bob: "bob 6s ease-in-out infinite",
+        bob: "bob 10s ease-in-out infinite",
         ping: "ping 2s cubic-bezier(0, 0, 0.2, 1) infinite",
       },
       typography: {

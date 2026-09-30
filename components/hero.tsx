@@ -132,7 +132,7 @@ export function Hero() {
             <div
               className={cn(
                 floatChip,
-                "-right-3 top-4 animate-bob [animation-delay:-3s] sm:-right-[18px] sm:top-[26px]"
+                "-right-3 top-4 animate-bob [animation-delay:-5s] sm:-right-[18px] sm:top-[26px]"
               )}
             >
               <span>
