@@ -12,10 +12,10 @@ import {
   StrengthsGrid,
   TestimonialsGrid,
 } from "@/components/profile-sections";
-import { LearningGrid, WorkGrid } from "@/components/project-showcase";
+import { AllProjectsCta, WorkGrid } from "@/components/project-showcase";
 import { SectionHeading } from "@/components/section-heading";
 import { getAllPosts } from "@/lib/posts";
-import { learningProjects, workProjects } from "@/lib/projects";
+import { homeWorkProjects, moreProjects } from "@/lib/projects";
 import { experience, story } from "@/lib/resume";
 import { testimonials } from "@/lib/testimonials";
 
@@ -33,9 +33,13 @@ export default function HomePage() {
           watermark="Work"
           eyebrow="Projects"
           title="Work I've built"
-          description="Client projects from my jobs. Each card says exactly which part I built."
+          description="A few client projects from my jobs. Each card says exactly which part I built."
         />
-        <WorkGrid projects={workProjects} />
+        <WorkGrid projects={homeWorkProjects} />
+        <AllProjectsCta
+          count={moreProjects.count}
+          previews={moreProjects.previews}
+        />
       </Section>
 
       <Section id="strengths">
@@ -101,16 +105,6 @@ export default function HomePage() {
           description="Highlighted tools are what I use every day. Vue and Nuxt are from earlier roles."
         />
         <SkillsGrid />
-      </Section>
-
-      <Section id="playground">
-        <SectionHeading
-          watermark="Playground"
-          eyebrow="Learning builds"
-          title="Things I built to learn"
-          description="Personal projects and clones where I practised new tools on my own time. Not client work, just learning by building."
-        />
-        <LearningGrid projects={learningProjects} />
       </Section>
 
       {testimonials.length > 0 ? (

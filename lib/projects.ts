@@ -12,6 +12,12 @@ import devevents from "@/public/projects/devevents.jpg";
 import macbook from "@/public/projects/macbook.jpg";
 import zentry from "@/public/projects/zentry.jpg";
 import paradiseHills from "@/public/projects/paradise-hills.jpg";
+import luxe from "@/public/projects/luxe.jpg";
+import rpsShot from "@/public/projects/small/rps.jpg";
+import blackJackShot from "@/public/projects/small/black-jack.jpg";
+import beatboxShot from "@/public/projects/small/beatbox.jpg";
+import tenziesShot from "@/public/projects/small/tenzies.jpg";
+import netflixShot from "@/public/projects/small/netflix.jpg";
 
 /**
  * Projects shown on the homepage and /projects, in display order.
@@ -131,6 +137,23 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "luxe",
+    title: "Luxe",
+    kind: "client",
+    status: "in-progress",
+    statusLabel: "Work in progress",
+    // Team project; covers only Nirmal's commits (Apr 16 – Jun 8, 2026).
+    myPart: "Account & order pages, product search, blog, brand and sale pages",
+    description:
+      "A multi-vendor e-commerce platform currently in development. Contributed to the development of various frontend features and core functionality across the platform as part of the development team.",
+    tech: ["Next.js", "TypeScript", "TanStack Query", "Tailwind CSS"],
+    primaryTech: ["Next.js", "TypeScript"],
+    url: "https://luxe.pbinfosystems.com/",
+    linkLabel: "View work in progress",
+    displayUrl: "luxe.pbinfosystems.com",
+    media: { type: "scroll", image: luxe, alt: "Luxe e-commerce storefront" },
+  },
+  {
     slug: "plexler",
     title: "Plexler",
     kind: "client",
@@ -245,8 +268,6 @@ export const projects: Project[] = [
     title: "DevEvents",
     kind: "personal",
     status: "demo",
-    // Hidden to keep the learning grid at 3 cards; swapped for amazon-clone.
-    hidden: true,
     myPart: "Personal build, solo",
     description:
       "A developer event listing platform with dynamic routing and API integration.",
@@ -323,3 +344,97 @@ export const workProjects = visible.filter((p) => p.kind === "client");
 
 /** Personal projects built to learn new tools. */
 export const learningProjects = visible.filter((p) => p.kind === "personal");
+
+/** The homepage shows featured work plus the next few; /projects shows all. */
+export const homeWorkProjects = [
+  ...workProjects.filter((p) => p.featured),
+  ...workProjects.filter((p) => !p.featured && !p.placeholder).slice(0, 3),
+];
+
+/** A small early build, shown on the "Where it started" path. */
+export interface SmallBuild {
+  title: string;
+  tech: string;
+  /** One plain line on what building it taught me. */
+  learned: string;
+  url: string;
+  image: StaticImageData;
+}
+
+export interface SmallBuildStep {
+  title: string;
+  note: string;
+  builds: SmallBuild[];
+}
+
+/** Built while teaching myself (late 2022 to mid 2023), before my first job. */
+export const smallBuildSteps: SmallBuildStep[] = [
+  {
+    title: "Plain JavaScript",
+    note: "No framework yet. Just the DOM, events and a bit of game logic.",
+    builds: [
+      {
+        title: "Rock Paper Scissors",
+        tech: "JavaScript",
+        learned: "Functions, conditionals and updating the page from code.",
+        url: "https://rps.nirmal-maharjan.com.np/",
+        image: rpsShot,
+      },
+      {
+        title: "Blackjack",
+        tech: "JavaScript",
+        learned: "Keeping game state in arrays, and playing sounds.",
+        url: "https://black-jack.nirmal-maharjan.com.np/",
+        image: blackJackShot,
+      },
+      {
+        title: "Beat Box",
+        tech: "JavaScript",
+        learned: "Classes, keyboard events and the Audio API.",
+        url: "https://beatbox.nirmal-maharjan.com.np/",
+        image: beatboxShot,
+      },
+    ],
+  },
+  {
+    title: "React, then Vue",
+    note: "Learning to think in components and state.",
+    builds: [
+      {
+        title: "Tenzies",
+        tech: "React",
+        learned: "Components, useState, and effects for the timer.",
+        url: "https://tenzies.nirmal-maharjan.com.np/",
+        image: tenziesShot,
+      },
+      {
+        title: "Netflix Clone",
+        tech: "Vue 3",
+        learned: "Vue components, shared state with Pinia, and carousels.",
+        url: "https://netflix.nirmal-maharjan.com.np/",
+        image: netflixShot,
+      },
+    ],
+  },
+];
+
+export const smallBuilds = smallBuildSteps.flatMap((step) => step.builds);
+
+const onHome = new Set(homeWorkProjects.map((p) => p.slug));
+const notOnHome = [
+  ...workProjects.filter((p) => !p.placeholder && !onHome.has(p.slug)),
+  ...learningProjects,
+];
+
+/** What the homepage leaves out, for its "View all projects" prompt. */
+export const moreProjects = {
+  count: notOnHome.length + smallBuilds.length,
+  previews: [
+    ...notOnHome.flatMap((p) =>
+      p.media.type === "image" || p.media.type === "scroll"
+        ? [{ title: p.title, image: p.media.image }]
+        : []
+    ),
+    ...smallBuilds,
+  ].slice(0, 5),
+};

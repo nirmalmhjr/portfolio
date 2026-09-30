@@ -658,6 +658,20 @@
     background-color: rgb(var(--a1));
     box-shadow: 0 0 12px rgb(var(--a1));
   }
+  /* Oldest first: the line brightens toward the latest point. */
+  .timeline-rise::before {
+    top: 32px;
+    bottom: 40px;
+    background: linear-gradient(
+      180deg,
+      var(--line) 0%,
+      var(--line-strong) 60%,
+      rgb(var(--a1)) 100%
+    );
+  }
+  .timeline-rise .timeline-node {
+    top: 24px;
+  }
   @media (max-width: 640px) {
     .timeline {
       padding-left: 26px;
