@@ -36,9 +36,12 @@ const color = {
   ink: "#111216",
   body: "#2b2d33",
   muted: "#5b606b",
-  rule: "#dfe1e6",
-  soft: "#9a9ea8",
   divider: "#c4c8d0",
+  /** Amber accent, kept in sync with the /resume page. */
+  accent: "#b45309",
+  accentSoft: "#f1dfca",
+  marker: "#d97706",
+  linkLine: "#e9bf94",
 };
 
 const s = StyleSheet.create({
@@ -53,7 +56,7 @@ const s = StyleSheet.create({
   },
   header: {
     borderBottomWidth: 1.5,
-    borderBottomColor: color.ink,
+    borderBottomColor: color.accent,
     paddingBottom: 6,
   },
   name: {
@@ -95,13 +98,13 @@ const s = StyleSheet.create({
     fontWeight: 700,
     letterSpacing: 1.15,
     textTransform: "uppercase",
-    color: color.ink,
+    color: color.accent,
   },
   headingRule: {
     flex: 1,
     height: 0.75,
     marginLeft: 9,
-    backgroundColor: color.rule,
+    backgroundColor: color.accentSoft,
   },
   row: { flexDirection: "row", marginBottom: 1.5 },
   rowLabel: { width: 84, marginRight: 9, fontWeight: 600, color: color.ink },
@@ -113,13 +116,13 @@ const s = StyleSheet.create({
   muted: { fontWeight: 400, color: color.muted },
   bullets: { marginTop: 3 },
   bullet: { flexDirection: "row" },
-  bulletMark: { width: 12, paddingLeft: 3, color: color.soft },
+  bulletMark: { width: 12, paddingLeft: 3, color: color.marker },
   bulletText: { flex: 1 },
   sites: { marginTop: 3, paddingLeft: 12, color: color.muted },
   link: {
     color: color.muted,
     textDecoration: "underline",
-    textDecorationColor: color.divider,
+    textDecorationColor: color.linkLine,
   },
   project: { marginBottom: 1.5 },
 });

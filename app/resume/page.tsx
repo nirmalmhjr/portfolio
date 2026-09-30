@@ -12,17 +12,19 @@ export const metadata: Metadata = {
 };
 
 const ink = "text-[#111216]";
+/** Amber accent, kept in sync with `color` in lib/resume-pdf.tsx. */
+const accent = "text-[#b45309]";
 const muted = "text-[#5b606b]";
 const link =
-  "underline decoration-[#c4c8d0] underline-offset-2 hover:decoration-current";
+  "underline decoration-[#e9bf94] underline-offset-2 hover:decoration-current";
 
 function Heading({ children }: { children: ReactNode }) {
   return (
     <h2
-      className={`mb-2 mt-5 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.14em] ${ink} print:mb-1 print:mt-3`}
+      className={`mb-2 mt-5 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.14em] ${accent} print:mb-1 print:mt-3`}
     >
       {children}
-      <span aria-hidden className="h-px flex-1 bg-[#dfe1e6]" />
+      <span aria-hidden className="h-px flex-1 bg-[#f1dfca]" />
     </h2>
   );
 }
@@ -65,7 +67,7 @@ export default function ResumePage() {
 
       {/* A light "paper" sheet in both themes, laid out like the PDF. */}
       <article className="mx-auto max-w-[210mm] rounded-lg bg-white px-5 py-8 text-[13px] leading-[1.5] text-[#2b2d33] shadow-[0_30px_80px_rgba(0,0,0,0.35)] sm:px-[13mm] sm:py-[12mm] print:max-w-none print:rounded-none print:p-0 print:text-[9pt] print:leading-[1.4] print:shadow-none">
-        <header className="border-b-2 border-[#111216] pb-3 print:pb-2">
+        <header className="border-b-2 border-[#b45309] pb-3 print:pb-2">
           <h1
             className={`text-[30px] font-bold leading-none tracking-[-0.025em] print:text-[26px] ${ink}`}
           >
@@ -116,7 +118,7 @@ export default function ResumePage() {
                   {job.dates}
                 </p>
               </div>
-              <ul className="mt-1 list-disc pl-4 marker:text-[#9a9ea8]">
+              <ul className="mt-1 list-disc pl-4 marker:text-[#d97706]">
                 {job.highlights.map((point) => (
                   <li key={point}>{point}</li>
                 ))}
