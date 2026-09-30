@@ -2,41 +2,14 @@ import type { Metadata } from "next";
 import { Download } from "lucide-react";
 import type { ReactNode } from "react";
 import { buttonClass } from "@/components/button";
-import { learningProjects, projects, type Project } from "@/lib/projects";
-import {
-  beforeCode,
-  education,
-  experience,
-  languages,
-  skills,
-  training,
-} from "@/lib/resume";
-import { siteConfig, socialLinks } from "@/lib/site.config";
+import { resumeDoc, type ResumeRow } from "@/lib/resume-document";
+import { siteConfig } from "@/lib/site.config";
 
 export const metadata: Metadata = {
   title: "Résumé",
   description: `Résumé of ${siteConfig.name}, ${siteConfig.title} in ${siteConfig.location}. Next.js, TypeScript, React and Tailwind CSS.`,
   alternates: { canonical: "/resume" },
 };
-
-/** Only show the portfolio address once a real domain is configured. */
-const portfolioUrl = siteConfig.url.includes("example.com")
-  ? null
-  : siteConfig.url.replace(/^https?:\/\//, "");
-
-const summary = `Frontend developer with ${siteConfig.experienceYears} years of experience shipping production websites, e-commerce features and admin dashboards in Next.js, TypeScript, React and Tailwind CSS. Switched to code in 2023 after eight years in finance and pharmaceutical sales, and brings that client communication and deadline discipline to every project.`;
-
-const statusNote: Partial<Record<Project["status"], string>> = {
-  "launching-soon": "preview",
-  "in-progress": "in progress",
-};
-
-const projectsBySlug = new Map(projects.map((p) => [p.slug, p]));
-
-/** "Master of Business Studies (MBS)" -> "MBS" */
-function shortTitle(title: string): string {
-  return title.match(/\(([^)]+)\)$/)?.[1] ?? title;
-}
 
 const ink = "text-[#111216]";
 const muted = "text-[#5b606b]";
@@ -54,32 +27,23 @@ function Heading({ children }: { children: ReactNode }) {
   );
 }
 
-/** A label/value row, used for skills, education and training. */
-function Row({ label, children }: { label: string; children: ReactNode }) {
+/** Label/value rows, used for skills, education and training. */
+function Rows({ rows }: { rows: ResumeRow[] }) {
   return (
-    <div className="flex gap-3">
-      <dt className={`w-[112px] flex-none font-semibold ${ink}`}>{label}</dt>
-      <dd>{children}</dd>
-    </div>
+    <dl className="grid gap-0.5">
+      {rows.map((row) => (
+        <div key={row.label} className="flex gap-3">
+          <dt className={`w-[112px] flex-none font-semibold ${ink}`}>
+            {row.label}
+          </dt>
+          <dd>{row.value}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }
 
 export default function ResumePage() {
-  const contacts = [
-    { label: siteConfig.author.email, href: socialLinks.email },
-    portfolioUrl ? { label: portfolioUrl, href: siteConfig.url } : null,
-    socialLinks.linkedin
-      ? {
-          label: `linkedin.com/in/${siteConfig.author.linkedin}`,
-          href: socialLinks.linkedin,
-        }
-      : null,
-    {
-      label: `github.com/${siteConfig.author.github}`,
-      href: socialLinks.github,
-    },
-  ].filter((c) => c !== null);
-
   return (
     <main className="px-4 pb-24 pt-[112px] sm:pt-[132px] print:p-0">
       <div className="mx-auto mb-6 flex max-w-[210mm] flex-wrap items-center justify-between gap-3 print:hidden">
@@ -99,25 +63,25 @@ export default function ResumePage() {
         </a>
       </div>
 
-      {/* A light "paper" sheet in both themes, so it prints the same way it looks. */}
+      {/* A light "paper" sheet in both themes, laid out like the PDF. */}
       <article className="mx-auto max-w-[210mm] rounded-lg bg-white px-5 py-8 text-[13px] leading-[1.5] text-[#2b2d33] shadow-[0_30px_80px_rgba(0,0,0,0.35)] sm:px-[13mm] sm:py-[12mm] print:max-w-none print:rounded-none print:p-0 print:text-[9pt] print:leading-[1.4] print:shadow-none">
         <header className="border-b-2 border-[#111216] pb-3 print:pb-2">
           <h1
             className={`text-[30px] font-bold leading-none tracking-[-0.025em] print:text-[26px] ${ink}`}
           >
-            {siteConfig.name}
+            {resumeDoc.name}
           </h1>
           <p className={`mt-2 text-[15px] font-semibold ${ink}`}>
-            {siteConfig.title}
+            {resumeDoc.title}
             <span className={`font-normal ${muted}`}>
               {" "}
-              · Next.js · TypeScript · React · {siteConfig.location}
+              · {resumeDoc.tagline}
             </span>
           </p>
           <ul
             className={`mt-1.5 flex flex-wrap items-center gap-x-2.5 text-[12px] ${muted}`}
           >
-            {contacts.map((c, i) => (
+            {resumeDoc.contacts.map((c, i) => (
               <li key={c.href} className="flex items-center gap-x-2.5">
                 {i > 0 ? (
                   <span
@@ -133,98 +97,76 @@ export default function ResumePage() {
           </ul>
         </header>
 
-        <p className="mt-3 print:mt-2">{summary}</p>
+        <p className="mt-3 print:mt-2">{resumeDoc.summary}</p>
 
         <Heading>Skills</Heading>
-        <dl className="grid gap-0.5">
-          {skills.map((group) => (
-            <Row key={group.category} label={group.category}>
-              {group.items
-                .map((item) =>
-                  item.note ? `${item.name} (${item.note})` : item.name
-                )
-                .join(", ")}
-            </Row>
-          ))}
-          <Row label="Spoken">{languages.join(", ")}</Row>
-        </dl>
+        <Rows rows={resumeDoc.skills} />
 
         <Heading>Experience</Heading>
         <div className="grid gap-3.5 print:gap-2">
-          {experience.map((job) => {
-            const sites = (job.projects ?? [])
-              .map((slug) => projectsBySlug.get(slug))
-              .filter((p): p is Project => Boolean(p?.url && !p.hidden));
-
-            return (
-              <section
-                key={`${job.company}-${job.role}-${job.start}`}
-                className="break-inside-avoid"
-              >
-                <div className="flex flex-wrap items-baseline justify-between gap-x-3">
-                  <h3 className={`font-semibold ${ink}`}>
-                    {job.role}
-                    <span className={`font-normal ${muted}`}> · </span>
-                    {job.company}
-                  </h3>
-                  <p className={`text-[12px] tabular-nums ${muted}`}>
-                    {job.start ? `${job.start} – ${job.end}` : job.end}
-                  </p>
-                </div>
-                <ul className="mt-1 list-disc pl-4 marker:text-[#9a9ea8]">
-                  {job.highlights.map((point) => (
-                    <li key={point}>{point}</li>
+          {resumeDoc.jobs.map((job) => (
+            <section key={job.key} className="break-inside-avoid">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+                <h3 className={`font-semibold ${ink}`}>
+                  {job.role}
+                  <span className={`font-normal ${muted}`}> · </span>
+                  {job.company}
+                </h3>
+                <p className={`text-[12px] tabular-nums ${muted}`}>
+                  {job.dates}
+                </p>
+              </div>
+              <ul className="mt-1 list-disc pl-4 marker:text-[#9a9ea8]">
+                {job.highlights.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+              {job.sites.length > 0 ? (
+                <p className={`mt-1 pl-4 text-[12px] ${muted}`}>
+                  <span className={`font-medium ${ink}`}>
+                    {job.sites.length > 1 ? "Sites" : "Site"}:
+                  </span>{" "}
+                  {job.sites.map((site, i) => (
+                    <span key={site.href}>
+                      {i > 0 ? " · " : ""}
+                      <a
+                        href={site.href}
+                        className={`inline-block py-1 print:py-0 ${link}`}
+                      >
+                        {site.label}
+                      </a>
+                      {site.note ? ` (${site.note})` : ""}
+                    </span>
                   ))}
-                </ul>
-                {sites.length > 0 ? (
-                  <p className={`mt-1 pl-4 text-[12px] ${muted}`}>
-                    <span className={`font-medium ${ink}`}>
-                      {sites.length > 1 ? "Sites" : "Site"}:
-                    </span>{" "}
-                    {sites.map((p, i) => (
-                      <span key={p.slug}>
-                        {i > 0 ? " · " : ""}
-                        <a
-                          href={p.url}
-                          className={`inline-block py-1 print:py-0 ${link}`}
-                        >
-                          {p.displayUrl}
-                        </a>
-                        {statusNote[p.status]
-                          ? ` (${statusNote[p.status]})`
-                          : ""}
-                      </span>
-                    ))}
-                  </p>
-                ) : null}
-              </section>
-            );
-          })}
+                </p>
+              ) : null}
+            </section>
+          ))}
           <p className="break-inside-avoid">
             <span className={`font-semibold ${ink}`}>
-              Before tech, 2014–2022:
+              {resumeDoc.beforeTech.label}
             </span>{" "}
-            {beforeCode.map((row) => `${row.role}, ${row.company}`).join(" · ")}
+            {resumeDoc.beforeTech.value}
           </p>
         </div>
 
         <Heading>Personal projects</Heading>
         <ul className="grid gap-1.5 print:gap-0.5">
-          {learningProjects.map((project) => (
-            <li key={project.slug} className="break-inside-avoid">
+          {resumeDoc.projects.map((project) => (
+            <li key={project.key} className="break-inside-avoid">
               <div className="flex flex-wrap items-baseline justify-between gap-x-3">
                 <p>
                   <span className={`font-semibold ${ink}`}>
                     {project.title}
                   </span>
-                  <span className={muted}> · {project.tech.join(", ")}</span>
+                  <span className={muted}> · {project.tech}</span>
                 </p>
-                {project.url ? (
+                {project.link ? (
                   <a
-                    href={project.url}
+                    href={project.link.href}
                     className={`inline-block py-1 text-[12px] print:py-0 ${muted} ${link}`}
                   >
-                    {project.url.replace(/^https?:\/\/|\/$/g, "")}
+                    {project.link.label}
                   </a>
                 ) : null}
               </div>
@@ -234,18 +176,7 @@ export default function ResumePage() {
         </ul>
 
         <Heading>Education & training</Heading>
-        <dl className="grid gap-0.5">
-          <Row label="Education">
-            {education
-              .map(
-                (row) => `${shortTitle(row.title)}, ${row.place} (${row.year})`
-              )
-              .join(" · ")}
-          </Row>
-          <Row label="Training">
-            {training.map((t) => `${t.title} (${t.place})`).join(" · ")}
-          </Row>
-        </dl>
+        <Rows rows={resumeDoc.education} />
       </article>
     </main>
   );

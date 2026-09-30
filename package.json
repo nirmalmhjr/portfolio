@@ -17,6 +17,7 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@react-pdf/renderer": "^4.9.0",
     "clsx": "^2.1.1",
     "feed": "^4.2.2",
     "gray-matter": "^4.0.3",

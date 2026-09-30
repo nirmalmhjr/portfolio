@@ -22,6 +22,7 @@ module.exports = {
   // Non-page routes that Next emits into the build manifest.
   exclude: [
     "/rss.xml",
+    "/resume.pdf",
     "/icon.svg",
     "/apple-icon",
     "/opengraph-image",

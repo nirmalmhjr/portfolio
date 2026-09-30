@@ -50,7 +50,7 @@ export const siteConfig = {
   /** Years of frontend experience, used in the hero, facts row and ledger. */
   experienceYears: "1.5+",
 
-  /** Served from /public. Replace the file to update your CV. */
+  /** Generated from lib/resume.ts and lib/projects.ts (app/resume.pdf/route.ts). */
   resumeUrl: "/resume.pdf",
   resumeFileName: "Nirmal-Maharjan-Resume.pdf",
 

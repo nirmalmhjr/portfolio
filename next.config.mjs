@@ -8,7 +8,8 @@ const nextConfig = {
   reactStrictMode: true,
   pageExtensions: ["ts", "tsx", "js", "jsx"],
   // rehype-pretty-code / shiki ship large grammars; keep them server-only.
-  serverExternalPackages: ["shiki"],
+  // @react-pdf/renderer draws /resume.pdf and must run as a plain Node package.
+  serverExternalPackages: ["shiki", "@react-pdf/renderer"],
   // This project lives inside a folder with other lockfiles; pin the trace root
   // so Vercel bundles the right files.
   outputFileTracingRoot: __dirname,
