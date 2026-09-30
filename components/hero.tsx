@@ -1,14 +1,13 @@
-import Image from "next/image";
 import { Code, Download, Github, Linkedin, Mail } from "lucide-react";
 import { AvailableBadge } from "@/components/available-badge";
 import { buttonClass, iconButtonClass } from "@/components/button";
 import { Container } from "@/components/container";
 import { GlowBackdrop } from "@/components/glow-backdrop";
 import { KathmanduClock } from "@/components/kathmandu-clock";
+import { ProfileCode } from "@/components/profile-code";
 import { facts } from "@/lib/resume";
 import { siteConfig, socialLinks } from "@/lib/site.config";
 import { cn } from "@/lib/utils";
-import portrait from "@/public/me.jpg";
 
 const floatChip =
   "absolute flex items-center gap-2.5 whitespace-nowrap rounded-[14px] border border-line-strong bg-surface/90 px-3.5 py-2.5 text-[13px] text-muted shadow-[0_10px_30px_rgba(0,0,0,0.22)] backdrop-blur-md";
@@ -95,25 +94,18 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="rise relative ml-5 w-full max-w-[260px] [animation-delay:180ms] sm:ml-6 sm:max-w-[340px] lg:ml-0 lg:max-w-[380px] lg:justify-self-end">
+          <div className="rise relative w-full max-w-[340px] [animation-delay:180ms] sm:ml-6 sm:max-w-[380px] lg:ml-0 lg:justify-self-end">
             <div
               aria-hidden
               className="absolute inset-[8%_-6%_-6%_8%] -z-10 rounded-[32px] bg-gradient-to-br from-a1 to-a2 opacity-[calc(var(--glow)*1.1)] blur-[40px]"
             />
             <div className="rounded-[28px] bg-[linear-gradient(145deg,rgb(var(--a1)/0.6),var(--line)_40%,rgb(var(--a2)/0.6))] p-1.5">
-              <Image
-                src={portrait}
-                alt={`Portrait of ${siteConfig.name}`}
-                priority
-                placeholder="blur"
-                sizes="(min-width: 1024px) 380px, (min-width: 640px) 340px, 260px"
-                className="aspect-[1/1.08] w-full rounded-[22px] object-cover object-[50%_18%]"
-              />
+              <ProfileCode />
             </div>
             <div
               className={cn(
                 floatChip,
-                "-left-5 bottom-5 animate-bob sm:-left-[34px] sm:bottom-[34px]"
+                "-bottom-6 -left-2 animate-bob sm:-left-[34px]"
               )}
             >
               <span
@@ -132,7 +124,7 @@ export function Hero() {
             <div
               className={cn(
                 floatChip,
-                "-right-3 top-4 animate-bob [animation-delay:-5s] sm:-right-[18px] sm:top-[26px]"
+                "-right-2 -top-5 animate-bob [animation-delay:-5s] sm:-right-[18px] sm:-top-6"
               )}
             >
               <span>

@@ -699,6 +699,15 @@
     background-color: rgb(var(--ink));
   }
 
+  /* ---------- Hero profile card ---------- */
+  /* Sized from the card's width so the longest line always fits. */
+  .profile-code {
+    display: grid;
+    font-size: 12px;
+    font-size: clamp(10px, 4.2cqi, 13.5px);
+    line-height: 1.9;
+  }
+
   /* ---------- Hero entrance ---------- */
   .rise {
     animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
