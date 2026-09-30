@@ -38,6 +38,8 @@ export interface ExperienceItem {
   tech: string[];
   /** Tech that gets the accent highlight. */
   primaryTech?: string[];
+  /** Project slugs (lib/projects.ts) built in this role, linked on /resume. */
+  projects?: string[];
 }
 
 export const experience: ExperienceItem[] = [
@@ -52,10 +54,19 @@ export const experience: ExperienceItem[] = [
     highlights: [
       "Built the Paradise Hills Resort website and its admin dashboard entirely on my own (launching soon).",
       "Built the entire CMS admin dashboard that powers the company's new website, and about half of the site's frontend.",
+      "On the Luxe multi-vendor e-commerce team, built the account and order pages, product search, blog, and brand, category and sale pages, and worked on checkout, Google sign-in and the wishlist.",
       "Redesigned the landing pages for Plexler (an AI learning platform), Sierra Adventurer and Prabhu Adventure, plus reusable inner-page components for Prabhu.",
     ],
-    tech: ["Next.js", "TypeScript", "Tailwind CSS"],
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "TanStack Query"],
     primaryTech: ["Next.js", "TypeScript"],
+    projects: [
+      "paradise-hills",
+      "plex-bit",
+      "luxe",
+      "plexler",
+      "sierra-adventurer",
+      "prabhu-adventure",
+    ],
   },
   {
     role: "Frontend Developer",
@@ -71,6 +82,7 @@ export const experience: ExperienceItem[] = [
     ],
     tech: ["React", "Next.js", "Tailwind CSS", "REST APIs"],
     primaryTech: ["React", "Next.js"],
+    projects: ["galli-maps"],
   },
   {
     role: "Frontend Developer",
@@ -82,6 +94,7 @@ export const experience: ExperienceItem[] = [
       "Modernized the codebase for better performance and easier long-term maintenance.",
     ],
     tech: ["Vue 3", "Nuxt 3"],
+    projects: ["meromenu"],
   },
   {
     role: "Frontend Intern",
@@ -179,6 +192,7 @@ export const skills: SkillGroup[] = [
     category: "Data & tools",
     items: [
       { name: "REST APIs" },
+      { name: "TanStack Query" },
       { name: "Node.js" },
       { name: "MongoDB" },
       { name: "Git & GitHub" },

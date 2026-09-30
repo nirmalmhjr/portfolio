@@ -1,5 +1,6 @@
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import {
   ArrowDown,
   ArrowRight,
@@ -15,10 +16,30 @@ import { buttonClass } from "@/components/button";
 import { TechPills } from "@/components/pills";
 import type { Project, SmallBuild, SmallBuildStep } from "@/lib/projects";
 import { experience } from "@/lib/resume";
+import { cn } from "@/lib/utils";
 
-/** Client work: the featured project first, then a grid. */
-export function WorkGrid({ projects }: { projects: Project[] }) {
+const smSpan = { 1: "sm:col-span-1", 2: "sm:col-span-2" } as const;
+const lgSpan = {
+  1: "lg:col-span-1",
+  2: "lg:col-span-2",
+  3: "lg:col-span-3",
+} as const;
+
+/**
+ * Client work: the featured project first, then a grid. `children` (such as
+ * the "view all" card) goes after the cards and widens to fill the rest of
+ * the last row, so no column is left empty at any width.
+ */
+export function WorkGrid({
+  projects,
+  children,
+}: {
+  projects: Project[];
+  children?: ReactNode;
+}) {
   const hasCompare = projects.some((p) => p.media.type === "compare");
+  // Featured cards span full rows, so only the regular ones leave gaps.
+  const cards = projects.filter((p) => !p.featured).length;
 
   return (
     <div>
@@ -49,6 +70,17 @@ export function WorkGrid({ projects }: { projects: Project[] }) {
             <ProjectCard key={project.slug} project={project} />
           )
         )}
+        {children ? (
+          <div
+            className={cn(
+              "grid [container-type:inline-size]",
+              smSpan[cards % 2 === 0 ? 2 : 1],
+              lgSpan[(3 - (cards % 3)) as 1 | 2 | 3]
+            )}
+          >
+            {children}
+          </div>
+        ) : null}
       </div>
     </div>
   );
@@ -196,8 +228,10 @@ export function AllProjectsCta({
   previews: { title: string; image: StaticImageData }[];
 }) {
   return (
-    <div className="card mt-6 flex flex-col gap-5 p-5 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:px-6">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+    // Laid out by its own width (WorkGrid makes it a size container): a tile
+    // when it shares a row with a card, a strip when it has the row to itself.
+    <div className="card flex flex-col justify-center gap-5 p-5 sm:px-6 [@container(min-width:720px)]:flex-row [@container(min-width:720px)]:items-center [@container(min-width:720px)]:justify-between [@container(min-width:720px)]:gap-8">
+      <div className="flex flex-col gap-4 [@container(min-width:720px)]:flex-row [@container(min-width:720px)]:items-center">
         <span aria-hidden className="flex flex-none pl-3">
           {previews.map((preview) => (
             <span
@@ -215,14 +249,17 @@ export function AllProjectsCta({
           ))}
         </span>
         <p className="max-w-[52ch] text-[15px] text-muted">
-          <span className="font-medium text-fg">More projects</span>{" "}
-          on the projects page: the rest of my client work, things I built to
-          learn, and the small apps where I started.
+          <span className="font-medium text-fg">More projects</span> on the
+          projects page: the rest of my client work, things I built to learn,
+          and the small apps where I started.
         </p>
       </div>
       <Link
         href="/projects"
-        className={buttonClass("primary", "flex-none self-start sm:self-auto")}
+        className={buttonClass(
+          "primary",
+          "flex-none self-start [@container(min-width:720px)]:self-auto"
+        )}
       >
         View all projects
         <ArrowRight aria-hidden />

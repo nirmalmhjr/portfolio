@@ -833,7 +833,7 @@ code[data-theme] span {
 
 @page {
   size: A4;
-  margin: 10mm 13mm;
+  margin: 9mm 13mm;
 }
 
 @media print {

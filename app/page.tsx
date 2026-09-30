@@ -35,11 +35,12 @@ export default function HomePage() {
           title="Work I've built"
           description="A few client projects from my jobs. Each card says exactly which part I built."
         />
-        <WorkGrid projects={homeWorkProjects} />
-        <AllProjectsCta
-          count={moreProjects.count}
-          previews={moreProjects.previews}
-        />
+        <WorkGrid projects={homeWorkProjects}>
+          <AllProjectsCta
+            count={moreProjects.count}
+            previews={moreProjects.previews}
+          />
+        </WorkGrid>
       </Section>
 
       <Section id="strengths">

@@ -11,7 +11,7 @@ function ContactRow({
   action,
 }: {
   label: string;
-  value: string;
+  value: ReactNode;
   href?: string;
   action?: ReactNode;
 }) {
@@ -51,6 +51,8 @@ function ContactRow({
 }
 
 const highlight = "Let's talk";
+// Lets a very narrow card break the address after the "@" (<wbr> isn't copied).
+const [emailUser, emailDomain] = siteConfig.author.email.split("@");
 
 export function ContactCard({
   title = "Hiring a frontend developer? Let's talk.",
@@ -58,7 +60,7 @@ export function ContactCard({
   title?: string;
 }) {
   return (
-    <div className="relative isolate grid items-end gap-10 overflow-hidden rounded-[28px] border border-line bg-surface p-8 shadow-[var(--card-shadow)] sm:p-12 lg:grid-cols-[1.4fr_1fr] lg:p-16">
+    <div className="relative isolate grid grid-cols-[minmax(0,1fr)] items-end gap-10 overflow-hidden rounded-[28px] border border-line bg-surface p-6 shadow-[var(--card-shadow)] sm:p-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:p-16">
       <div
         aria-hidden
         className="absolute -bottom-[170px] -right-[140px] -z-10 h-[340px] w-[560px] rounded-full bg-gradient-to-br from-a1 to-a2 opacity-[calc(var(--glow)*0.75)] blur-[90px]"
@@ -98,10 +100,16 @@ export function ContactCard({
         </div>
       </div>
 
-      <div className="grid gap-2.5">
+      {/* A size container, so the copy button can drop its label when narrow. */}
+      <div className="grid gap-2.5 [container-type:inline-size]">
         <ContactRow
           label="Email"
-          value={siteConfig.author.email}
+          value={
+            <>
+              {emailUser}@<wbr />
+              {emailDomain}
+            </>
+          }
           action={<CopyButton value={siteConfig.author.email} />}
         />
         <ContactRow

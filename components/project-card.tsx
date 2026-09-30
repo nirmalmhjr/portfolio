@@ -147,8 +147,12 @@ export function FeaturedProjectCard({
   return (
     <article
       className={cn(
-        "project card spot grid sm:col-span-2 lg:col-span-3",
-        reverse ? "lg:grid-cols-[1fr_1.35fr]" : "lg:grid-cols-[1.35fr_1fr]"
+        // minmax(0, …) tracks: a long address in the browser bar truncates
+        // instead of widening the card past the screen on phones.
+        "project card spot grid grid-cols-[minmax(0,1fr)] sm:col-span-2 lg:col-span-3",
+        reverse
+          ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.35fr)]"
+          : "lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]"
       )}
     >
       <div
