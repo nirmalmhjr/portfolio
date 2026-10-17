@@ -83,6 +83,19 @@ const contacts: ResumeLink[] = [
   },
 ];
 
+/**
+ * PDF only. Kept here, not in site.config.ts, because site config is bundled
+ * into client JavaScript and the phone would end up on every page.
+ */
+const phone = "+977 9841684197";
+
+/** The PDF's contact line: the phone goes right after the email. */
+export const pdfContacts: ResumeLink[] = [
+  contacts[0],
+  { label: phone, href: `tel:${phone.replace(/[^\d+]/g, "")}` },
+  ...contacts.slice(1),
+];
+
 const jobs: ResumeJob[] = experience.map((job) => ({
   key: `${job.company}-${job.role}-${job.start}`,
   role: job.role,

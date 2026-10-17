@@ -17,7 +17,8 @@ export default function ResumePage() {
         <div>
           <p className="eyebrow">Résumé</p>
           <p className="mt-2 text-sm text-muted">
-            Same content as the PDF, always up to date.
+            Same content as the PDF, always up to date. The PDF also has my
+            phone number.
           </p>
         </div>
         <a

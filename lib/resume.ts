@@ -47,8 +47,7 @@ export const experience: ExperienceItem[] = [
     role: "Frontend Developer",
     company: "Plex Bit Infosystems",
     companyUrl: "https://pbinfosystems.com",
-    // TODO: add your start month, e.g. "Jul 2025".
-    start: "",
+    start: "February 2026",
     end: "Present",
     current: true,
     highlights: [

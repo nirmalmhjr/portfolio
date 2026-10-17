@@ -10,7 +10,11 @@ import {
   renderToBuffer,
 } from "@react-pdf/renderer";
 import type { ReactNode } from "react";
-import { resumeDoc, type ResumeRow } from "@/lib/resume-document";
+import {
+  pdfContacts,
+  resumeDoc,
+  type ResumeRow,
+} from "@/lib/resume-document";
 import { siteConfig } from "@/lib/site.config";
 
 /**
@@ -72,18 +76,20 @@ const s = StyleSheet.create({
     fontWeight: 600,
     color: color.ink,
   },
+  // 7.5pt so email, phone, site, LinkedIn and GitHub fit on one line.
   contacts: {
     marginTop: 3,
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "center",
+    fontSize: 7.5,
     color: color.muted,
   },
   contact: { color: color.muted, textDecoration: "none" },
   divider: {
     width: 0.75,
-    height: 9,
-    marginHorizontal: 7.5,
+    height: 7.5,
+    marginHorizontal: 4.5,
     backgroundColor: color.divider,
   },
   summary: { marginTop: 6 },
@@ -166,7 +172,7 @@ function ResumePdf() {
             <Text style={s.muted}> · {doc.tagline}</Text>
           </Text>
           <View style={s.contacts}>
-            {doc.contacts.map((c, i) => (
+            {pdfContacts.map((c, i) => (
               <View
                 key={c.href}
                 style={{ flexDirection: "row", alignItems: "center" }}
