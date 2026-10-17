@@ -7,12 +7,7 @@ import type { Config } from "tailwindcss";
  * opacity modifiers work (e.g. bg-surface/80).
  */
 const config: Config = {
-  content: [
-    "./app/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./lib/**/*.{ts,tsx}",
-    "./content/**/*.{md,mdx}",
-  ],
+  content: ["./src/**/*.{ts,tsx}", "./content/**/*.{md,mdx}"],
   darkMode: "class",
   plugins: [typography],
   theme: {

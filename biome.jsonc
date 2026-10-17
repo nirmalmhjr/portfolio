@@ -4,5 +4,51 @@
     "ultracite/biome/core",
     "ultracite/biome/react",
     "ultracite/biome/next"
+  ],
+  "linter": {
+    "rules": {
+      "performance": {
+        // frontend.mdc: "avoid unnecessary useCallback". Handlers passed to DOM
+        // elements gain nothing from stable references, so this rule is off.
+        "noJsxPropsBind": "off"
+      }
+    }
+  },
+  "overrides": [
+    {
+      // .cursor/rules/frontend.mdc names component files in PascalCase;
+      // everything else (ui primitives, hooks, utils) stays kebab-case.
+      "includes": [
+        "src/components/shared/**/*.tsx",
+        "src/features/*/components/**/*.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "useFilenamingConvention": {
+              "level": "error",
+              "options": {
+                "filenameCases": ["PascalCase"],
+                "requireAscii": true
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      // Tailwind v3 directives.
+      "includes": ["src/styles/globals.css"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noUnknownAtRules": {
+              "level": "error",
+              "options": { "ignore": ["tailwind"] }
+            }
+          }
+        }
+      }
+    }
   ]
 }

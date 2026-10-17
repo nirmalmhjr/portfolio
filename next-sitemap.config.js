@@ -7,12 +7,27 @@
  *
  * @type {import('next-sitemap').IConfig}
  */
+// Runs in plain Node after the build, outside the app, so it reads
+// process.env directly instead of going through src/env (keep the default in
+// sync with DEFAULT_SITE_URL in src/env/client.ts).
 const siteUrl = (
   process.env.NEXT_PUBLIC_SITE_URL || "https://nirmal-maharjan.com.np"
 ).replace(/\/$/, "");
 
-// /uses renders a 404 until lib/uses.json has content, so keep it out of the sitemap.
-const usesIsEmpty = require("./lib/uses.json").length === 0;
+// /uses renders a 404 until src/features/uses/constants/uses.json has content, so keep it out of the sitemap.
+const usesIsEmpty =
+  require("./src/features/uses/constants/uses.json").length === 0;
+
+/** Homepage first, then blog posts, then everything else. */
+function sitemapPriority(url, fallback) {
+  if (url === "/") {
+    return 1.0;
+  }
+  if (url.startsWith("/blog/")) {
+    return 0.8;
+  }
+  return fallback;
+}
 
 module.exports = {
   changefreq: "weekly",
@@ -36,7 +51,6 @@ module.exports = {
     changefreq: url.startsWith("/blog/") ? "monthly" : config.changefreq,
     lastmod: new Date().toISOString(),
     loc: url,
-    priority:
-      url === "/" ? 1.0 : url.startsWith("/blog/") ? 0.8 : config.priority,
+    priority: sitemapPriority(url, config.priority),
   }),
 };

@@ -1,0 +1,42 @@
+"use client";
+
+import { Check, Copy } from "lucide-react";
+import { useState } from "react";
+
+/** How long the "Copied" confirmation stays before the label resets. */
+const COPIED_RESET_MS = 1800;
+
+interface CopyButtonProps {
+  readonly value: string;
+}
+
+export function CopyButton({ value }: CopyButtonProps) {
+  const [copied, setCopied] = useState(false);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), COPIED_RESET_MS);
+    } catch {
+      // Clipboard can be blocked; the value stays selectable on the page.
+    }
+  };
+
+  return (
+    <button
+      className="inline-flex h-8 flex-none items-center justify-center gap-1.5 rounded-full border border-line-strong px-3 font-medium text-[13px] text-fg transition-colors hover:bg-raised [&_svg]:h-3.5 [&_svg]:w-3.5 [@container(max-width:305px)]:w-8 [@container(max-width:305px)]:px-0"
+      onClick={copy}
+      type="button"
+    >
+      {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
+      {/* Icon only inside a narrow container; the label stays for screen readers. */}
+      <span
+        aria-live="polite"
+        className="[@container(max-width:305px)]:sr-only"
+      >
+        {copied ? "Copied" : "Copy"}
+      </span>
+    </button>
+  );
+}
