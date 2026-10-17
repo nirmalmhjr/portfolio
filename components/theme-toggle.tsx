@@ -17,13 +17,13 @@ export function ThemeToggle() {
 
   return (
     <button
-      type="button"
-      role="switch"
       aria-checked={isDark}
       aria-label="Dark mode"
-      title={isDark ? "Switch to light mode" : "Switch to dark mode"}
       className="theme-switch"
       onClick={() => setTheme(isDark ? "light" : "dark")}
+      role="switch"
+      title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      type="button"
     >
       <span aria-hidden className="theme-switch-knob" />
       <Sun aria-hidden className="icon-sun" />

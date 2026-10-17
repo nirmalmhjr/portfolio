@@ -15,10 +15,7 @@ const siteUrl = (
 const usesIsEmpty = require("./lib/uses.json").length === 0;
 
 module.exports = {
-  siteUrl,
-  generateRobotsTxt: true,
   changefreq: "weekly",
-  priority: 0.7,
   // Non-page routes that Next emits into the build manifest.
   exclude: [
     "/rss.xml",
@@ -29,14 +26,17 @@ module.exports = {
     "/opengraph-image/*",
     ...(usesIsEmpty ? ["/uses"] : []),
   ],
+  generateRobotsTxt: true,
+  priority: 0.7,
   robotsTxtOptions: {
-    policies: [{ userAgent: "*", allow: "/" }],
+    policies: [{ allow: "/", userAgent: "*" }],
   },
+  siteUrl,
   transform: async (config, url) => ({
-    loc: url,
     changefreq: url.startsWith("/blog/") ? "monthly" : config.changefreq,
+    lastmod: new Date().toISOString(),
+    loc: url,
     priority:
       url === "/" ? 1.0 : url.startsWith("/blog/") ? 0.8 : config.priority,
-    lastmod: new Date().toISOString(),
   }),
 };

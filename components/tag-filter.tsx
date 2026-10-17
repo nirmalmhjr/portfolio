@@ -4,7 +4,9 @@ import { cn } from "@/lib/utils";
 
 export function TagFilter({ activeTag }: { activeTag?: string }) {
   const tags = getAllTags();
-  if (tags.length === 0) return null;
+  if (tags.length === 0) {
+    return null;
+  }
 
   const active = activeTag?.toLowerCase();
   const base =
@@ -15,9 +17,9 @@ export function TagFilter({ activeTag }: { activeTag?: string }) {
   return (
     <nav aria-label="Filter posts by tag" className="flex flex-wrap gap-2">
       <Link
+        aria-current={active ? undefined : "page"}
+        className={cn(base, active ? off : on)}
         href="/blog"
-        aria-current={!active ? "page" : undefined}
-        className={cn(base, !active ? on : off)}
       >
         All
       </Link>
@@ -25,10 +27,10 @@ export function TagFilter({ activeTag }: { activeTag?: string }) {
         const isActive = active === tag.toLowerCase();
         return (
           <Link
-            key={tag}
-            href={`/blog/tag/${tagSlug(tag)}`}
             aria-current={isActive ? "page" : undefined}
             className={cn(base, isActive ? on : off)}
+            href={`/blog/tag/${tagSlug(tag)}`}
+            key={tag}
           >
             {tag}
             <span className="font-mono text-[11px] opacity-60">{count}</span>

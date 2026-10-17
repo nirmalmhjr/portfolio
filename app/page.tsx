@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { BeforeCode } from "@/components/before-code";
 import { ContactCard } from "@/components/contact-card";
 import { Section } from "@/components/container";
@@ -30,10 +30,10 @@ export default function HomePage() {
 
       <Section id="projects">
         <SectionHeading
-          watermark="Work"
+          description="A few client projects from my jobs. Each card says exactly which part I built."
           eyebrow="Projects"
           title="Work I've built"
-          description="A few client projects from my jobs. Each card says exactly which part I built."
+          watermark="Work"
         />
         <WorkGrid projects={homeWorkProjects}>
           <AllProjectsCta
@@ -45,19 +45,19 @@ export default function HomePage() {
 
       <Section id="strengths">
         <SectionHeading
-          watermark="Strengths"
+          description="Each point is backed by real work on this page."
           eyebrow="What I bring"
           title="Why teams hire me"
-          description="Each point is backed by real work on this page."
+          watermark="Strengths"
         />
         <StrengthsGrid />
       </Section>
 
       <Section id="experience">
         <SectionHeading
-          watermark="Experience"
           eyebrow="Experience"
           title="Where I've worked"
+          watermark="Experience"
         />
         <ExperienceTimeline items={experience} />
       </Section>
@@ -66,27 +66,27 @@ export default function HomePage() {
         <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-14">
           <div>
             <SectionHeading
-              watermark="About"
               eyebrow="About me"
               title={
                 <>
                   From ledgers to{" "}
-                  <em className="text-gradient pr-[0.05em] font-serif font-normal tracking-[-0.01em]">
+                  <em className="pr-[0.05em] font-normal font-serif text-gradient tracking-[-0.01em]">
                     layouts
                   </em>
                   .
                 </>
               }
+              watermark="About"
             />
-            <div className="mt-6 grid max-w-[58ch] gap-4 text-[17px] leading-[1.75] text-muted">
+            <div className="mt-6 grid max-w-[58ch] gap-4 text-[17px] text-muted leading-[1.75]">
               {story.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
             <BeyondCode />
             <Link
+              className="mt-7 inline-flex items-center gap-1.5 text-ink text-sm hover:underline hover:underline-offset-[3px]"
               href="/about"
-              className="mt-7 inline-flex items-center gap-1.5 text-sm text-ink hover:underline hover:underline-offset-[3px]"
             >
               More about me
               <ArrowRight aria-hidden className="h-3.5 w-3.5" />
@@ -100,10 +100,10 @@ export default function HomePage() {
 
       <Section id="skills">
         <SectionHeading
-          watermark="Stack"
+          description="Highlighted tools are what I use every day. Vue and Nuxt are from earlier roles."
           eyebrow="Technical skills"
           title="What I work with"
-          description="Highlighted tools are what I use every day. Vue and Nuxt are from earlier roles."
+          watermark="Stack"
         />
         <SkillsGrid />
       </Section>
@@ -111,9 +111,9 @@ export default function HomePage() {
       {testimonials.length > 0 ? (
         <Section id="testimonials">
           <SectionHeading
-            watermark="Kind words"
             eyebrow="Testimonials"
             title="What people say"
+            watermark="Kind words"
           />
           <TestimonialsGrid />
         </Section>
@@ -122,11 +122,11 @@ export default function HomePage() {
       {latestPosts.length > 0 ? (
         <Section id="blog">
           <SectionHeading
-            watermark="Writing"
-            eyebrow="Blog"
-            title="Latest articles"
             description="What I learn while building, written down so it sticks."
+            eyebrow="Blog"
             link={{ href: "/blog", label: "Read all articles" }}
+            title="Latest articles"
+            watermark="Writing"
           />
           <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {latestPosts.map((post) => (

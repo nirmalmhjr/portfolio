@@ -1,8 +1,8 @@
 "use client";
 
-import Image, { type StaticImageData } from "next/image";
 import { ChevronsLeftRight } from "lucide-react";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import Image, { type StaticImageData } from "next/image";
+import { type CSSProperties, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -35,7 +35,9 @@ export function BeforeAfter({
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || !("IntersectionObserver" in window)) return;
+    if (!(el && "IntersectionObserver" in window)) {
+      return;
+    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry?.isIntersecting) {
@@ -51,26 +53,26 @@ export function BeforeAfter({
 
   return (
     <div
-      ref={ref}
       className={cn("ba", hint && "ba-hint")}
-      style={{ "--pos": `${pos}%` } as CSSProperties}
       onAnimationEnd={() => setHint(false)}
+      ref={ref}
+      style={{ "--pos": `${pos}%` } as CSSProperties}
     >
       <Image
-        src={after}
         alt={afterAlt}
-        fill
-        sizes={sizes}
-        placeholder="blur"
         className="pointer-events-none object-cover object-top"
+        fill
+        placeholder="blur"
+        sizes={sizes}
+        src={after}
       />
       <Image
-        src={before}
         alt={beforeAlt}
-        fill
-        sizes={sizes}
-        placeholder="blur"
         className="ba-before pointer-events-none object-cover object-top"
+        fill
+        placeholder="blur"
+        sizes={sizes}
+        src={before}
       />
       <span aria-hidden className="shot-hint">
         Hover to scroll ↓
@@ -79,18 +81,18 @@ export function BeforeAfter({
       <span className="ba-tag ba-tag-after">{afterLabel}</span>
       <span aria-hidden className="ba-line" />
       <input
-        type="range"
-        min={0}
-        max={100}
-        value={pos}
         aria-label={label}
         aria-valuetext={`${pos}% old design`}
         className="ba-range"
-        onPointerDown={() => setHint(false)}
+        max={100}
+        min={0}
         onChange={(e) => {
           setHint(false);
           setPos(Number(e.target.value));
         }}
+        onPointerDown={() => setHint(false)}
+        type="range"
+        value={pos}
       />
       <span aria-hidden className="ba-knob">
         <ChevronsLeftRight className="h-[18px] w-[18px]" strokeWidth={2.4} />

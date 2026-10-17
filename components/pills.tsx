@@ -5,13 +5,13 @@ const statusStyles: Record<
   ProjectStatus,
   { className: string; label: string }
 > = {
-  live: { className: "status status-live", label: "Live" },
   demo: { className: "status status-live", label: "Live demo" },
+  "in-progress": { className: "status status-soon", label: "In progress" },
   "launching-soon": {
     className: "status status-soon",
     label: "Launching soon",
   },
-  "in-progress": { className: "status status-soon", label: "In progress" },
+  live: { className: "status status-live", label: "Live" },
   shipped: { className: "status status-done", label: "Shipped" },
 };
 
@@ -36,11 +36,13 @@ export function TechPills({
   primary?: string[];
   className?: string;
 }) {
-  if (tech.length === 0) return null;
+  if (tech.length === 0) {
+    return null;
+  }
   return (
     <ul className={cn("flex flex-wrap gap-1.5", className)}>
       {tech.map((t) => (
-        <li key={t} className={cn("pill", primary.includes(t) && "pill-hot")}>
+        <li className={cn("pill", primary.includes(t) && "pill-hot")} key={t}>
           {t}
         </li>
       ))}

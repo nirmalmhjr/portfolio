@@ -12,7 +12,9 @@ export function Pagination({
   /** e.g. "/blog". Later pages live at `${basePath}/page/N`. */
   basePath: string;
 }) {
-  if (totalPages <= 1) return null;
+  if (totalPages <= 1) {
+    return null;
+  }
 
   const href = (page: number) =>
     page <= 1 ? basePath : `${basePath}/page/${page}`;
@@ -23,18 +25,18 @@ export function Pagination({
       className="mt-12 flex items-center justify-between text-sm"
     >
       <PageLink
-        href={href(currentPage - 1)}
         disabled={currentPage <= 1}
+        href={href(currentPage - 1)}
         rel="prev"
       >
         ← Newer
       </PageLink>
-      <span className="font-mono text-xs text-faint">
+      <span className="font-mono text-faint text-xs">
         Page {currentPage} of {totalPages}
       </span>
       <PageLink
-        href={href(currentPage + 1)}
         disabled={currentPage >= totalPages}
+        href={href(currentPage + 1)}
         rel="next"
       >
         Older →
@@ -61,14 +63,14 @@ function PageLink({
 
   if (disabled) {
     return (
-      <span className={className} aria-disabled>
+      <span aria-disabled className={className}>
         {children}
       </span>
     );
   }
 
   return (
-    <Link href={href} rel={rel} className={className}>
+    <Link className={className} href={href} rel={rel}>
       {children}
     </Link>
   );

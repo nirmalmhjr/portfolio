@@ -27,8 +27,8 @@ export function BrowserFrame({
           {secure ? (
             <Lock
               aria-hidden
-              strokeWidth={2.5}
               className="h-2.5 w-2.5 flex-none opacity-70"
+              strokeWidth={2.5}
             />
           ) : null}
           <span className="truncate">{url}</span>

@@ -35,11 +35,11 @@ export function Section({
 }) {
   return (
     <section
-      id={id}
       className={cn(
-        "relative isolate overflow-hidden border-t border-line py-[76px] sm:py-[104px]",
+        "relative isolate overflow-hidden border-line border-t py-[76px] sm:py-[104px]",
         className
       )}
+      id={id}
     >
       <Container>{children}</Container>
     </section>
@@ -61,18 +61,18 @@ export function PageHeader({
   children?: ReactNode;
 }) {
   return (
-    <header className="relative isolate overflow-hidden pb-14 pt-[132px] sm:pb-16 sm:pt-[168px]">
+    <header className="relative isolate overflow-hidden pt-[132px] pb-14 sm:pt-[168px] sm:pb-16">
       <GlowBackdrop />
       <Container className="relative">
         {watermark ? (
           <span aria-hidden className="watermark" data-text={watermark} />
         ) : null}
         <p className="eyebrow">{eyebrow}</p>
-        <h1 className="mt-4 max-w-[22ch] text-[clamp(2.5rem,6vw,4.25rem)] font-bold leading-[1.02] tracking-[-0.045em]">
+        <h1 className="mt-4 max-w-[22ch] font-bold text-[clamp(2.5rem,6vw,4.25rem)] leading-[1.02] tracking-[-0.045em]">
           {title}
         </h1>
         {description ? (
-          <p className="mt-5 max-w-[60ch] text-[17px] leading-relaxed text-muted">
+          <p className="mt-5 max-w-[60ch] text-[17px] text-muted leading-relaxed">
             {description}
           </p>
         ) : null}

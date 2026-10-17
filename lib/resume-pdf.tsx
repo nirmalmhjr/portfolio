@@ -4,17 +4,13 @@ import {
   Font,
   Link,
   Page,
+  renderToBuffer,
   StyleSheet,
   Text,
   View,
-  renderToBuffer,
 } from "@react-pdf/renderer";
 import type { ReactNode } from "react";
-import {
-  pdfContacts,
-  resumeDoc,
-  type ResumeRow,
-} from "@/lib/resume-document";
+import { pdfContacts, type ResumeRow, resumeDoc } from "@/lib/resume-document";
 import { siteConfig } from "@/lib/site.config";
 
 /**
@@ -27,110 +23,110 @@ const fontDir = path.join(process.cwd(), "assets/fonts");
 Font.register({
   family: "Geist",
   fonts: [
-    { src: path.join(fontDir, "Geist-Regular.ttf"), fontWeight: 400 },
-    { src: path.join(fontDir, "Geist-Medium.ttf"), fontWeight: 500 },
-    { src: path.join(fontDir, "Geist-SemiBold.ttf"), fontWeight: 600 },
-    { src: path.join(fontDir, "Geist-Bold.ttf"), fontWeight: 700 },
+    { fontWeight: 400, src: path.join(fontDir, "Geist-Regular.ttf") },
+    { fontWeight: 500, src: path.join(fontDir, "Geist-Medium.ttf") },
+    { fontWeight: 600, src: path.join(fontDir, "Geist-SemiBold.ttf") },
+    { fontWeight: 700, src: path.join(fontDir, "Geist-Bold.ttf") },
   ],
 });
 // Wrap whole words only; hyphens mid-word look sloppy on a résumé.
 Font.registerHyphenationCallback((word) => [word]);
 
 const color = {
-  ink: "#111216",
-  body: "#2b2d33",
-  muted: "#5b606b",
-  divider: "#c4c8d0",
   /** Amber accent, kept in sync with the /resume page. */
   accent: "#b45309",
   accentSoft: "#f1dfca",
-  marker: "#d97706",
+  body: "#2b2d33",
+  divider: "#c4c8d0",
+  ink: "#111216",
   linkLine: "#e9bf94",
+  marker: "#d97706",
+  muted: "#5b606b",
 };
 
 const s = StyleSheet.create({
-  page: {
-    paddingVertical: 25.5, // 9mm
-    paddingHorizontal: 36.85, // 13mm
-    fontFamily: "Geist",
-    fontSize: 9,
-    lineHeight: 1.4,
-    color: color.body,
-    backgroundColor: "#ffffff",
-  },
-  header: {
-    borderBottomWidth: 1.5,
-    borderBottomColor: color.accent,
-    paddingBottom: 6,
-  },
-  name: {
-    fontSize: 19.5,
-    fontWeight: 700,
-    lineHeight: 1,
-    letterSpacing: -0.5,
-    color: color.ink,
-  },
-  title: {
-    marginTop: 6,
-    fontSize: 11.25,
-    fontWeight: 600,
-    color: color.ink,
-  },
+  bullet: { flexDirection: "row" },
+  bulletMark: { color: color.marker, paddingLeft: 3, width: 12 },
+  bullets: { marginTop: 3 },
+  bulletText: { flex: 1 },
+  contact: { color: color.muted, textDecoration: "none" },
   // 7.5pt so email, phone, site, LinkedIn and GitHub fit on one line.
   contacts: {
-    marginTop: 3,
+    alignItems: "center",
+    color: color.muted,
     flexDirection: "row",
     flexWrap: "wrap",
-    alignItems: "center",
     fontSize: 7.5,
-    color: color.muted,
+    marginTop: 3,
   },
-  contact: { color: color.muted, textDecoration: "none" },
   divider: {
-    width: 0.75,
+    backgroundColor: color.divider,
     height: 7.5,
     marginHorizontal: 4.5,
-    backgroundColor: color.divider,
+    width: 0.75,
   },
-  summary: { marginTop: 6 },
+  header: {
+    borderBottomColor: color.accent,
+    borderBottomWidth: 1.5,
+    paddingBottom: 6,
+  },
   heading: {
-    marginTop: 9,
-    marginBottom: 3,
-    flexDirection: "row",
     alignItems: "center",
+    flexDirection: "row",
+    marginBottom: 3,
+    marginTop: 9,
+  },
+  headingRule: {
+    backgroundColor: color.accentSoft,
+    flex: 1,
+    height: 0.75,
+    marginLeft: 9,
   },
   headingText: {
+    color: color.accent,
     fontSize: 8.25,
     fontWeight: 700,
     letterSpacing: 1.15,
     textTransform: "uppercase",
-    color: color.accent,
   },
-  headingRule: {
-    flex: 1,
-    height: 0.75,
-    marginLeft: 9,
-    backgroundColor: color.accentSoft,
-  },
-  row: { flexDirection: "row", marginBottom: 1.5 },
-  rowLabel: { width: 84, marginRight: 9, fontWeight: 600, color: color.ink },
-  rowValue: { flex: 1 },
   job: { marginBottom: 6 },
-  spread: { flexDirection: "row", justifyContent: "space-between" },
-  strong: { fontWeight: 600, color: color.ink },
-  medium: { fontWeight: 500, color: color.ink },
-  muted: { fontWeight: 400, color: color.muted },
-  bullets: { marginTop: 3 },
-  bullet: { flexDirection: "row" },
-  bulletMark: { width: 12, paddingLeft: 3, color: color.marker },
-  bulletText: { flex: 1 },
-  sites: { marginTop: 3, paddingLeft: 12, color: color.muted },
   link: {
     color: color.muted,
     textDecoration: "underline",
     textDecorationColor: color.linkLine,
   },
+  medium: { color: color.ink, fontWeight: 500 },
+  muted: { color: color.muted, fontWeight: 400 },
+  name: {
+    color: color.ink,
+    fontSize: 19.5,
+    fontWeight: 700,
+    letterSpacing: -0.5,
+    lineHeight: 1,
+  },
+  page: {
+    backgroundColor: "#ffffff",
+    color: color.body,
+    fontFamily: "Geist",
+    fontSize: 9,
+    lineHeight: 1.4,
+    paddingHorizontal: 36.85, // 13mm
+    paddingVertical: 25.5, // 9mm
+  },
   project: { marginBottom: 1.5 },
+  row: { flexDirection: "row", marginBottom: 1.5 },
+  rowLabel: { color: color.ink, fontWeight: 600, marginRight: 9, width: 84 },
+  rowValue: { flex: 1 },
+  sites: { color: color.muted, marginTop: 3, paddingLeft: 12 },
+  spread: { flexDirection: "row", justifyContent: "space-between" },
+  strong: { color: color.ink, fontWeight: 600 },
+  summary: { marginTop: 6 },
+  title: {
+    color: color.ink,
+    fontSize: 11.25,
+    fontWeight: 600,
+    marginTop: 6,
+  },
 });
 
 function Heading({ children }: { children: ReactNode }) {
@@ -156,13 +152,13 @@ function ResumePdf() {
 
   return (
     <Document
-      title={`${doc.name} – Résumé`}
       author={doc.name}
-      subject={`${doc.title} résumé`}
-      keywords={siteConfig.keywords.join(", ")}
       creator={siteConfig.url}
-      producer={siteConfig.url}
+      keywords={siteConfig.keywords.join(", ")}
       language="en"
+      producer={siteConfig.url}
+      subject={`${doc.title} résumé`}
+      title={`${doc.name} – Résumé`}
     >
       <Page size="A4" style={s.page}>
         <View style={s.header}>
@@ -175,7 +171,7 @@ function ResumePdf() {
             {pdfContacts.map((c, i) => (
               <View
                 key={c.href}
-                style={{ flexDirection: "row", alignItems: "center" }}
+                style={{ alignItems: "center", flexDirection: "row" }}
               >
                 {i > 0 ? <View style={s.divider} /> : null}
                 <Link src={c.href} style={s.contact}>

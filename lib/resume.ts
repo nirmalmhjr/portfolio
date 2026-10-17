@@ -18,45 +18,42 @@ export const hobbies = ["⚽ Futsal", "♫ Music"];
 /** The four figures under the hero. Keep each one verifiable. */
 export const facts = [
   {
-    value: `${siteConfig.experienceYears} yrs`,
     label: "building production frontends",
+    value: `${siteConfig.experienceYears} yrs`,
   },
-  { value: "8+", label: "client projects built" },
-  { value: "3", label: "admin dashboards built end to end" },
-  { value: "8 yrs", label: "client-facing work before code" },
+  { label: "client projects built", value: "8+" },
+  { label: "admin dashboards built end to end", value: "3" },
+  { label: "client-facing work before code", value: "8 yrs" },
 ];
 
 export interface ExperienceItem {
-  role: string;
   company: string;
   companyUrl?: string;
-  /** e.g. "Dec 2024". Leave empty to show only the end label. */
-  start: string;
-  end: string;
   current?: boolean;
+  end: string;
   highlights: string[];
-  tech: string[];
   /** Tech that gets the accent highlight. */
   primaryTech?: string[];
   /** Project slugs (lib/projects.ts) built in this role, linked on /resume. */
   projects?: string[];
+  role: string;
+  /** e.g. "Dec 2024". Leave empty to show only the end label. */
+  start: string;
+  tech: string[];
 }
 
 export const experience: ExperienceItem[] = [
   {
-    role: "Frontend Developer",
     company: "Plex Bit Infosystems",
     companyUrl: "https://pbinfosystems.com",
-    start: "February 2026",
-    end: "Present",
     current: true,
+    end: "Present",
     highlights: [
       "Built the Paradise Hills Resort website and its admin dashboard entirely on my own (launching soon).",
       "Built the entire CMS admin dashboard that powers the company's new website, and about half of the site's frontend.",
       "On the Luxe multi-vendor e-commerce team, built the account and order pages, product search, blog, and brand, category and sale pages, and worked on checkout, Google sign-in and the wishlist.",
       "Redesigned the landing pages for Plexler (an AI learning platform), Sierra Adventurer and Prabhu Adventure, plus reusable inner-page components for Prabhu.",
     ],
-    tech: ["Next.js", "TypeScript", "Tailwind CSS", "TanStack Query"],
     primaryTech: ["Next.js", "TypeScript"],
     projects: [
       "paradise-hills",
@@ -66,12 +63,13 @@ export const experience: ExperienceItem[] = [
       "sierra-adventurer",
       "prabhu-adventure",
     ],
+    role: "Frontend Developer",
+    start: "February 2026",
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "TanStack Query"],
   },
   {
-    role: "Frontend Developer",
     company: "Galli Maps",
     companyUrl: "https://gallimaps.com",
-    start: "Dec 2024",
     end: "Jun 2025",
     highlights: [
       "Built the redesigned public website for Galli Maps, a Nepali maps app with 200K+ downloads.",
@@ -79,31 +77,33 @@ export const experience: ExperienceItem[] = [
       "Built Product Management, Order Processing and Bulk Message modules for the Nepal Dairy Project in Next.js.",
       "Worked closely with the backend team to integrate REST APIs.",
     ],
-    tech: ["React", "Next.js", "Tailwind CSS", "REST APIs"],
     primaryTech: ["React", "Next.js"],
     projects: ["galli-maps"],
+    role: "Frontend Developer",
+    start: "Dec 2024",
+    tech: ["React", "Next.js", "Tailwind CSS", "REST APIs"],
   },
   {
-    role: "Frontend Developer",
     company: "Miracle Yard",
-    start: "Jun 2024",
     end: "Sep 2024",
     highlights: [
       "Migrated meromenu.com, a live restaurant management system, from Vue 2/Nuxt 2 to Vue 3/Nuxt 3 on my own, within my first year as a developer.",
       "Modernized the codebase for better performance and easier long-term maintenance.",
     ],
-    tech: ["Vue 3", "Nuxt 3"],
     projects: ["meromenu"],
+    role: "Frontend Developer",
+    start: "Jun 2024",
+    tech: ["Vue 3", "Nuxt 3"],
   },
   {
-    role: "Frontend Intern",
     company: "Miracle Yard",
-    start: "Nov 2023",
     end: "Feb 2024",
     highlights: [
       "Supported senior developers in the early stages of a Vue 2 to Vue 3 migration.",
       "Learned component structure, routing and Git workflows on internal projects.",
     ],
+    role: "Frontend Intern",
+    start: "Nov 2023",
     tech: ["Vue", "Nuxt", "Git"],
   },
 ];
@@ -111,47 +111,47 @@ export const experience: ExperienceItem[] = [
 /** Career before code, shown as a small ledger. */
 export const beforeCode = [
   {
+    carried: "Clear communication with clients",
+    company: "Shree Om Brothers (Pfizer India)",
     period: "2022",
     role: "Territory Executive",
-    company: "Shree Om Brothers (Pfizer India)",
-    carried: "Clear communication with clients",
   },
   {
+    carried: "Understanding what users actually need",
+    company: "Omnica Laboratories",
     period: "2017–22",
     role: "Medical Sales Officer",
-    company: "Omnica Laboratories",
-    carried: "Understanding what users actually need",
   },
   {
+    carried: "Accuracy, records and deadlines",
+    company: "Max International",
     period: "2014–17",
     role: "Account Officer",
-    company: "Max International",
-    carried: "Accuracy, records and deadlines",
   },
 ];
 
 export const education = [
   {
-    title: "Master of Business Studies (MBS)",
     place: "Shankar Dev Campus",
+    title: "Master of Business Studies (MBS)",
     year: "2019",
   },
   {
-    title: "Bachelor of Business Studies (BBS)",
     place: "Public Youth Campus",
+    title: "Bachelor of Business Studies (BBS)",
     year: "2011",
   },
-  { title: "CA Foundation", place: "ICAN", year: "2009" },
+  { place: "ICAN", title: "CA Foundation", year: "2009" },
 ];
 
 export const training = [
   {
-    title: "UI/UX Design crash course",
     place: "Deerwalk Training Center",
+    title: "UI/UX Design crash course",
     year: "Course",
   },
-  { title: "JavaScript and React", place: "freeCodeCamp", year: "Self-study" },
-  { title: "Vue.js", place: "The Net Ninja", year: "Self-study" },
+  { place: "freeCodeCamp", title: "JavaScript and React", year: "Self-study" },
+  { place: "The Net Ninja", title: "Vue.js", year: "Self-study" },
 ];
 
 export interface SkillGroup {
@@ -209,27 +209,27 @@ export const strengths: {
   icon: StrengthIcon;
 }[] = [
   {
-    title: "Production Next.js & TypeScript",
     description:
       "I build and ship client websites and landing pages at Plex Bit, from design to production.",
     icon: "code",
+    title: "Production Next.js & TypeScript",
   },
   {
-    title: "Dashboards end to end",
     description:
       "I built the admin dashboards for Paradise Hills Resort (solo), the new Plex Bit website and Galli Maps.",
     icon: "dashboard",
+    title: "Dashboards end to end",
   },
   {
-    title: "Learns fast, owns the work",
     description:
       "Within my first year as a developer, I migrated a live product from Vue 2 to Vue 3 on my own.",
     icon: "migrate",
+    title: "Learns fast, owns the work",
   },
   {
-    title: "Business and client sense",
     description:
       "Eight years in finance and sales taught me to understand requirements, talk to clients and hit deadlines.",
     icon: "business",
+    title: "Business and client sense",
   },
 ];

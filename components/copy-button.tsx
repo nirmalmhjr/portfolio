@@ -18,9 +18,9 @@ export function CopyButton({ value }: { value: string }) {
 
   return (
     <button
-      type="button"
+      className="inline-flex h-8 flex-none items-center justify-center gap-1.5 rounded-full border border-line-strong px-3 font-medium text-[13px] text-fg transition-colors hover:bg-raised [&_svg]:h-3.5 [&_svg]:w-3.5 [@container(max-width:305px)]:w-8 [@container(max-width:305px)]:px-0"
       onClick={copy}
-      className="inline-flex h-8 flex-none items-center justify-center gap-1.5 rounded-full border border-line-strong px-3 text-[13px] font-medium text-fg transition-colors hover:bg-raised [&_svg]:h-3.5 [&_svg]:w-3.5 [@container(max-width:305px)]:w-8 [@container(max-width:305px)]:px-0"
+      type="button"
     >
       {copied ? <Check aria-hidden /> : <Copy aria-hidden />}
       {/* Icon only inside a narrow container; the label stays for screen readers. */}

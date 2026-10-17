@@ -1,4 +1,4 @@
-import { clsx, type ClassValue } from "clsx";
+import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]): string {
@@ -11,9 +11,9 @@ export function formatDate(
 ): string {
   const date = typeof input === "string" ? new Date(input) : input;
   return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month,
     day: "numeric",
+    month,
     timeZone: "UTC",
+    year: "numeric",
   });
 }

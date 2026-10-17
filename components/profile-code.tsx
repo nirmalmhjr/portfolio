@@ -4,12 +4,12 @@ import { cn } from "@/lib/utils";
 type Kind = "kw" | "type" | "id" | "key" | "str" | "p";
 
 const tone: Record<Kind, string> = {
-  kw: "text-ink",
-  type: "text-info",
   id: "text-fg",
   key: "text-fg/90",
-  str: "text-[rgb(var(--g2))]",
+  kw: "text-ink",
   p: "text-faint",
+  str: "text-[rgb(var(--g2))]",
+  type: "text-info",
 };
 
 type Line = { tokens: [Kind, string][]; highlight?: boolean };
@@ -63,7 +63,7 @@ export function ProfileCode({ className }: { className?: string }) {
         className
       )}
     >
-      <div className="flex h-11 items-center gap-4 border-b border-line bg-raised/60 px-4">
+      <div className="flex h-11 items-center gap-4 border-line border-b bg-raised/60 px-4">
         <span className="browser-lights">
           <i />
           <i />
@@ -71,27 +71,27 @@ export function ProfileCode({ className }: { className?: string }) {
         </span>
         {/* On narrow phones the hero's clock chip sits here, so drop the tab. */}
         <span className="flex items-center gap-1.5 font-mono text-[11px] text-muted [@container(max-width:309px)]:hidden">
-          <span className="rounded-[3px] bg-info/15 px-1 py-px text-[9px] font-semibold text-info">
+          <span className="rounded-[3px] bg-info/15 px-1 py-px font-semibold text-[9px] text-info">
             TS
           </span>
           nirmal.ts
         </span>
       </div>
-      <pre className="profile-code bg-[radial-gradient(110%_70%_at_100%_0%,rgb(var(--a1)/0.07),transparent_65%)] pb-[3.6em] pt-[1.3em] font-mono text-muted">
+      <pre className="profile-code bg-[radial-gradient(110%_70%_at_100%_0%,rgb(var(--a1)/0.07),transparent_65%)] pt-[1.3em] pb-[3.6em] font-mono text-muted">
         {lines.map((line, i) => (
           <span
-            key={i}
             className={cn(
               "flex pr-[1.2em]",
               line.highlight && "bg-a1/10 shadow-[inset_2px_0_0_rgb(var(--a1))]"
             )}
+            key={i}
           >
             <span className="w-[4.8ch] flex-none select-none pr-[1.4ch] text-right text-faint/60">
               {i + 1}
             </span>
             <span className="whitespace-pre">
               {line.tokens.map(([kind, text], j) => (
-                <span key={j} className={tone[kind]}>
+                <span className={tone[kind]} key={j}>
                   {text}
                 </span>
               ))}

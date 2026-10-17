@@ -6,10 +6,10 @@
  * { quote: "Nirmal shipped our landing page ahead of schedule.", name: "Jane Doe", role: "Product Manager", company: "Plex Bit" }
  */
 export interface Testimonial {
-  quote: string;
-  name: string;
-  role: string;
   company?: string;
+  name: string;
+  quote: string;
+  role: string;
 }
 
 export const testimonials: Testimonial[] = [];

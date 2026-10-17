@@ -5,19 +5,19 @@ import { Container, PageHeader } from "@/components/container";
 import { siteConfig } from "@/lib/site.config";
 
 export const metadata: Metadata = {
-  title: "Contact",
-  description: `Get in touch with ${siteConfig.name}, a frontend developer in ${siteConfig.location}.`,
   alternates: { canonical: "/contact" },
+  description: `Get in touch with ${siteConfig.name}, a frontend developer in ${siteConfig.location}.`,
+  title: "Contact",
 };
 
 export default function ContactPage() {
   return (
     <main>
       <PageHeader
-        eyebrow="Contact"
-        watermark="Hello"
-        title="Let's talk."
         description="I'm open to full-time and contract frontend roles, remote or in Kathmandu. Email is the fastest way to reach me."
+        eyebrow="Contact"
+        title="Let's talk."
+        watermark="Hello"
       >
         <AvailableBadge className="mt-8" />
       </PageHeader>

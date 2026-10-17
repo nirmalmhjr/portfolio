@@ -14,7 +14,7 @@ const floatChip =
 
 export function Hero() {
   return (
-    <section className="relative isolate overflow-hidden pb-16 pt-[116px] sm:pt-[140px]">
+    <section className="relative isolate overflow-hidden pt-[116px] pb-16 sm:pt-[140px]">
       <GlowBackdrop />
       <Container>
         <div className="grid items-center gap-10 lg:grid-cols-[1.35fr_1fr] lg:gap-14">
@@ -23,21 +23,21 @@ export function Hero() {
             <p className="rise mt-6 font-mono text-[15px] text-muted [animation-delay:60ms]">
               Hi, I&apos;m
             </p>
-            <h1 className="rise text-name mt-3 text-[clamp(3rem,8vw,5.6rem)] font-bold leading-[0.95] tracking-[-0.05em] [animation-delay:60ms]">
+            <h1 className="rise mt-3 font-bold text-[clamp(3rem,8vw,5.6rem)] text-name leading-[0.95] tracking-[-0.05em] [animation-delay:60ms]">
               {siteConfig.name}
             </h1>
-            <p className="rise mt-[18px] text-[clamp(1.25rem,2.6vw,1.6rem)] font-medium leading-snug tracking-[-0.02em] [animation-delay:120ms]">
+            <p className="rise mt-[18px] font-medium text-[clamp(1.25rem,2.6vw,1.6rem)] leading-snug tracking-[-0.02em] [animation-delay:120ms]">
               Frontend Developer building with{" "}
-              <span className="text-gradient font-semibold">Next.js</span> &amp;{" "}
-              <span className="text-gradient font-semibold">TypeScript</span>
+              <span className="font-semibold text-gradient">Next.js</span> &amp;{" "}
+              <span className="font-semibold text-gradient">TypeScript</span>
             </p>
-            <p className="rise mt-4 font-mono text-[13px] leading-[1.8] text-faint [animation-delay:120ms]">
+            <p className="rise mt-4 font-mono text-[13px] text-faint leading-[1.8] [animation-delay:120ms]">
               <b className="font-medium text-muted">
                 {siteConfig.experienceYears} years experience
               </b>{" "}
               · Next.js · TypeScript · React · Tailwind CSS
             </p>
-            <p className="rise mt-5 max-w-[54ch] text-[17px] leading-[1.7] text-muted [animation-delay:180ms]">
+            <p className="rise mt-5 max-w-[54ch] text-[17px] text-muted leading-[1.7] [animation-delay:180ms]">
               I build and ship production websites, landing pages and CMS
               dashboards for real clients. Before code, I spent{" "}
               <strong className="font-medium text-fg">
@@ -47,7 +47,7 @@ export function Hero() {
               side of a product.
             </p>
             <p className="rise mt-4 text-[15px] text-muted [animation-delay:180ms]">
-              <span className="font-mono text-xs uppercase tracking-[0.08em] text-ink">
+              <span className="font-mono text-ink text-xs uppercase tracking-[0.08em]">
                 Looking for
               </span>{" "}
               <span className="text-fg">{siteConfig.lookingFor}</span>
@@ -55,37 +55,37 @@ export function Hero() {
 
             <div className="rise mt-[30px] flex flex-wrap items-center gap-3 [animation-delay:240ms]">
               <a
-                href={socialLinks.hireEmail}
                 className={buttonClass("primary")}
+                href={socialLinks.hireEmail}
               >
                 <Mail aria-hidden />
                 Email me
               </a>
               <a
-                href={siteConfig.resumeUrl}
-                download={siteConfig.resumeFileName}
                 className={buttonClass("ghost")}
+                download={siteConfig.resumeFileName}
+                href={siteConfig.resumeUrl}
               >
                 <Download aria-hidden />
                 Download résumé
               </a>
               <div className="flex gap-1.5">
                 <a
-                  href={socialLinks.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
                   aria-label="GitHub profile"
                   className={iconButtonClass}
+                  href={socialLinks.github}
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
                   <Github aria-hidden />
                 </a>
                 {socialLinks.linkedin ? (
                   <a
-                    href={socialLinks.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     aria-label="LinkedIn profile"
                     className={iconButtonClass}
+                    href={socialLinks.linkedin}
+                    rel="noopener noreferrer"
+                    target="_blank"
                   >
                     <Linkedin aria-hidden />
                   </a>
@@ -115,7 +115,7 @@ export function Hero() {
                 <Code />
               </span>
               <span>
-                <b className="block text-sm font-semibold text-fg">
+                <b className="block font-semibold text-fg text-sm">
                   Next.js + TypeScript
                 </b>
                 Current stack
@@ -124,11 +124,11 @@ export function Hero() {
             <div
               className={cn(
                 floatChip,
-                "-right-2 -top-5 animate-bob [animation-delay:-5s] sm:-right-[18px] sm:-top-6"
+                "-top-5 -right-2 animate-bob [animation-delay:-5s] sm:-top-6 sm:-right-[18px]"
               )}
             >
               <span>
-                <b className="block font-mono text-sm font-semibold text-fg">
+                <b className="block font-mono font-semibold text-fg text-sm">
                   <KathmanduClock />
                 </b>
                 Kathmandu (UTC+5:45)
@@ -137,19 +137,19 @@ export function Hero() {
           </div>
         </div>
 
-        <dl className="rise mt-16 grid grid-cols-2 border-t border-line [animation-delay:300ms] lg:grid-cols-4">
+        <dl className="rise mt-16 grid grid-cols-2 border-line border-t [animation-delay:300ms] lg:grid-cols-4">
           {facts.map((fact, i) => (
             <div
-              key={fact.label}
               className={cn(
                 "grid content-start gap-1 py-5 pr-5",
-                i % 2 === 1 && "border-l border-line pl-5",
-                i >= 2 && "border-t border-line lg:border-t-0",
+                i % 2 === 1 && "border-line border-l pl-5",
+                i >= 2 && "border-line border-t lg:border-t-0",
                 i === 2 && "lg:border-l lg:pl-5"
               )}
+              key={fact.label}
             >
               <dt className="order-2 text-[13px] text-muted">{fact.label}</dt>
-              <dd className="order-1 text-[clamp(1.4rem,3vw,1.9rem)] font-semibold tabular-nums leading-[1.1] tracking-[-0.03em]">
+              <dd className="order-1 font-semibold text-[clamp(1.4rem,3vw,1.9rem)] tabular-nums leading-[1.1] tracking-[-0.03em]">
                 {fact.value}
               </dd>
             </div>

@@ -9,8 +9,8 @@ import data from "./uses.json";
  * { "title": "Editor & terminal", "items": [{ "name": "VS Code", "note": "with the GitHub Dark theme" }] }
  */
 export interface UsesGroup {
-  title: string;
   items: { name: string; note?: string }[];
+  title: string;
 }
 
 export const uses: UsesGroup[] = data;

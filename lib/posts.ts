@@ -2,22 +2,24 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
-import { parseFrontmatter, type Frontmatter } from "@/lib/schema";
+import { type Frontmatter, parseFrontmatter } from "@/lib/schema";
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 
 export interface Post {
-  /** Route slug, derived from the filename (foo-bar.mdx -> foo-bar). */
-  slug: string;
-  frontmatter: Frontmatter;
   /** Raw MDX body (without frontmatter). */
   content: string;
-  readingTimeText: string;
+  frontmatter: Frontmatter;
   readingTimeMinutes: number;
+  readingTimeText: string;
+  /** Route slug, derived from the filename (foo-bar.mdx -> foo-bar). */
+  slug: string;
 }
 
 function getMdxFiles(): string[] {
-  if (!fs.existsSync(BLOG_DIR)) return [];
+  if (!fs.existsSync(BLOG_DIR)) {
+    return [];
+  }
   return fs
     .readdirSync(BLOG_DIR)
     .filter((f) => /\.mdx?$/.test(f) && !f.startsWith("_"));
@@ -35,11 +37,11 @@ function readPost(file: string): Post {
   const stats = readingTime(content);
 
   return {
-    slug: slugFromFilename(file),
-    frontmatter,
     content,
-    readingTimeText: stats.text,
+    frontmatter,
     readingTimeMinutes: Math.max(1, Math.round(stats.minutes)),
+    readingTimeText: stats.text,
+    slug: slugFromFilename(file),
   };
 }
 
@@ -73,7 +75,7 @@ export function getAllTags(): { tag: string; count: number }[] {
     }
   }
   return [...counts.entries()]
-    .map(([tag, count]) => ({ tag, count }))
+    .map(([tag, count]) => ({ count, tag }))
     .sort((a, b) => a.tag.localeCompare(b.tag));
 }
 

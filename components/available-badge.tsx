@@ -13,7 +13,7 @@ export function AvailableBadge({ className }: { className?: string }) {
   return (
     <p
       className={cn(
-        "inline-flex flex-wrap items-center gap-2.5 rounded-full border border-line bg-surface/70 py-1.5 pl-2.5 pr-3.5 text-[13px] text-muted",
+        "inline-flex flex-wrap items-center gap-2.5 rounded-full border border-line bg-surface/70 py-1.5 pr-3.5 pl-2.5 text-[13px] text-muted",
         className
       )}
     >

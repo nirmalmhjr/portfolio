@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { resumeDoc, type ResumeRow } from "@/lib/resume-document";
+import { type ResumeRow, resumeDoc } from "@/lib/resume-document";
 import { cn } from "@/lib/utils";
 
 /**
@@ -17,7 +17,7 @@ const link =
 function Heading({ children }: { children: ReactNode }) {
   return (
     <h2
-      className={`mb-2 mt-5 flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.14em] ${accent} print:mb-1 print:mt-3`}
+      className={`mt-5 mb-2 flex items-center gap-3 font-bold text-[11px] uppercase tracking-[0.14em] ${accent} print:mt-3 print:mb-1`}
     >
       {children}
       <span aria-hidden className="h-px flex-1 bg-[#f1dfca]" />
@@ -30,7 +30,7 @@ function Rows({ rows }: { rows: ResumeRow[] }) {
   return (
     <dl className="grid gap-0.5">
       {rows.map((row) => (
-        <div key={row.label} className="flex gap-3">
+        <div className="flex gap-3" key={row.label}>
           <dt className={`w-[112px] flex-none font-semibold ${ink}`}>
             {row.label}
           </dt>
@@ -52,18 +52,18 @@ export function ResumeSheet({
   return (
     <article
       className={cn(
-        "mx-auto max-w-[210mm] rounded-lg bg-white px-5 py-8 text-[13px] leading-[1.5] text-[#2b2d33] shadow-[0_30px_80px_rgba(0,0,0,0.35)] sm:px-[13mm] sm:py-[12mm] print:max-w-none print:rounded-none print:p-0 print:text-[9pt] print:leading-[1.4] print:shadow-none",
+        "mx-auto max-w-[210mm] rounded-lg bg-white px-5 py-8 text-[#2b2d33] text-[13px] leading-[1.5] shadow-[0_30px_80px_rgba(0,0,0,0.35)] sm:px-[13mm] sm:py-[12mm] print:max-w-none print:rounded-none print:p-0 print:text-[9pt] print:leading-[1.4] print:shadow-none",
         className
       )}
     >
-      <header className="border-b-2 border-[#b45309] pb-3 print:pb-2">
+      <header className="border-[#b45309] border-b-2 pb-3 print:pb-2">
         <h1
+          className={`font-bold text-[30px] leading-none tracking-[-0.025em] print:text-[26px] ${ink}`}
           id={titleId}
-          className={`text-[30px] font-bold leading-none tracking-[-0.025em] print:text-[26px] ${ink}`}
         >
           {resumeDoc.name}
         </h1>
-        <p className={`mt-2 text-[15px] font-semibold ${ink}`}>
+        <p className={`mt-2 font-semibold text-[15px] ${ink}`}>
           {resumeDoc.title}
           <span className={`font-normal ${muted}`}> · {resumeDoc.tagline}</span>
         </p>
@@ -71,14 +71,14 @@ export function ResumeSheet({
           className={`mt-1.5 flex flex-wrap items-center gap-x-2.5 text-[12px] ${muted}`}
         >
           {resumeDoc.contacts.map((c, i) => (
-            <li key={c.href} className="flex items-center gap-x-2.5">
+            <li className="flex items-center gap-x-2.5" key={c.href}>
               {i > 0 ? (
                 <span
                   aria-hidden
                   className="hidden h-3 w-px bg-[#c4c8d0] sm:block print:block"
                 />
               ) : null}
-              <a href={c.href} className="inline-block py-1 print:py-0">
+              <a className="inline-block py-1 print:py-0" href={c.href}>
                 {c.label}
               </a>
             </li>
@@ -94,7 +94,7 @@ export function ResumeSheet({
       <Heading>Experience</Heading>
       <div className="grid gap-3.5 print:gap-2">
         {resumeDoc.jobs.map((job) => (
-          <section key={job.key} className="break-inside-avoid">
+          <section className="break-inside-avoid" key={job.key}>
             <div className="flex flex-wrap items-baseline justify-between gap-x-3">
               <h3 className={`font-semibold ${ink}`}>
                 {job.role}
@@ -117,8 +117,8 @@ export function ResumeSheet({
                   <span key={site.href}>
                     {i > 0 ? " · " : ""}
                     <a
-                      href={site.href}
                       className={`inline-block py-1 print:py-0 ${link}`}
+                      href={site.href}
                     >
                       {site.label}
                     </a>
@@ -140,7 +140,7 @@ export function ResumeSheet({
       <Heading>Personal projects</Heading>
       <ul className="grid gap-1.5 print:gap-0.5">
         {resumeDoc.projects.map((project) => (
-          <li key={project.key} className="break-inside-avoid">
+          <li className="break-inside-avoid" key={project.key}>
             <div className="flex flex-wrap items-baseline justify-between gap-x-3">
               <p>
                 <span className={`font-semibold ${ink}`}>{project.title}</span>
@@ -148,8 +148,8 @@ export function ResumeSheet({
               </p>
               {project.link ? (
                 <a
-                  href={project.link.href}
                   className={`inline-block py-1 text-[12px] print:py-0 ${muted} ${link}`}
+                  href={project.link.href}
                 >
                   {project.link.label}
                 </a>

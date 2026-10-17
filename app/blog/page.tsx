@@ -3,17 +3,17 @@ import { BlogListing } from "@/components/blog-listing";
 import { siteConfig } from "@/lib/site.config";
 
 export const metadata: Metadata = {
-  title: "Blog",
-  description:
-    "Notes on React, Next.js and TypeScript: what I learn while building, written down so it sticks.",
   alternates: {
     canonical: "/blog",
     types: {
       "application/rss+xml": [
-        { url: "/rss.xml", title: `${siteConfig.name} | Blog` },
+        { title: `${siteConfig.name} | Blog`, url: "/rss.xml" },
       ],
     },
   },
+  description:
+    "Notes on React, Next.js and TypeScript: what I learn while building, written down so it sticks.",
+  title: "Blog",
 };
 
 export default function BlogPage() {

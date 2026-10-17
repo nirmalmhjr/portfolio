@@ -8,12 +8,16 @@ import { useEffect } from "react";
  */
 export function SpotlightTracker() {
   useEffect(() => {
-    if (!window.matchMedia("(hover: hover)").matches) return;
+    if (!window.matchMedia("(hover: hover)").matches) {
+      return;
+    }
 
     const onMove = (e: PointerEvent) => {
       const target = e.target instanceof Element ? e.target : null;
       const card = target?.closest<HTMLElement>(".spot");
-      if (!card) return;
+      if (!card) {
+        return;
+      }
       const rect = card.getBoundingClientRect();
       card.style.setProperty("--x", `${e.clientX - rect.left}px`);
       card.style.setProperty("--y", `${e.clientY - rect.top}px`);

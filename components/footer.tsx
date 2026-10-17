@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { Github, Linkedin, Mail, Rss } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { iconButtonClass } from "@/components/button";
 import { Container } from "@/components/container";
 import { getNav, hasPublishedPosts } from "@/lib/nav";
@@ -10,7 +9,7 @@ export function Footer() {
   const hasBlog = hasPublishedPosts();
 
   return (
-    <footer className="border-t border-line py-10 text-sm text-faint print:hidden">
+    <footer className="border-line border-t py-10 text-faint text-sm print:hidden">
       <Container className="flex flex-wrap items-center justify-between gap-x-8 gap-y-5">
         <p>
           <span className="font-extrabold text-fg">
@@ -43,29 +42,29 @@ export function Footer() {
 
         <div className="flex gap-1.5">
           <a
-            href={socialLinks.github}
-            target="_blank"
-            rel="noopener noreferrer"
             aria-label="GitHub profile"
             className={iconButtonClass}
+            href={socialLinks.github}
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <Github aria-hidden />
           </a>
           {socialLinks.linkedin ? (
             <a
-              href={socialLinks.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
               aria-label="LinkedIn profile"
               className={iconButtonClass}
+              href={socialLinks.linkedin}
+              rel="noopener noreferrer"
+              target="_blank"
             >
               <Linkedin aria-hidden />
             </a>
           ) : null}
           <a
-            href={socialLinks.email}
             aria-label="Email"
             className={iconButtonClass}
+            href={socialLinks.email}
           >
             <Mail aria-hidden />
           </a>

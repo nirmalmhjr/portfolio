@@ -17,7 +17,7 @@ function ContactRow({
 }) {
   const body = (
     <span className="min-w-0">
-      <span className="block font-mono text-[11px] font-medium uppercase leading-none tracking-[0.08em] text-faint">
+      <span className="block font-medium font-mono text-[11px] text-faint uppercase leading-none tracking-[0.08em]">
         {label}
       </span>
       <span className="mt-1.5 block select-all break-words font-mono text-[15px] leading-tight">
@@ -32,10 +32,10 @@ function ContactRow({
   if (href) {
     return (
       <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
         className={`${className} hover:bg-raised`}
+        href={href}
+        rel="noopener noreferrer"
+        target="_blank"
       >
         {body}
         {action}
@@ -63,15 +63,15 @@ export function ContactCard({
     <div className="relative isolate grid grid-cols-[minmax(0,1fr)] items-end gap-10 overflow-hidden rounded-[28px] border border-line bg-surface p-6 shadow-[var(--card-shadow)] sm:p-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:p-16">
       <div
         aria-hidden
-        className="absolute -bottom-[170px] -right-[140px] -z-10 h-[340px] w-[560px] rounded-full bg-gradient-to-br from-a1 to-a2 opacity-[calc(var(--glow)*0.75)] blur-[90px]"
+        className="absolute -right-[140px] -bottom-[170px] -z-10 h-[340px] w-[560px] rounded-full bg-gradient-to-br from-a1 to-a2 opacity-[calc(var(--glow)*0.75)] blur-[90px]"
       />
       <div>
         <p className="eyebrow">Contact</p>
-        <h2 className="mt-3.5 max-w-[14ch] text-[clamp(2rem,4.5vw,3rem)] font-bold leading-[1.05] tracking-[-0.04em]">
+        <h2 className="mt-3.5 max-w-[14ch] font-bold text-[clamp(2rem,4.5vw,3rem)] leading-[1.05] tracking-[-0.04em]">
           {title.includes(highlight) ? (
             <>
               {title.slice(0, title.indexOf(highlight))}
-              <em className="text-gradient pr-[0.05em] font-serif font-semibold tracking-[0.04em]">
+              <em className="pr-[0.05em] font-semibold font-serif text-gradient tracking-[0.04em]">
                 {highlight}
               </em>
               {title.slice(title.indexOf(highlight) + highlight.length)}
@@ -85,14 +85,14 @@ export function ContactCard({
           résumé is one click away.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <a href={socialLinks.hireEmail} className={buttonClass("primary")}>
+          <a className={buttonClass("primary")} href={socialLinks.hireEmail}>
             <Mail aria-hidden />
             Email me
           </a>
           <a
-            href={siteConfig.resumeUrl}
-            download={siteConfig.resumeFileName}
             className={buttonClass("ghost")}
+            download={siteConfig.resumeFileName}
+            href={siteConfig.resumeUrl}
           >
             <Download aria-hidden />
             Download résumé
@@ -103,6 +103,7 @@ export function ContactCard({
       {/* A size container, so the copy button can drop its label when narrow. */}
       <div className="grid gap-2.5 [container-type:inline-size]">
         <ContactRow
+          action={<CopyButton value={siteConfig.author.email} />}
           label="Email"
           value={
             <>
@@ -110,18 +111,17 @@ export function ContactCard({
               {emailDomain}
             </>
           }
-          action={<CopyButton value={siteConfig.author.email} />}
         />
         <ContactRow
+          href={socialLinks.github}
           label="GitHub"
           value={`github.com/${siteConfig.author.github}`}
-          href={socialLinks.github}
         />
         {socialLinks.linkedin ? (
           <ContactRow
+            href={socialLinks.linkedin}
             label="LinkedIn"
             value={`linkedin.com/in/${siteConfig.author.linkedin}`}
-            href={socialLinks.linkedin}
           />
         ) : null}
         <ContactRow label="Looking for" value={siteConfig.lookingFor} />

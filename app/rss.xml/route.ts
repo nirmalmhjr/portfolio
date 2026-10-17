@@ -6,50 +6,50 @@ export const dynamic = "force-static";
 
 export function GET() {
   const feed = new Feed({
-    title: `${siteConfig.name} — Blog`,
-    description: siteConfig.description,
-    id: siteConfig.url,
-    link: siteConfig.url,
-    language: "en",
-    favicon: absoluteUrl("/favicon.ico"),
-    copyright: `© ${new Date().getFullYear()} ${siteConfig.name}`,
-    feedLinks: { rss2: absoluteUrl("/rss.xml") },
     author: {
-      name: siteConfig.author.name,
       email: siteConfig.author.email,
       link: siteConfig.url,
+      name: siteConfig.author.name,
     },
+    copyright: `© ${new Date().getFullYear()} ${siteConfig.name}`,
+    description: siteConfig.description,
+    favicon: absoluteUrl("/favicon.ico"),
+    feedLinks: { rss2: absoluteUrl("/rss.xml") },
+    id: siteConfig.url,
+    language: "en",
+    link: siteConfig.url,
+    title: `${siteConfig.name} — Blog`,
   });
 
   for (const post of getAllPosts().filter((p) => !p.frontmatter.draft)) {
     const url = absoluteUrl(`/blog/${post.slug}`);
     feed.addItem({
-      title: post.frontmatter.title,
-      id: url,
-      link: url,
-      description: post.frontmatter.description,
-      date: new Date(post.frontmatter.date),
-      category: post.frontmatter.tags.map((name) => ({ name })),
       author: [
         {
-          name: siteConfig.author.name,
           email: siteConfig.author.email,
           link: siteConfig.url,
+          name: siteConfig.author.name,
         },
       ],
+      category: post.frontmatter.tags.map((name) => ({ name })),
+      date: new Date(post.frontmatter.date),
+      description: post.frontmatter.description,
+      id: url,
+      link: url,
+      title: post.frontmatter.title,
     });
   }
 
   feed.addContributor({
-    name: siteConfig.author.name,
     email: siteConfig.author.email,
     link: socialLinks.github,
+    name: siteConfig.author.name,
   });
 
   return new Response(feed.rss2(), {
     headers: {
-      "Content-Type": "application/rss+xml; charset=utf-8",
       "Cache-Control": "public, max-age=3600, s-maxage=3600",
+      "Content-Type": "application/rss+xml; charset=utf-8",
     },
   });
 }

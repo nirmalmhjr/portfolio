@@ -1,7 +1,7 @@
+import { ArrowLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
 import { Container } from "@/components/container";
 import { GlowBackdrop } from "@/components/glow-backdrop";
 import { JsonLd } from "@/components/json-ld";
@@ -24,33 +24,35 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-  if (!post) return {};
+  if (!post) {
+    return {};
+  }
 
   const { title, description, date, updated, image, tags } = post.frontmatter;
   const url = absoluteUrl(`/blog/${slug}`);
   const ogImage = image ? absoluteUrl(image) : siteConfig.ogImage;
 
   return {
-    title,
+    alternates: { canonical: `/blog/${slug}` },
     description,
     keywords: tags,
-    alternates: { canonical: `/blog/${slug}` },
     openGraph: {
+      authors: [siteConfig.author.name],
+      description,
+      images: [{ alt: title, height: 630, url: ogImage, width: 1200 }],
+      modifiedTime: updated ? new Date(updated).toISOString() : undefined,
+      publishedTime: new Date(date).toISOString(),
+      tags,
+      title,
       type: "article",
       url,
-      title,
-      description,
-      publishedTime: new Date(date).toISOString(),
-      modifiedTime: updated ? new Date(updated).toISOString() : undefined,
-      authors: [siteConfig.author.name],
-      tags,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: title }],
     },
+    title,
     twitter: {
       card: "summary_large_image",
-      title,
       description,
       images: [ogImage],
+      title,
     },
   };
 }
@@ -62,7 +64,9 @@ export default async function PostPage({
 }) {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-  if (!post) notFound();
+  if (!post) {
+    notFound();
+  }
 
   const { frontmatter, content, readingTimeMinutes } = post;
   const url = absoluteUrl(`/blog/${slug}`);
@@ -73,46 +77,46 @@ export default async function PostPage({
   const articleJsonLd = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: frontmatter.title,
-    description: frontmatter.description,
-    datePublished: new Date(frontmatter.date).toISOString(),
-    dateModified: new Date(
-      frontmatter.updated ?? frontmatter.date
-    ).toISOString(),
-    keywords: frontmatter.tags.join(", "),
-    image: frontmatter.image
-      ? absoluteUrl(frontmatter.image)
-      : absoluteUrl(siteConfig.ogImage),
-    url,
-    mainEntityOfPage: { "@type": "WebPage", "@id": url },
     author: {
       "@type": "Person",
       name: siteConfig.author.name,
       url: siteConfig.url,
     },
+    dateModified: new Date(
+      frontmatter.updated ?? frontmatter.date
+    ).toISOString(),
+    datePublished: new Date(frontmatter.date).toISOString(),
+    description: frontmatter.description,
+    headline: frontmatter.title,
+    image: frontmatter.image
+      ? absoluteUrl(frontmatter.image)
+      : absoluteUrl(siteConfig.ogImage),
+    keywords: frontmatter.tags.join(", "),
+    mainEntityOfPage: { "@id": url, "@type": "WebPage" },
     publisher: {
       "@type": "Person",
       name: siteConfig.author.name,
       url: siteConfig.url,
     },
+    url,
   };
 
   return (
     <main>
       <JsonLd data={articleJsonLd} />
 
-      <header className="relative isolate overflow-hidden pb-10 pt-[132px] sm:pt-[160px]">
+      <header className="relative isolate overflow-hidden pt-[132px] pb-10 sm:pt-[160px]">
         <GlowBackdrop />
         <Container className="max-w-[52rem]">
           <Link
+            className="inline-flex items-center gap-1.5 text-muted text-sm transition-colors hover:text-fg"
             href="/blog"
-            className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-fg"
           >
             <ArrowLeft aria-hidden className="h-3.5 w-3.5" />
             Back to blog
           </Link>
 
-          <h1 className="mt-6 text-[clamp(2.1rem,5vw,3.2rem)] font-bold leading-[1.08] tracking-[-0.04em]">
+          <h1 className="mt-6 font-bold text-[clamp(2.1rem,5vw,3.2rem)] leading-[1.08] tracking-[-0.04em]">
             {frontmatter.title}
           </h1>
 
@@ -135,8 +139,8 @@ export default async function PostPage({
               {frontmatter.tags.map((tag) => (
                 <li key={tag}>
                   <Link
-                    href={`/blog/tag/${tagSlug(tag)}`}
                     className="pill transition-colors hover:text-fg"
+                    href={`/blog/tag/${tagSlug(tag)}`}
                   >
                     {tag}
                   </Link>
@@ -149,14 +153,14 @@ export default async function PostPage({
 
       <Container
         as="article"
-        className="max-w-[52rem] border-t border-line py-12"
+        className="max-w-[52rem] border-line border-t py-12"
       >
         <MdxContent source={content} />
       </Container>
 
       {more.length > 0 ? (
         <Container as="aside" className="max-w-[52rem] pb-24">
-          <h2 className="font-mono text-xs font-medium uppercase tracking-[0.1em] text-faint">
+          <h2 className="font-medium font-mono text-faint text-xs uppercase tracking-[0.1em]">
             Keep reading
           </h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">

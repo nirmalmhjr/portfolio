@@ -12,8 +12,8 @@ export async function GET() {
 
   return new Response(new Uint8Array(pdf), {
     headers: {
-      "Content-Type": "application/pdf",
       "Content-Disposition": `inline; filename="${siteConfig.resumeFileName}"`,
+      "Content-Type": "application/pdf",
     },
   });
 }

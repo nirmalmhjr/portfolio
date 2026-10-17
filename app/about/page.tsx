@@ -1,7 +1,7 @@
+import { Download, Mail } from "lucide-react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Download, Mail } from "lucide-react";
 import { BeforeCode } from "@/components/before-code";
 import { buttonClass } from "@/components/button";
 import { ContactCard } from "@/components/contact-card";
@@ -18,39 +18,39 @@ import { siteConfig } from "@/lib/site.config";
 import portrait from "@/public/me.jpg";
 
 export const metadata: Metadata = {
-  title: "About",
+  alternates: { canonical: "/about" },
   description:
     "Nirmal Maharjan is a frontend developer in Kathmandu who spent eight years in finance and pharma sales before switching to code in 2023.",
-  alternates: { canonical: "/about" },
+  title: "About",
 };
 
 export default function AboutPage() {
   return (
     <main>
       <PageHeader
+        description={`I'm ${siteConfig.name}, a frontend developer in ${siteConfig.location}. I spent eight years in finance and pharma sales, then switched to code in 2023.`}
         eyebrow="About me"
-        watermark="About"
         title={
           <>
             From ledgers to{" "}
-            <em className="text-gradient pr-[0.05em] font-serif font-normal tracking-[-0.01em]">
+            <em className="pr-[0.05em] font-normal font-serif text-gradient tracking-[-0.01em]">
               layouts
             </em>
             .
           </>
         }
-        description={`I'm ${siteConfig.name}, a frontend developer in ${siteConfig.location}. I spent eight years in finance and pharma sales, then switched to code in 2023.`}
+        watermark="About"
       >
         <div className="mt-8 flex flex-wrap gap-3">
           <a
-            href={siteConfig.resumeUrl}
-            download={siteConfig.resumeFileName}
             className={buttonClass("primary")}
+            download={siteConfig.resumeFileName}
+            href={siteConfig.resumeUrl}
           >
             <Download aria-hidden />
             Download résumé
           </a>
-          <Link href="/contact" className={buttonClass("ghost")}>
+          <Link className={buttonClass("ghost")} href="/contact">
             <Mail aria-hidden />
             Get in touch
           </Link>
@@ -61,7 +61,7 @@ export default function AboutPage() {
         <div className="grid items-start gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
           <div>
             <SectionHeading eyebrow="My story" title="How I got here" />
-            <div className="mt-6 grid max-w-[60ch] gap-4 text-[17px] leading-[1.75] text-muted">
+            <div className="mt-6 grid max-w-[60ch] gap-4 text-[17px] text-muted leading-[1.75]">
               {story.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
@@ -75,11 +75,11 @@ export default function AboutPage() {
             />
             <div className="rounded-[28px] bg-[linear-gradient(145deg,rgb(var(--a1)/0.6),var(--line)_40%,rgb(var(--a2)/0.6))] p-1.5">
               <Image
-                src={portrait}
                 alt={`Portrait of ${siteConfig.name}`}
+                className="aspect-[1/1.08] w-full rounded-[22px] object-cover object-[50%_18%]"
                 placeholder="blur"
                 sizes="340px"
-                className="aspect-[1/1.08] w-full rounded-[22px] object-cover object-[50%_18%]"
+                src={portrait}
               />
             </div>
           </div>
@@ -88,9 +88,9 @@ export default function AboutPage() {
 
       <Section id="experience">
         <SectionHeading
-          watermark="Experience"
           eyebrow="Experience"
           title="Where I've worked"
+          watermark="Experience"
         />
         <ExperienceTimeline items={experience} />
       </Section>
@@ -98,9 +98,9 @@ export default function AboutPage() {
       <Section id="before-code">
         <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-14">
           <SectionHeading
+            description="Accounting taught me accuracy and deadlines. Sales taught me to listen to what people actually need. Both show up in how I build interfaces."
             eyebrow="Before code"
             title="Eight years on the business side"
-            description="Accounting taught me accuracy and deadlines. Sales taught me to listen to what people actually need. Both show up in how I build interfaces."
           />
           <BeforeCode />
         </div>
@@ -108,19 +108,19 @@ export default function AboutPage() {
 
       <Section id="skills">
         <SectionHeading
-          watermark="Stack"
+          description="Highlighted tools are what I use every day. Vue and Nuxt are from earlier roles."
           eyebrow="Technical skills"
           title="What I work with"
-          description="Highlighted tools are what I use every day. Vue and Nuxt are from earlier roles."
+          watermark="Stack"
         />
         <SkillsGrid />
       </Section>
 
       <Section id="education">
         <SectionHeading
-          watermark="Education"
           eyebrow="Education & training"
           title="Business degree, self-taught code"
+          watermark="Education"
         />
         <EducationGrid />
       </Section>

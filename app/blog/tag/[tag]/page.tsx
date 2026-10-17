@@ -23,12 +23,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { tag: tagParam } = await params;
   const tag = resolveTag(tagParam);
-  if (!tag) return {};
+  if (!tag) {
+    return {};
+  }
 
   return {
-    title: `Posts about ${tag}`,
-    description: `All blog posts about ${tag}.`,
     alternates: { canonical: `/blog/tag/${tagSlug(tag)}` },
+    description: `All blog posts about ${tag}.`,
+    title: `Posts about ${tag}`,
   };
 }
 
@@ -39,7 +41,9 @@ export default async function TagPage({
 }) {
   const { tag: tagParam } = await params;
   const tag = resolveTag(tagParam);
-  if (!tag) notFound();
+  if (!tag) {
+    notFound();
+  }
 
   // Static page listing every post with this tag (no pagination needed).
   const posts = getPostsByTag(tag).filter((p) => !p.frontmatter.draft);
@@ -47,10 +51,10 @@ export default async function TagPage({
   return (
     <main>
       <PageHeader
-        eyebrow="Tag"
-        watermark={tag}
-        title={`Posts about ${tag}`}
         description={`${posts.length} post${posts.length === 1 ? "" : "s"} tagged “${tag}”.`}
+        eyebrow="Tag"
+        title={`Posts about ${tag}`}
+        watermark={tag}
       >
         <div className="mt-8">
           <TagFilter activeTag={tag} />

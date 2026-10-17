@@ -28,11 +28,15 @@ export function SectionLink({ href, onClick, ...props }: SectionLinkProps) {
     }
 
     const url = new URL(href, window.location.href);
-    if (!url.hash || url.pathname !== window.location.pathname) return;
+    if (!url.hash || url.pathname !== window.location.pathname) {
+      return;
+    }
     const target = document.getElementById(
       decodeURIComponent(url.hash.slice(1))
     );
-    if (!target) return;
+    if (!target) {
+      return;
+    }
 
     e.preventDefault();
     // Follows the smooth scroll and scroll-padding set on <html>.

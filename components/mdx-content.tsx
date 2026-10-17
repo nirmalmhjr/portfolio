@@ -14,7 +14,7 @@ const components: MDXRemoteProps["components"] = {
       );
     }
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+      <a href={href} rel="noopener noreferrer" target="_blank" {...props}>
         {children}
       </a>
     );
@@ -32,7 +32,7 @@ const components: MDXRemoteProps["components"] = {
 export function MdxContent({ source }: { source: string }) {
   return (
     <div className="prose max-w-none prose-headings:scroll-mt-28 prose-pre:p-0">
-      <MDXRemote source={source} components={components} options={mdxOptions} />
+      <MDXRemote components={components} options={mdxOptions} source={source} />
     </div>
   );
 }

@@ -17,10 +17,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { page } = await params;
   return {
-    title: `Blog, page ${page}`,
+    alternates: { canonical: `/blog/page/${page}` },
     description:
       "Notes on React, Next.js and TypeScript: what I learn while building.",
-    alternates: { canonical: `/blog/page/${page}` },
+    title: `Blog, page ${page}`,
   };
 }
 

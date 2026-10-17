@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 
 const format = new Intl.DateTimeFormat("en-US", {
-  timeZone: "Asia/Kathmandu",
   hour: "numeric",
   minute: "2-digit",
+  timeZone: "Asia/Kathmandu",
 });
 
 /** Current time in Kathmandu (UTC+5:45), updated every 20 seconds. */
