@@ -1,5 +1,4 @@
 import { Download, Mail } from "lucide-react";
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import portrait from "@/assets/images/me.jpg";
@@ -17,13 +16,14 @@ import {
   SkillsGrid,
 } from "@/features/profile/components/ProfileSections";
 import { EXPERIENCE, STORY } from "@/features/profile/constants/profile";
+import { createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  alternates: { canonical: ROUTES.about },
+export const metadata = createMetadata({
   description:
     "Nirmal Maharjan is a frontend developer in Kathmandu who spent eight years in finance and pharma sales before switching to code in 2023.",
+  path: ROUTES.about,
   title: "About",
-};
+});
 
 export default function AboutPage() {
   return (

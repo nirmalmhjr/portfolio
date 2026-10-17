@@ -7,10 +7,10 @@ import { Header } from "@/components/shared/Header";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { SpotlightTracker } from "@/components/shared/SpotlightTracker";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
-import { ROUTES } from "@/configs/routes";
-import { OG_IMAGE_SIZE, SITE_CONFIG, SOCIAL_LINKS } from "@/configs/site";
+import { SITE_CONFIG, SOCIAL_LINKS } from "@/configs/site";
 import { EDUCATION, EXPERIENCE } from "@/features/profile/constants/profile";
 import { getNav } from "@/lib/nav";
+import { DEFAULT_TITLE } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/url";
 
 const sans = Geist({
@@ -33,51 +33,21 @@ const serif = Instrument_Serif({
   weight: "400",
 });
 
-const defaultTitle = `${SITE_CONFIG.name} | ${SITE_CONFIG.title} in Kathmandu, Nepal`;
-
+/** Site-wide defaults. Each page adds its own tags with createMetadata(). */
 export const metadata: Metadata = {
-  alternates: {
-    canonical: ROUTES.home,
-    types: {
-      "application/rss+xml": [
-        { title: `${SITE_CONFIG.name} | Blog`, url: ROUTES.rss },
-      ],
-    },
-  },
+  applicationName: SITE_CONFIG.name,
   authors: [{ name: SITE_CONFIG.author.name, url: SITE_CONFIG.url }],
   creator: SITE_CONFIG.author.name,
   description: SITE_CONFIG.description,
-  keywords: [...SITE_CONFIG.keywords],
   metadataBase: new URL(SITE_CONFIG.url),
-  openGraph: {
-    description: SITE_CONFIG.description,
-    images: [
-      {
-        alt: SITE_CONFIG.name,
-        ...OG_IMAGE_SIZE,
-        url: ROUTES.ogImage,
-      },
-    ],
-    locale: SITE_CONFIG.locale,
-    siteName: SITE_CONFIG.name,
-    title: defaultTitle,
-    type: "website",
-    url: SITE_CONFIG.url,
-  },
   robots: {
     follow: true,
     googleBot: { follow: true, index: true, "max-image-preview": "large" },
     index: true,
   },
   title: {
-    default: defaultTitle,
+    default: DEFAULT_TITLE,
     template: `%s | ${SITE_CONFIG.name}`,
-  },
-  twitter: {
-    card: "summary_large_image",
-    description: SITE_CONFIG.description,
-    images: [ROUTES.ogImage],
-    title: defaultTitle,
   },
 };
 

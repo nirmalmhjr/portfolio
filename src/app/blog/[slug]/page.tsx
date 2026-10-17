@@ -6,7 +6,7 @@ import { Container } from "@/components/shared/Container";
 import { JsonLd } from "@/components/shared/JsonLd";
 import { GlowBackdrop } from "@/components/ui/glow-backdrop";
 import { ROUTES } from "@/configs/routes";
-import { OG_IMAGE_SIZE, SITE_CONFIG } from "@/configs/site";
+import { SITE_CONFIG } from "@/configs/site";
 import { MdxContent } from "@/features/blog/components/MdxContent";
 import { PostCard } from "@/features/blog/components/PostCard";
 import {
@@ -15,6 +15,7 @@ import {
   getPublishedPosts,
   tagSlug,
 } from "@/features/blog/utils/posts";
+import { createMetadata } from "@/lib/seo";
 import { absoluteUrl } from "@/lib/url";
 import { formatDate } from "@/lib/utils";
 
@@ -41,32 +42,17 @@ export async function generateMetadata({
   }
 
   const { title, description, date, updated, image, tags } = post.frontmatter;
-  const url = absoluteUrl(ROUTES.blogPost(slug));
-  const ogImage = image ? absoluteUrl(image) : ROUTES.ogImage;
-
-  return {
-    alternates: { canonical: ROUTES.blogPost(slug) },
-    description,
-    keywords: tags,
-    openGraph: {
-      authors: [SITE_CONFIG.author.name],
-      description,
-      images: [{ alt: title, ...OG_IMAGE_SIZE, url: ogImage }],
+  return createMetadata({
+    article: {
       modifiedTime: updated ? new Date(updated).toISOString() : undefined,
       publishedTime: new Date(date).toISOString(),
       tags,
-      title,
-      type: "article",
-      url,
     },
+    description,
+    image,
+    path: ROUTES.blogPost(slug),
     title,
-    twitter: {
-      card: "summary_large_image",
-      description,
-      images: [ogImage],
-      title,
-    },
-  };
+  });
 }
 
 export default async function PostPage({ params }: PostPageProps) {

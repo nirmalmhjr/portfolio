@@ -1,15 +1,15 @@
 import { Download } from "lucide-react";
-import type { Metadata } from "next";
 import { buttonClass } from "@/components/ui/button";
 import { ROUTES } from "@/configs/routes";
 import { SITE_CONFIG } from "@/configs/site";
 import { ResumeSheet } from "@/features/resume/components/ResumeSheet";
+import { createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  alternates: { canonical: ROUTES.resume },
+export const metadata = createMetadata({
   description: `Résumé of ${SITE_CONFIG.name}, ${SITE_CONFIG.title} in ${SITE_CONFIG.location}. Next.js, TypeScript, React and Tailwind CSS.`,
+  path: ROUTES.resume,
   title: "Résumé",
-};
+});
 
 export default function ResumePage() {
   return (

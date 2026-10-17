@@ -9,6 +9,7 @@ import {
   getPostsByTag,
   tagSlug,
 } from "@/features/blog/utils/posts";
+import { createMetadata } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -34,11 +35,11 @@ export async function generateMetadata({
     return {};
   }
 
-  return {
-    alternates: { canonical: ROUTES.blogTag(tagSlug(tag)) },
+  return createMetadata({
     description: `All blog posts about ${tag}.`,
+    path: ROUTES.blogTag(tagSlug(tag)),
     title: `Posts about ${tag}`,
-  };
+  });
 }
 
 export default async function TagPage({ params }: TagPageProps) {

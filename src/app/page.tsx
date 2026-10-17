@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Section } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { HOME_SECTION_IDS, ROUTES } from "@/configs/routes";
+import { SITE_CONFIG } from "@/configs/site";
 import { PostCard } from "@/features/blog/components/PostCard";
 import { getPublishedPosts } from "@/features/blog/utils/posts";
 import { ContactCard } from "@/features/contact/components/ContactCard";
@@ -25,6 +26,12 @@ import {
   HOME_WORK_PROJECTS,
   MORE_PROJECTS,
 } from "@/features/projects/constants/projects";
+import { createMetadata } from "@/lib/seo";
+
+export const metadata = createMetadata({
+  description: SITE_CONFIG.description,
+  path: ROUTES.home,
+});
 
 /** How many recent posts the homepage shows. */
 const LATEST_POSTS_COUNT = 3;

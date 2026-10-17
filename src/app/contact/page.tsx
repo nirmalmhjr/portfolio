@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
 import { AvailableBadge } from "@/components/shared/AvailableBadge";
 import { Container, PageHeader } from "@/components/shared/Container";
 import { ROUTES } from "@/configs/routes";
 import { SITE_CONFIG } from "@/configs/site";
 import { ContactCard } from "@/features/contact/components/ContactCard";
+import { createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  alternates: { canonical: ROUTES.contact },
+export const metadata = createMetadata({
   description: `Get in touch with ${SITE_CONFIG.name}, a frontend developer in ${SITE_CONFIG.location}.`,
+  path: ROUTES.contact,
   title: "Contact",
-};
+});
 
 export default function ContactPage() {
   return (

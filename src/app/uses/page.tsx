@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Container, PageHeader } from "@/components/shared/Container";
 import { ROUTES } from "@/configs/routes";
 import { USES } from "@/features/uses/constants/uses";
+import { createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  alternates: { canonical: ROUTES.uses },
+export const metadata = createMetadata({
   description: "The tools, apps and setup I use to build for the web.",
+  path: ROUTES.uses,
   title: "Uses",
-};
+});
 
 export default function UsesPage() {
   // Hidden until features/uses/constants/uses.json has content.

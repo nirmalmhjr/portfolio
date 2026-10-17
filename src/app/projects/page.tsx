@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { PageHeader, Section } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { SectionLink } from "@/components/shared/SectionLink";
@@ -15,13 +14,14 @@ import {
   SMALL_BUILDS,
   WORK_PROJECTS,
 } from "@/features/projects/constants/projects";
+import { createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  alternates: { canonical: ROUTES.projects },
+export const metadata = createMetadata({
   description:
     "Every project Nirmal Maharjan has built: client websites, landing pages and CMS dashboards in Next.js, TypeScript and React, plus learning builds and early JavaScript apps.",
+  path: ROUTES.projects,
   title: "Projects",
-};
+});
 
 const SECTION_IDS = {
   clientWork: "client-work",
