@@ -13,6 +13,8 @@ const nextConfig = {
   // This project lives inside a folder with other lockfiles; pin the trace root
   // so Vercel bundles the right files.
   outputFileTracingRoot: __dirname,
+  // Linting runs through Ultracite (Biome) in `pnpm lint` and CI, not ESLint.
+  eslint: { ignoreDuringBuilds: true },
 };
 
 export default nextConfig;

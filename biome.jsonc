@@ -1,0 +1,12 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": [
+    "ultracite/biome/core",
+    "ultracite/biome/react",
+    "ultracite/biome/next"
+  ],
+  "files": {
+    // public/ only holds images and the sitemap/robots files next-sitemap writes.
+    "includes": ["**", "!public"]
+  }
+}
