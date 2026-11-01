@@ -13,7 +13,7 @@ import type {
 /** Short intro used on the homepage About section. */
 export const STORY = [
   "I started my career in accounting, then spent years in pharmaceutical sales, meeting clients every day and working to targets. Along the way I kept noticing how much good software shaped the work.",
-  "In 2023 I made the switch. I taught myself JavaScript, React and Vue, joined Miracle Yard as an intern, and migrated a live restaurant platform on my own within a year. At Galli Maps I built the public website and the admin dashboard behind it.",
+  "In 2023 I made the switch. I taught myself JavaScript, React and Vue, joined Miracle Yard as an intern, and within a year was rebuilding a live restaurant platform in Vue 3 on my own. At Galli Maps I built the public website and the admin dashboard behind it.",
   "Today I work mainly in Next.js and TypeScript, building company websites, landing pages and CMS dashboards. My business background helps me ask the right questions before I write code.",
 ];
 
@@ -76,7 +76,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     company: "Miracle Yard",
     end: "Sep 2024",
     highlights: [
-      "Migrated meromenu.com, a live restaurant management system, from Vue 2/Nuxt 2 to Vue 3/Nuxt 3 on my own, within my first year as a developer.",
+      "Took over the Vue 2 to Vue 3/Nuxt 3 migration of meromenu.com, a live restaurant management system, and rebuilt most of its pages on my own in my first year.",
       "Modernized the codebase for better performance and easier long-term maintenance.",
     ],
     projects: ["meromenu"],
@@ -200,7 +200,7 @@ export const STRENGTHS: Strength[] = [
   },
   {
     description:
-      "Within my first year as a developer, I migrated a live product from Vue 2 to Vue 3 on my own.",
+      "Within my first year as a developer, I took over a live product's move from Vue 2 to Vue 3 and rebuilt most of it on my own.",
     icon: "migrate",
     title: "Learns fast, owns the work",
   },

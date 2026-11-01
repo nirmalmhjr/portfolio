@@ -52,7 +52,7 @@ export function BlogListing({ currentPage }: BlogListingProps) {
             </h2>
             <p className="max-w-[56ch] text-muted">
               I&apos;m writing about what I learn while building, starting with
-              how I migrated a live app from Vue 2 to Vue 3 on my own. In the
+              how I took over a live app's move from Vue 2 to Vue 3. In the
               meantime, my projects show how I work.
             </p>
             <Link
