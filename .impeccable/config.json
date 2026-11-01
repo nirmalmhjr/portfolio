@@ -1,0 +1,15 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": ["src/styles/globals.css"],
+        "createdAt": "2026-10-30T06:32:06.573Z",
+        "reason": "Pre-existing .text-name/.text-gradient utilities; amber→rose gradient text chosen by Nirmal (2026-09-28 theme decision in project notes) and documented in DESIGN.md (Lamplight Rule)"
+      }
+    ]
+  }
+}

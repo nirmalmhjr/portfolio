@@ -97,6 +97,11 @@
     text-wrap: balance;
   }
 
+  /* Avoids a lone word on the last line of a paragraph. */
+  p {
+    text-wrap: pretty;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -456,7 +461,7 @@
     align-items: center;
     padding: 6px 8px;
     font-family: var(--font-mono), monospace;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 500;
     line-height: 1;
     color: #fff;
@@ -507,7 +512,7 @@
 
   /* Before / after slider */
   .ba {
-    --pos: 50%;
+    --pos: 20%;
     position: relative;
     aspect-ratio: 16 / 10;
     overflow: hidden;
@@ -557,9 +562,11 @@
   .ba-tag {
     position: absolute;
     top: 10px;
+    /* Above the divider line, so a slider resting near an edge never strikes through the tag. */
+    z-index: 1;
     padding: 6px 8px;
     font-family: var(--font-mono), monospace;
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 500;
     line-height: 1;
     text-transform: uppercase;
@@ -723,18 +730,19 @@
   }
 }
 
+/* Nudges from the resting position (--ba-start, set by BeforeAfter) and back. */
 @keyframes ba-hint {
   0% {
-    --pos: 50%;
+    --pos: var(--ba-start);
   }
   35% {
-    --pos: 70%;
+    --pos: calc(var(--ba-start) + 23%);
   }
   70% {
-    --pos: 32%;
+    --pos: max(0%, calc(var(--ba-start) - 10%));
   }
   100% {
-    --pos: 50%;
+    --pos: var(--ba-start);
   }
 }
 

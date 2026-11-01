@@ -5,7 +5,7 @@ import { buttonClass } from "@/components/ui/button";
 import { Pagination } from "@/components/ui/pagination";
 import { HOME_SECTION_IDS, ROUTES } from "@/configs/routes";
 import { SITE_CONFIG } from "@/configs/site";
-import { PostCard } from "@/features/blog/components/PostCard";
+import { PostCard, PostGrid } from "@/features/blog/components/PostCard";
 import { TagFilter } from "@/features/blog/components/TagFilter";
 import { getPublishedPosts, getTotalPages } from "@/features/blog/utils/posts";
 
@@ -39,11 +39,11 @@ export function BlogListing({ currentPage }: BlogListingProps) {
 
       <Container className="pb-24">
         {pagePosts.length > 0 ? (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <PostGrid>
             {pagePosts.map((post) => (
-              <PostCard key={post.slug} post={post} />
+              <PostCard headingLevel="h2" key={post.slug} post={post} />
             ))}
-          </div>
+          </PostGrid>
         ) : (
           <div className="card flex flex-col items-start gap-4 border-line-strong border-dashed p-8 sm:p-10">
             <span className="status status-soon">Writing now</span>

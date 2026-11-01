@@ -1,5 +1,14 @@
 import { type ClassValue, clsx } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { extendTailwindMerge } from "tailwind-merge";
+
+/**
+ * tailwind-merge only knows Tailwind's default theme, so it can't tell that
+ * `max-w-site` (tailwind.config.ts) is a max-width. Without this, a later
+ * `max-w-[52rem]` would not replace it and the wider value would win.
+ */
+const twMerge = extendTailwindMerge({
+  extend: { classGroups: { "max-w": [{ "max-w": ["site"] }] } },
+});
 
 /**
  * Joins class names, dropping falsy values and letting later Tailwind classes

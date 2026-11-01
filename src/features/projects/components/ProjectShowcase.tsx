@@ -126,7 +126,7 @@ export function LearningGrid({ projects }: LearningGridProps) {
             <p className="text-muted text-sm">{project.description}</p>
             {project.learned ? (
               <p className="text-fg text-sm">
-                <span className="mr-1.5 font-medium font-mono text-[10px] text-ink uppercase tracking-[0.08em]">
+                <span className="mr-1.5 font-medium font-mono text-[11px] text-ink uppercase tracking-[0.08em]">
                   Learned
                 </span>
                 {project.learned}

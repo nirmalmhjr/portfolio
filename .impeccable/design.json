@@ -1,0 +1,669 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-01T15:30:47.483Z",
+  "title": "Design System: Nirmal Maharjan Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "lamplight-amber": {
+        "role": "primary",
+        "displayName": "Lamplight Amber (dark)",
+        "canonical": "oklch(83.7% 0.164 84.4)",
+        "tonalRamp": [
+          "#1d0200",
+          "#411700",
+          "#663000",
+          "#885000",
+          "#ad7400",
+          "#cd9c1e",
+          "#ebc578",
+          "#ffebb7"
+        ]
+      },
+      "lamplight-ink": {
+        "role": "primary",
+        "displayName": "Lamplight Ink (dark)",
+        "canonical": "oklch(87.9% 0.153 91.6)",
+        "tonalRamp": [
+          "#190500",
+          "#3a1d00",
+          "#5d3700",
+          "#7d5700",
+          "#a27a00",
+          "#c3a131",
+          "#e2c97f",
+          "#ffeebb"
+        ]
+      },
+      "ember-rose": {
+        "role": "secondary",
+        "displayName": "Ember Rose (dark)",
+        "canonical": "oklch(71.9% 0.169 13.4)",
+        "tonalRamp": [
+          "#290001",
+          "#54000f",
+          "#810024",
+          "#a72041",
+          "#d14b62",
+          "#f07b8a",
+          "#ffadb6",
+          "#ffdbe0"
+        ]
+      },
+      "graphite-night": {
+        "role": "neutral",
+        "displayName": "Graphite Night",
+        "canonical": "oklch(13.9% 0.003 246.3)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#232425",
+          "#3e4041",
+          "#5c5e5f",
+          "#7f8082",
+          "#a3a5a6",
+          "#c9cacc",
+          "#eeeeef"
+        ]
+      },
+      "night-surface": {
+        "role": "neutral",
+        "displayName": "Night Surface",
+        "canonical": "oklch(17.3% 0.004 264.5)",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#232426",
+          "#3e4042",
+          "#5c5e60",
+          "#7f8083",
+          "#a3a4a7",
+          "#c9cacc",
+          "#eeeef0"
+        ]
+      },
+      "night-raised": {
+        "role": "neutral",
+        "displayName": "Night Raised",
+        "canonical": "oklch(21.3% 0.007 258.4)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#222427",
+          "#3e4043",
+          "#5b5e61",
+          "#7e8084",
+          "#a2a5a8",
+          "#c9cbcd",
+          "#edeef0"
+        ]
+      },
+      "night-fg": {
+        "role": "neutral",
+        "displayName": "Night Text",
+        "canonical": "oklch(97.8% 0.001 197.1)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#232424",
+          "#3f4040",
+          "#5d5e5e",
+          "#7f8080",
+          "#a4a5a5",
+          "#cacaca",
+          "#eeeeee"
+        ]
+      },
+      "night-muted": {
+        "role": "neutral",
+        "displayName": "Night Muted",
+        "canonical": "oklch(66.5% 0.014 262.4)",
+        "tonalRamp": [
+          "#090b0f",
+          "#21242a",
+          "#3c4048",
+          "#595e66",
+          "#7c8089",
+          "#a0a5ad",
+          "#c7cbd1",
+          "#eceef3"
+        ]
+      },
+      "night-faint": {
+        "role": "neutral",
+        "displayName": "Night Faint",
+        "canonical": "oklch(60.6% 0.016 264.4)",
+        "tonalRamp": [
+          "#090b10",
+          "#21242b",
+          "#3b4049",
+          "#595e67",
+          "#7b808a",
+          "#a0a5ae",
+          "#c7cbd1",
+          "#eceef3"
+        ]
+      },
+      "signal-live": {
+        "role": "signal",
+        "displayName": "Live Green (dark)",
+        "canonical": "oklch(80.6% 0.158 159.6)",
+        "tonalRamp": [
+          "#001500",
+          "#003408",
+          "#00561d",
+          "#00763b",
+          "#009b5d",
+          "#47be86",
+          "#8edfb4",
+          "#c7fede"
+        ]
+      },
+      "signal-soon": {
+        "role": "signal",
+        "displayName": "Soon Sky (dark)",
+        "canonical": "oklch(82.8% 0.101 230.3)",
+        "tonalRamp": [
+          "#000e20",
+          "#002944",
+          "#00476a",
+          "#00678c",
+          "#318bb1",
+          "#68afd1",
+          "#a0d3ed",
+          "#d1f5ff"
+        ]
+      },
+      "paper-canvas": {
+        "role": "neutral",
+        "displayName": "Paper Canvas",
+        "canonical": "oklch(97.0% 0.003 84.6)",
+        "tonalRamp": [
+          "#0b0b0a",
+          "#242423",
+          "#40403e",
+          "#5e5d5c",
+          "#81807e",
+          "#a5a4a3",
+          "#cbcac9",
+          "#efeeed"
+        ]
+      },
+      "paper-surface": {
+        "role": "neutral",
+        "displayName": "Paper Surface",
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#808080",
+          "#a4a4a4",
+          "#cacaca",
+          "#eeeeee"
+        ]
+      },
+      "paper-raised": {
+        "role": "neutral",
+        "displayName": "Paper Raised",
+        "canonical": "oklch(94.4% 0.005 78.3)",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#252422",
+          "#413f3d",
+          "#5f5d5b",
+          "#82807d",
+          "#a6a4a2",
+          "#cbcac8",
+          "#efeeed"
+        ]
+      },
+      "paper-fg": {
+        "role": "neutral",
+        "displayName": "Paper Text",
+        "canonical": "oklch(18.4% 0.005 67.5)",
+        "tonalRamp": [
+          "#0c0b0a",
+          "#252422",
+          "#423f3d",
+          "#605d5b",
+          "#82807d",
+          "#a6a4a2",
+          "#cccac8",
+          "#efeeed"
+        ]
+      },
+      "paper-muted": {
+        "role": "neutral",
+        "displayName": "Paper Muted",
+        "canonical": "oklch(44.4% 0.010 73.6)",
+        "tonalRamp": [
+          "#0d0b08",
+          "#262320",
+          "#433f3a",
+          "#615d58",
+          "#847f7a",
+          "#a8a49f",
+          "#cdcac6",
+          "#f0eeeb"
+        ]
+      },
+      "paper-faint": {
+        "role": "neutral",
+        "displayName": "Paper Faint",
+        "canonical": "oklch(52.3% 0.011 72.6)",
+        "tonalRamp": [
+          "#0d0b08",
+          "#27231f",
+          "#433f39",
+          "#625d57",
+          "#847f79",
+          "#a8a49e",
+          "#cdcac5",
+          "#f0eeeb"
+        ]
+      },
+      "paper-amber": {
+        "role": "primary",
+        "displayName": "Lamplight Amber (light)",
+        "canonical": "oklch(76.9% 0.165 70.1)",
+        "tonalRamp": [
+          "#230000",
+          "#490a00",
+          "#722300",
+          "#954500",
+          "#bc6900",
+          "#dc932d",
+          "#f7bf7d",
+          "#ffe7ba"
+        ]
+      },
+      "paper-ink": {
+        "role": "primary",
+        "displayName": "Lamplight Ink (light)",
+        "canonical": "oklch(55.5% 0.146 49.0)",
+        "tonalRamp": [
+          "#250000",
+          "#4c0000",
+          "#771800",
+          "#9b3c00",
+          "#c36120",
+          "#e38c5b",
+          "#fdb995",
+          "#ffe3c9"
+        ]
+      },
+      "paper-rose": {
+        "role": "secondary",
+        "displayName": "Ember Rose (light, gradient text)",
+        "canonical": "oklch(51.4% 0.198 16.9)",
+        "tonalRamp": [
+          "#2d0000",
+          "#5b0003",
+          "#8b0015",
+          "#b20033",
+          "#dd3a54",
+          "#fc727e",
+          "#ffa8ad",
+          "#ffd7da"
+        ]
+      },
+      "paper-live": {
+        "role": "signal",
+        "displayName": "Live Green (light)",
+        "canonical": "oklch(53.6% 0.123 157.3)",
+        "tonalRamp": [
+          "#001301",
+          "#00310e",
+          "#005123",
+          "#007141",
+          "#2f9662",
+          "#68b98a",
+          "#a0dbb7",
+          "#d2fae0"
+        ]
+      },
+      "paper-soon": {
+        "role": "signal",
+        "displayName": "Soon Sky (light)",
+        "canonical": "oklch(50.0% 0.119 242.7)",
+        "tonalRamp": [
+          "#000b27",
+          "#00264e",
+          "#004378",
+          "#00639b",
+          "#3387c1",
+          "#69acdf",
+          "#9fd1f9",
+          "#d1f4ff"
+        ]
+      },
+      "night-line": {
+        "role": "neutral",
+        "displayName": "Night Hairline",
+        "canonical": "rgba(255, 255, 255, 0.08)"
+      },
+      "night-line-strong": {
+        "role": "neutral",
+        "displayName": "Night Hairline Strong",
+        "canonical": "rgba(255, 255, 255, 0.14)"
+      },
+      "paper-line": {
+        "role": "neutral",
+        "displayName": "Paper Hairline",
+        "canonical": "rgba(20, 18, 16, 0.09)"
+      },
+      "paper-line-strong": {
+        "role": "neutral",
+        "displayName": "Paper Hairline Strong",
+        "canonical": "rgba(20, 18, 16, 0.16)"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The name in the homepage hero only; fades toward the bottom."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Inner-page H1s, max 22ch."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section H2s, always under an eyebrow."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "The hero role line; the stack names take the gradient."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "The four facts under the hero, tabular numbers."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Paragraphs, 54–60ch."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Button and nav CTA labels."
+      },
+      "label": {
+        "displayName": "Eyebrow",
+        "purpose": "Uppercase mono eyebrows led by a 16px ink rule."
+      },
+      "mono": {
+        "displayName": "Mono",
+        "purpose": "Tech pills, URLs, dates, status and editor-card code."
+      },
+      "accent-serif": {
+        "displayName": "Accent Serif",
+        "purpose": "One gradient-filled italic word inside a heading; nowhere else."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Fact labels, badges, chip captions, secondary lines."
+      },
+      "card-title": {
+        "displayName": "Card Title",
+        "purpose": "Project and experience card headings."
+      },
+      "micro": {
+        "displayName": "Micro",
+        "purpose": "Status chips, My part, Before/After tags, browser URLs; the 11px floor."
+      }
+    },
+    "shadows": [
+      {
+        "name": "card-light",
+        "value": "0 1px 2px rgba(20,18,16,0.04), 0 8px 28px rgba(20,18,16,0.06)",
+        "purpose": "Resting cards in light mode only."
+      },
+      {
+        "name": "card-dark",
+        "value": "inset 0 1px 0 rgba(255,255,255,0.03)",
+        "purpose": "Resting cards in dark mode: a top-edge highlight, no drop shadow."
+      },
+      {
+        "name": "float-chip",
+        "value": "0 10px 30px rgba(0,0,0,0.22)",
+        "purpose": "Clock and stack chips bobbing around the hero frame."
+      },
+      {
+        "name": "featured-shot",
+        "value": "0 24px 60px rgba(0,0,0,0.28)",
+        "purpose": "The large browser frame in featured project cards."
+      },
+      {
+        "name": "primary-halo",
+        "value": "0 8px 30px rgb(var(--a1) / 0.35)",
+        "purpose": "Primary button hover."
+      },
+      {
+        "name": "knob",
+        "value": "0 6px 22px rgba(0,0,0,0.35)",
+        "purpose": "Before/after slider handle."
+      },
+      {
+        "name": "theme-knob",
+        "value": "0 2px 8px rgba(0,0,0,0.25)",
+        "purpose": "Theme switch knob."
+      },
+      {
+        "name": "current-node",
+        "value": "0 0 12px rgb(var(--a1))",
+        "purpose": "Current-role dot on the timeline."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-soft",
+        "value": "cubic-bezier(0.2, 0.7, 0.2, 1)",
+        "purpose": "Hero entrance (rise, 0.8s, staggered 60ms) and screenshot resets."
+      },
+      {
+        "name": "ease-scroll",
+        "value": "cubic-bezier(0.45, 0, 0.3, 1)",
+        "purpose": "Full-page screenshot scroll on hover (7s; 9s on before/after)."
+      },
+      {
+        "name": "ease-spring",
+        "value": "cubic-bezier(0.3, 0.7, 0.3, 1)",
+        "purpose": "Theme switch knob, 0.35s."
+      },
+      {
+        "name": "duration-hover",
+        "value": "200ms",
+        "purpose": "Buttons and color changes."
+      },
+      {
+        "name": "duration-card",
+        "value": "300ms",
+        "purpose": "Card lift (-3px), spotlight fade, nav highlight slide."
+      },
+      {
+        "name": "ambient-drift",
+        "value": "22s ease-in-out infinite alternate",
+        "purpose": "Background glow orbs."
+      },
+      {
+        "name": "ambient-bob",
+        "value": "10s ease-in-out infinite",
+        "purpose": "Floating hero chips, 6px."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "0.01ms",
+        "purpose": "All transitions and animations collapse under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "container-row",
+        "value": "720px (container query)"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Inverted solid pill for the page's main action (\"Email me\"); lifts and picks up an amber halo on hover.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\"/><path d=\"m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7\"/></svg>Email me</a>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 20px; border-radius: 9999px; font-family: var(--font-sans, Geist), ui-sans-serif, system-ui, sans-serif; font-size: 15px; font-weight: 500; text-decoration: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; border: 0; color: rgb(var(--canvas, 8 9 10)); background: rgb(var(--fg, 247 248 248)); } .ds-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 30px rgb(var(--a1, 251 191 36) / 0.35); } .ds-btn-primary:focus-visible { outline: 2px solid rgb(var(--ink, 252 211 77)); outline-offset: 3px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Hairline pill for secondary actions such as \"Download résumé\".",
+      "html": "<a class=\"ds-btn-ghost\" href=\"#\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"/><polyline points=\"7 10 12 15 17 10\"/><line x1=\"12\" x2=\"12\" y1=\"15\" y2=\"3\"/></svg>Download résumé</a>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 20px; border-radius: 9999px; font-family: var(--font-sans, Geist), ui-sans-serif, system-ui, sans-serif; font-size: 15px; font-weight: 500; text-decoration: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; color: rgb(var(--fg, 247 248 248)); background: rgb(var(--surface, 15 16 18) / 0.6); border: 1px solid var(--line-strong, rgba(255,255,255,0.14)); } .ds-btn-ghost:hover { background: rgb(var(--raised, 23 25 28) / 1); } .ds-btn-ghost:focus-visible { outline: 2px solid rgb(var(--ink, 252 211 77)); outline-offset: 3px; }"
+    },
+    {
+      "name": "Icon Button",
+      "kind": "button",
+      "refersTo": "button-icon",
+      "description": "38px round hairline button for social links and the mobile menu.",
+      "html": "<a class=\"ds-btn-icon\" href=\"#\" aria-label=\"GitHub profile\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4\"/><path d=\"M9 18c-4.51 2-5-2-7-2\"/></svg></a>",
+      "css": ".ds-btn-icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 9999px; border: 1px solid var(--line, rgba(255,255,255,0.08)); color: rgb(var(--fg, 247 248 248)); transition: background-color 0.2s; } .ds-btn-icon:hover { background: rgb(var(--raised, 23 25 28) / 1); } .ds-btn-icon:focus-visible { outline: 2px solid rgb(var(--ink, 252 211 77)); outline-offset: 3px; }"
+    },
+    {
+      "name": "Floating Nav",
+      "kind": "nav",
+      "refersTo": "nav-bar",
+      "description": "Blurred pill bar with the NM. wordmark, section tabs on a sliding raised highlight, and the compact Résumé button.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Main\"><a class=\"ds-nav-logo\" href=\"#\">NM<span>.</span></a><ul class=\"ds-nav-tabs\"><li><a href=\"#\" aria-current=\"page\">Projects</a></li><li><a href=\"#\">Experience</a></li><li><a href=\"#\">About</a></li><li><a href=\"#\">Skills</a></li></ul><a class=\"ds-nav-cta\" href=\"#\">Résumé</a></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 7px 7px 7px 18px; border: 1px solid var(--line, rgba(255,255,255,0.08)); border-radius: 9999px; background: rgb(var(--canvas, 8 9 10) / 0.75); backdrop-filter: blur(24px) saturate(1.5); -webkit-backdrop-filter: blur(24px) saturate(1.5); font-family: var(--font-sans, Geist), ui-sans-serif, system-ui, sans-serif; } .ds-nav-logo { font-size: 20px; font-weight: 800; letter-spacing: -0.04em; color: rgb(var(--fg, 247 248 248)); text-decoration: none; } .ds-nav-logo span { color: rgb(var(--ink, 252 211 77)); } .ds-nav-tabs { display: flex; gap: 2px; margin: 0; padding: 0; list-style: none; } .ds-nav-tabs a { display: block; padding: 6px 12px; border-radius: 9999px; font-size: 14px; color: rgb(var(--muted, 143 148 157)); text-decoration: none; transition: color 0.2s, background-color 0.3s; } .ds-nav-tabs a:hover { color: rgb(var(--fg, 247 248 248)); } .ds-nav-tabs a[aria-current=\"page\"] { color: rgb(var(--fg, 247 248 248)); background: rgb(var(--raised, 23 25 28) / 1); } .ds-nav-tabs a:focus-visible, .ds-nav-cta:focus-visible { outline: 2px solid rgb(var(--ink, 252 211 77)); outline-offset: 3px; } .ds-nav-cta { display: inline-flex; align-items: center; height: 38px; padding: 0 16px; border-radius: 9999px; font-size: 14px; font-weight: 500; color: rgb(var(--canvas, 8 9 10)); background: rgb(var(--fg, 247 248 248)); text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; } .ds-nav-cta:hover { transform: translateY(-1px); box-shadow: 0 8px 30px rgb(var(--a1, 251 191 36) / 0.35); }"
+    },
+    {
+      "name": "Tech Pills",
+      "kind": "chip",
+      "refersTo": "pill",
+      "description": "Mono tech tags; the hot variant marks the primary stack with an amber tint.",
+      "html": "<ul class=\"ds-pills\"><li class=\"ds-pill ds-pill-hot\">Next.js</li><li class=\"ds-pill ds-pill-hot\">TypeScript</li><li class=\"ds-pill\">Tailwind CSS</li><li class=\"ds-pill\">TanStack Query</li></ul>",
+      "css": ".ds-pills { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; } .ds-pill { display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 9999px; border: 1px solid var(--line, rgba(255,255,255,0.08)); background: rgb(var(--raised, 23 25 28) / 0.6); color: rgb(var(--muted, 143 148 157)); font-family: var(--font-mono, 'Geist Mono'), ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; font-weight: 500; line-height: 1; white-space: nowrap; } .ds-pill-hot { color: rgb(var(--ink, 252 211 77)); background: rgb(var(--a1, 251 191 36) / 0.1); border-color: rgb(var(--a1, 251 191 36) / 0.4); }"
+    },
+    {
+      "name": "Status Chips",
+      "kind": "chip",
+      "refersTo": "status-live",
+      "description": "Project status: green = live, sky = not live yet, gray = shipped but offline.",
+      "html": "<div class=\"ds-status-row\"><span class=\"ds-status ds-status-live\">Live</span><span class=\"ds-status ds-status-soon\">Launching soon</span><span class=\"ds-status ds-status-done\">Shipped</span></div>",
+      "css": ".ds-status-row { display: flex; flex-wrap: wrap; gap: 8px; } .ds-status { display: inline-flex; align-items: center; gap: 6px; padding: 6px 9px; border-radius: 9999px; font-family: var(--font-mono, 'Geist Mono'), ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; font-weight: 500; line-height: 1; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; } .ds-status::before { content: \"\"; width: 6px; height: 6px; border-radius: 9999px; background: currentColor; } .ds-status-live { color: rgb(var(--ok, 74 222 155) / 1); background: rgb(var(--ok, 74 222 155) / 0.13); } .ds-status-soon { color: rgb(var(--info, 125 211 252) / 1); background: rgb(var(--info, 125 211 252) / 0.14); } .ds-status-done { color: rgb(var(--muted, 143 148 157)); background: rgb(var(--raised, 23 25 28) / 1); }"
+    },
+    {
+      "name": "Section Heading",
+      "kind": "custom",
+      "refersTo": "title",
+      "description": "Mono eyebrow led by a short ink rule, then a tight bold H2 and a muted description.",
+      "html": "<div class=\"ds-heading\"><p class=\"ds-eyebrow\">Selected work</p><h2>Client projects</h2><p class=\"ds-heading-desc\">Production sites and dashboards, with what I built on each.</p></div>",
+      "css": ".ds-heading { font-family: var(--font-sans, Geist), ui-sans-serif, system-ui, sans-serif; color: rgb(var(--fg, 247 248 248)); } .ds-eyebrow { display: inline-flex; align-items: center; gap: 8px; margin: 0; font-family: var(--font-mono, 'Geist Mono'), ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; font-weight: 500; line-height: 1; letter-spacing: 0.1em; text-transform: uppercase; color: rgb(var(--ink, 252 211 77)); } .ds-eyebrow::before { content: \"\"; width: 16px; height: 1px; background: currentColor; } .ds-heading h2 { margin: 14px 0 0; font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.05; letter-spacing: -0.04em; text-wrap: balance; } .ds-heading-desc { margin: 14px 0 0; max-width: 60ch; font-size: 17px; color: rgb(var(--muted, 143 148 157)); }"
+    },
+    {
+      "name": "Project Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Translucent hairline card holding a browser-framed screenshot in an amber wash; lifts 3px and lights an amber spotlight with a rose rim on hover.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-card-media\"><div class=\"ds-browser\"><div class=\"ds-browser-bar\"><span class=\"ds-lights\"><i></i><i></i><i></i></span><span class=\"ds-url\">gallimaps.com</span></div><div class=\"ds-shot\"></div></div></div><div class=\"ds-card-body\"><div class=\"ds-card-top\"><h3>Galli Maps</h3><span class=\"ds-card-status\">Live</span></div><p>Website + admin dashboard, Nepal Dairy modules</p></div></article>",
+      "css": ".ds-card { position: relative; overflow: hidden; max-width: 380px; border: 1px solid var(--line, rgba(255,255,255,0.08)); border-radius: 16px; background: rgb(var(--surface, 15 16 18) / 0.85); box-shadow: var(--card-shadow, inset 0 1px 0 rgba(255,255,255,0.03)); font-family: var(--font-sans, Geist), ui-sans-serif, system-ui, sans-serif; color: rgb(var(--fg, 247 248 248)); transition: transform 0.3s, border-color 0.3s; } .ds-card::before { content: \"\"; position: absolute; inset: 0; background: radial-gradient(420px circle at 70% 20%, rgb(var(--a1, 251 191 36) / 0.15), transparent 45%); opacity: 0; transition: opacity 0.3s; pointer-events: none; } .ds-card:hover, .ds-card:focus-within { transform: translateY(-3px); border-color: rgb(var(--a2, 251 113 133) / 0.45); } .ds-card:hover::before, .ds-card:focus-within::before { opacity: 1; } .ds-card-media { padding: 14px 14px 0; background: radial-gradient(120% 90% at 50% 0%, rgb(var(--a1, 251 191 36) / 0.12), transparent 70%); } .ds-browser { overflow: hidden; border: 1px solid var(--line-strong, rgba(255,255,255,0.14)); border-radius: 12px 12px 10px 10px; background: rgb(var(--raised, 23 25 28) / 1); } .ds-browser-bar { display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-bottom: 1px solid var(--line, rgba(255,255,255,0.08)); } .ds-lights { display: flex; gap: 5px; } .ds-lights i { width: 9px; height: 9px; border-radius: 9999px; background: #ff5f57; opacity: 0.85; } .ds-lights i:nth-child(2) { background: #febc2e; } .ds-lights i:nth-child(3) { background: #28c840; } .ds-url { flex: 1; height: 20px; display: flex; align-items: center; padding: 0 8px; border-radius: 6px; background: rgb(var(--canvas, 8 9 10) / 0.55); font-family: var(--font-mono, 'Geist Mono'), ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; color: rgb(var(--muted, 143 148 157)); } .ds-shot { aspect-ratio: 16 / 10; background: linear-gradient(160deg, rgb(var(--raised, 23 25 28) / 1), rgb(var(--surface, 15 16 18) / 1)); } .ds-card-body { position: relative; padding: 18px 20px 24px; } .ds-card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; } .ds-card-body h3 { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -0.02em; } .ds-card-body p { margin: 8px 0 0; font-size: 14px; color: rgb(var(--muted, 143 148 157)); } .ds-card-status { display: inline-flex; align-items: center; gap: 6px; padding: 6px 9px; border-radius: 9999px; font-family: var(--font-mono, 'Geist Mono'), ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; font-weight: 500; line-height: 1; text-transform: uppercase; letter-spacing: 0.06em; color: rgb(var(--ok, 74 222 155) / 1); background: rgb(var(--ok, 74 222 155) / 0.13); } .ds-card-status::before { content: \"\"; width: 6px; height: 6px; border-radius: 9999px; background: currentColor; }"
+    },
+    {
+      "name": "Before/After Slider",
+      "kind": "custom",
+      "refersTo": "card",
+      "description": "Two screenshots clipped by an animatable --pos, white 2px divider and 40px knob, dark Before tag and amber-to-rose After tag above the divider. Rests mostly on the redesign (20% default, per-project start so no headline is cut).",
+      "html": "<div class=\"ds-ba\" style=\"--pos: 20%\"><div class=\"ds-ba-after\"></div><div class=\"ds-ba-before\"></div><span class=\"ds-ba-tag ds-ba-tag-before\">Before</span><span class=\"ds-ba-tag ds-ba-tag-after\">After</span><span class=\"ds-ba-line\"></span><span class=\"ds-ba-knob\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m9 7-5 5 5 5\"/><path d=\"m15 7 5 5-5 5\"/></svg></span></div>",
+      "css": ".ds-ba { position: relative; width: 360px; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 12px; border: 1px solid var(--line-strong, rgba(255,255,255,0.14)); background: rgb(var(--raised, 23 25 28)); } .ds-ba-after, .ds-ba-before { position: absolute; inset: 0; } .ds-ba-after { background: linear-gradient(160deg, #f4f1fb 0%, #e9e2fb 55%, #c9b8f4 100%); } .ds-ba-before { background: linear-gradient(160deg, #2a0f3d 0%, #1a0828 100%); clip-path: inset(0 calc(100% - var(--pos)) 0 0); } .ds-ba-tag { position: absolute; z-index: 1; top: 10px; padding: 6px 8px; border-radius: 6px; font-family: var(--font-mono, 'Geist Mono'), ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; font-weight: 500; line-height: 1; letter-spacing: 0.08em; text-transform: uppercase; } .ds-ba-tag-before { left: 10px; color: #fff; background: rgba(12,12,16,0.66); } .ds-ba-tag-after { right: 10px; color: #0b0b0f; background-image: linear-gradient(90deg, rgb(var(--a1, 251 191 36)), rgb(var(--a2, 251 113 133))); } .ds-ba-line { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,0.18); } .ds-ba-knob { position: absolute; top: 50%; left: var(--pos); display: grid; place-items: center; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 9999px; background: #fff; color: #111; box-shadow: 0 6px 22px rgba(0,0,0,0.35); transition: transform 0.2s; } .ds-ba:hover .ds-ba-knob { transform: scale(1.06); }"
+    },
+    {
+      "name": "Post Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Block card for a blog post: mono date and reading time, 19px title, muted description, tags and 'Read article' pinned to the bottom. Three to a row on desktop; a dashed 'Writing now' tile fills a short homepage row.",
+      "html": "<div class=\"ds-post-grid\"><a class=\"ds-post\" href=\"#\"><p class=\"ds-post-meta\"><time>Nov 1, 2026</time><span aria-hidden=\"true\">·</span><span>4 min read</span></p><h3>Rebuilding a restaurant app in Vue&nbsp;3, in my first year as a developer</h3><p class=\"ds-post-desc\">How a Vue&nbsp;2 restaurant management system was rebuilt page by page in Nuxt&nbsp;3 and Vuetify&nbsp;3.</p><ul class=\"ds-post-tags\"><li>Vue</li><li>Nuxt</li><li>Migration</li></ul><span class=\"ds-post-link\">Read article <svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m12 5 7 7-7 7\"/></svg></span></a><div class=\"ds-post-tile\"><span class=\"ds-post-status\">Writing now</span><p>More articles are on the way.</p></div></div>",
+      "css": ".ds-post-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; max-width: 760px; font-family: var(--font-sans, Geist), ui-sans-serif, system-ui, sans-serif; } .ds-post { display: flex; flex-direction: column; gap: 10px; padding: 24px; border: 1px solid var(--line, rgba(255,255,255,0.08)); border-radius: 16px; background: rgb(var(--surface, 15 16 18) / 0.85); box-shadow: var(--card-shadow, inset 0 1px 0 rgba(255,255,255,0.03)); color: rgb(var(--fg, 247 248 248)); text-decoration: none; transition: transform 0.3s, border-color 0.3s; } .ds-post:hover, .ds-post:focus-visible { transform: translateY(-3px); border-color: rgb(var(--a2, 251 113 133) / 0.45); } .ds-post:focus-visible { outline: 2px solid rgb(var(--ink, 252 211 77)); outline-offset: 3px; } .ds-post-meta { display: flex; gap: 10px; margin: 0; font-family: var(--font-mono, 'Geist Mono'), ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: rgb(var(--faint, 125 130 140)); } .ds-post h3 { margin: 0; font-size: 19px; font-weight: 600; line-height: 1.25; letter-spacing: -0.02em; text-wrap: balance; } .ds-post-desc { margin: 0; font-size: 15px; line-height: 1.6; color: rgb(var(--muted, 143 148 157)); text-wrap: pretty; } .ds-post-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: auto 0 0; padding: 8px 0 0; list-style: none; } .ds-post-tags li { display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border: 1px solid var(--line, rgba(255,255,255,0.08)); border-radius: 9999px; background: rgb(var(--raised, 23 25 28) / 0.6); font-family: var(--font-mono, 'Geist Mono'), ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: rgb(var(--muted, 143 148 157)); } .ds-post-link { display: inline-flex; align-items: center; gap: 6px; padding-top: 4px; font-size: 14px; color: rgb(var(--ink, 252 211 77)); } .ds-post-link svg { transition: transform 0.2s; } .ds-post:hover .ds-post-link svg { transform: translateX(3px); } .ds-post-tile { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 12px; padding: 24px; border: 1px dashed var(--line-strong, rgba(255,255,255,0.14)); border-radius: 16px; } .ds-post-tile p { margin: 0; font-size: 15px; color: rgb(var(--muted, 143 148 157)); } .ds-post-status { display: inline-flex; align-items: center; gap: 6px; padding: 6px 9px; border-radius: 9999px; background: rgb(var(--info, 125 211 252) / 0.14); color: rgb(var(--info, 125 211 252)); font-family: var(--font-mono, 'Geist Mono'), ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1; } .ds-post-status::before { content: ''; width: 6px; height: 6px; border-radius: 9999px; background: currentColor; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Lit Workbench",
+    "overview": "A dark room with warm amber light falling on real, shipped work. The room is near-black graphite. The light comes from a lamp: soft amber-to-rose glows drift behind the hero and page headers, a spotlight follows the cursor across cards, and the primary button glows when you reach for it. The light is there to show the work. It never decorates empty space.\n\nThe bench is tidy and the tools sit on it. Mono labels name things, browser frames hold real screenshots, a small editor window holds a typed profile object, and a timeline shows the path to the current role. Density is moderate: sections get generous vertical room (76px on phones, 104px on desktop) and each one is separated by a hairline rule, so a skimming reader always knows where one topic ends. Shapes are soft and confident: pill controls, generously rounded cards, nothing sharp or brutal.\n\nDark is the default theme, and dark is where the look is at its strongest. The light theme is a full equal, not an afterthought. It moves to warm paper tones, swaps glow for soft ambient shadows, and darkens the accent so it stays readable.\n\nThis look deliberately rejects four directions that were tried and turned down: an editorial serif layout, Swiss-brutalist, warm content-first, and monochrome with a preloader.",
+    "keyCharacteristics": [
+      "Near-black graphite canvas with a warm amber→rose accent that behaves like light.",
+      "Geist for everything you read, Geist Mono for everything that labels, and one Instrument Serif italic word as a signature.",
+      "Pill-shaped controls and chips, 16px cards, 28px glowing frames around the hero visual.",
+      "Real screenshots in browser frames that scroll on hover. Before/after sliders for redesigns.",
+      "Depth comes from glow in dark mode and from soft shadow in light mode.",
+      "Every color goes through theme variables, so both themes share one set of class names."
+    ],
+    "rules": [
+      {
+        "name": "The Lamplight Rule",
+        "body": "Amber→rose behaves like light: glows, halos, rim light, a 10% tint, or gradient text on a word or two. It never becomes a large flat fill, a solid section background, or a body-text color.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two-Theme Rule",
+        "body": "Components use theme tokens (`bg-surface`, `text-muted`, `rgb(var(--a1) / 0.15)`) and never a raw hex. The only fixed colors are things that look the same in both themes on purpose: the browser traffic lights, the dark overlay chips on screenshots, and the white before/after knob.",
+        "section": "colors"
+      },
+      {
+        "name": "The Status Color Rule",
+        "body": "Green means live, sky means not live yet, gray means shipped but not online anymore. Status colors never appear as decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Italic Rule",
+        "body": "Instrument Serif appears only as a single gradient-filled italic word inside a heading (currently on the homepage, About and Contact). It is never used for a full heading, a paragraph or a label.",
+        "section": "typography"
+      },
+      {
+        "name": "The Mono Is Metadata Rule",
+        "body": "Geist Mono labels, tags and annotates. It never sets a sentence the reader is meant to read as prose.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tight Heading Rule",
+        "body": "Headings tighten their tracking as they grow (-0.02em at lead size to -0.05em at display size) and always use `text-wrap: balance`.",
+        "section": "typography"
+      },
+      {
+        "name": "The Glow, Not Shadow Rule",
+        "body": "In dark mode, depth comes from accent light. Real drop shadows are reserved for things that float above the page (chips, knobs, menus, the featured screenshot). A resting card never gets one.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Respect-the-Still Rule",
+        "body": "Every drift, bob, rise, ping and shimmer collapses to nearly zero under `prefers-reduced-motion`.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** route every color through the theme variables (`--canvas`, `--surface`, `--raised`, `--fg`, `--muted`, `--faint`, `--line*`, `--a1`, `--a2`, `--g1`, `--g2`, `--ink`, `--ok`, `--info`) and check both themes.",
+      "**Do** treat amber→rose as light: glows, rim light, 10% tints, and gradient text on one or two words at most.",
+      "**Do** put real screenshots of shipped work in browser frames. Use before/after sliders for redesigns.",
+      "**Do** lead section headings with a mono eyebrow, and separate homepage sections with a full-width hairline band.",
+      "**Do** keep controls as pills and containers at 14–18px radius (28px only for the hero frame).",
+      "**Do** use mono for labels, dates, URLs, chips and status, and Geist for everything read as prose.",
+      "**Do** honor `prefers-reduced-motion`, and keep the 2px Lamplight Ink focus ring."
+    ],
+    "donts": [
+      "**Don't** drift toward an editorial serif layout, Swiss-brutalist, warm content-first, or monochrome-with-preloader looks. All four were tried and rejected.",
+      "**Don't** fill large areas or section backgrounds with flat amber or rose, or set body text in the accent.",
+      "**Don't** give resting cards drop shadows in dark mode. Depth there comes from glow.",
+      "**Don't** use Instrument Serif for more than one italic word in a heading, or anywhere outside headings.",
+      "**Don't** use green or sky for anything other than project and role status.",
+      "**Don't** hardcode hex values in components, except the intentional fixed colors (traffic lights, screenshot overlay chips, the before/after knob).",
+      "**Don't** add sharp corners, heavy borders or near-black-on-black panels without a hairline. Every surface needs its edge."
+    ]
+  }
+}

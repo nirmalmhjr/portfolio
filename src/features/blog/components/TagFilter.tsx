@@ -39,7 +39,15 @@ export function TagFilter({ activeTag }: TagFilterProps) {
             key={tag}
           >
             {tag}
-            <span className="font-mono text-[11px] opacity-60">{count}</span>
+            {/* A token color, not opacity: 60% opacity failed contrast (under 3:1). */}
+            <span
+              className={cn(
+                "font-mono text-[11px]",
+                isActive ? "text-canvas/70" : "text-faint"
+              )}
+            >
+              {count}
+            </span>
           </Link>
         );
       })}
