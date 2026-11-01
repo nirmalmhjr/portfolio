@@ -180,7 +180,7 @@ export const PROJECTS: Project[] = [
   },
   {
     description:
-      "A restaurant management system. I moved the whole app to Vue 3 and Nuxt 3 on my own.",
+      "A restaurant management system. After a senior developer set up the new Nuxt 3 project, I rebuilt most of the app in Vue 3 on my own: inventory, credit, reports, ordering and the dashboard.",
     displayUrl: "meromenu.com",
     kind: "client",
     linkLabel: "Visit site",
@@ -190,7 +190,7 @@ export const PROJECTS: Project[] = [
       image: meromenu,
       type: "scroll",
     },
-    myPart: "Solo Vue 2 → Vue 3 migration",
+    myPart: "Rebuilt most of the app in Vue 3",
     slug: "meromenu",
     status: "live",
     tech: ["Vue 3", "Nuxt 3"],

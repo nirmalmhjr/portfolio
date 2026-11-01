@@ -1,37 +1,115 @@
 ---
-title: "Migrating a live app from Vue 2 to Vue 3 on my own"
-description: "What I learned moving meromenu.com, a restaurant management system, from Vue 2 and Nuxt 2 to Vue 3 and Nuxt 3 in my first year as a developer."
-date: "2026-09-27"
+title: "Rebuilding a restaurant app in Vue 3, in my first year as a developer"
+description: "How a Vue 2 restaurant management system was rebuilt page by page in Nuxt 3 and Vuetify 3, the two bugs that taught me the most, and what I would do differently."
+date: "2026-11-01"
 tags: ["Vue", "Nuxt", "Migration"]
-draft: true
+draft: false
 ---
 
-{/*
-  OUTLINE: replace every prompt below with your own words, then set
-  `draft: false` above to publish. Short and honest beats long and polished.
-  Aim for 600–900 words. Recruiters read this to see how you think.
-*/}
+In June 2024 I started as a frontend developer at Miracle Yard, where I had
+interned a few months earlier. Two years before that I was working in
+pharmaceutical sales. My first big task was meromenu, a restaurant management
+system: menus, orders, tables, credit customers, inventory and reports.
 
-## The situation
+It was built on Vue 2, and Vue 2 had reached its end of life in December 2023.
+No more security fixes, and fewer libraries supporting it every month. It had
+to move to Vue 3.
 
-{/* What is meromenu.com and who uses it? How big was the codebase (pages, components)? Why did it need to move off Vue 2 (end of life in Dec 2023)? Why was it given to you? */}
+## Not an upgrade, a rebuild
 
-## My plan
+We did not try to upgrade the old code in place. A senior developer started a
+fresh Nuxt 3 project with Vue 3, Vuetify 3 and Pinia, and set up the
+foundations: login, a wrapper for API calls, form validation helpers, a shared
+data table and route guards. Then we moved the app over one page at a time.
 
-{/* How did you approach it: all at once, or page by page? Did you upgrade Nuxt first or Vue first? What did you read or watch to prepare? */}
+My first commits were small: a date column on a report, validation on the
+login form. Another developer built several report pages. By July I was the
+only one working on it, and over the next three months I rebuilt most of the
+remaining app: the whole inventory module (products, units, vendors,
+locations, stock, purchase entries, credit and debit notes), credit customers
+and credit recovery, the customer pages, several reports, the take-order
+screen and the dashboard.
 
-## What broke
+Rebuilding page by page meant I could compare each new page with the old one
+before moving on. It also meant every page taught me something. Two bugs
+taught me the most.
 
-{/* The 2–3 hardest problems. For example: Vuex to Pinia, filters removed in Vue 3, plugins without Vue 3 versions, the Options API vs the Composition API, Nuxt 3 changes to routing, data fetching or config. What did you try first, and what finally worked? A small before/after code snippet helps a lot. */}
+## Bug 1: the arrow that never changed
 
-## How I checked nothing was broken
+The stock page lists every product, and clicking a row expands it to show
+details. In the new version the arrow on each row always pointed the same
+way, open or closed.
 
-{/* How did you test? Manual checks per page, a checklist, help from the team? Did anything slip into production, and how did you fix it? */}
+The cause was a small change in Vuetify 3. In Vuetify 2, the data table's
+`item` slot gave you `isExpanded` as a true/false value. In Vuetify 3 it is a
+function, and you pass it the row to ask about:
+
+```vue title="stock.vue (before)"
+<v-icon>
+  {{ isExpanded ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+</v-icon>
+```
+
+```vue title="stock.vue (after)"
+<v-icon>
+  {{ isExpanded(internalItem) ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+</v-icon>
+```
+
+A function is always "truthy", so the old check was always true, and there
+was no error to point at it. The fix was one line. Finding it took me from
+30 July to 4 August, because the code looked correct.
+
+The lesson: when a component library changes major versions, read its upgrade
+guide for every component you use, even the ones you think you know.
+
+## Bug 2: pages that would not paginate
+
+Paging did not work on the inventory activity log. The URL for the table
+looked like this:
+
+```vue title="activity-log.vue (before)"
+<TheDataTable
+  :url="accountAPI.activityLog(org) + '?action_by=&action=&app_name=Inventory'"
+/>
+```
+
+Our shared data table adds its own query string for paging:
+
+```ts title="TheDataTable.vue"
+getData(prop.url + '?' + serializedParam)
+```
+
+So the final URL had two `?` characters. Everything after the second one, the
+`offset` and `limit` for paging, was read as part of the `app_name` value.
+The table component already accepted filters as an object, so the fix was to
+use it:
+
+```vue title="activity-log.vue (after)"
+<TheDataTable
+  :url="accountAPI.activityLog(org)"
+  :filter-params="{ action_by: '', action: '', app_name: 'Inventory' }"
+/>
+```
+
+The lesson: when a shared component has a way to do something, use it, and
+read the component before working around it.
 
 ## What I would do differently
 
-{/* One or two honest lessons. */}
+Looking back at my commit history from that time, I see messages like "for
+backup", "just for record" and "initial commit: error to be solved". I was
+committing to save my work, not to explain it. Today I write commits that say
+what changed and why, so the next developer, or me six months later, can
+follow the history.
 
-## What I took from it
+I would also read each library's migration guide at the start, not when
+something breaks. Several of my bugs came from small API changes that were
+already documented.
 
-{/* How this changed the way you work today in Next.js and TypeScript. */}
+## What it gave me
+
+This project is where I learned Vue 3 for real: the Composition API, Pinia,
+Vuetify 3 and Nuxt 3, on a real product instead of a tutorial. It also taught me
+something I still use: when the code looks right but the app is wrong, check
+what changed underneath it, one assumption at a time.
