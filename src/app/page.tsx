@@ -100,7 +100,8 @@ export default function HomePage() {
             </div>
             <BeyondCode />
             <Link
-              className="mt-7 inline-flex items-center gap-1.5 text-ink text-sm hover:underline hover:underline-offset-[3px]"
+              // py-2 with a matching negative margin grows the tap target without moving the layout.
+              className="mt-5 -mb-2 inline-flex items-center gap-1.5 py-2 text-ink text-sm hover:underline hover:underline-offset-[3px]"
               href={ROUTES.about}
             >
               More about me

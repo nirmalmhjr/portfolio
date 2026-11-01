@@ -15,7 +15,7 @@ interface MyPartProps {
 function MyPart({ children }: MyPartProps) {
   return (
     <p className="flex items-baseline gap-2 text-fg text-sm">
-      <span className="flex-none rounded-[5px] bg-a1/10 px-1.5 py-1 font-medium font-mono text-[10px] text-ink uppercase leading-none tracking-[0.08em]">
+      <span className="flex-none rounded-[5px] bg-a1/10 px-1.5 py-1 font-medium font-mono text-[11px] text-ink uppercase leading-none tracking-[0.06em]">
         My part
       </span>
       {children}
@@ -33,7 +33,8 @@ export function ProjectLink({ project }: ProjectLinkProps) {
   }
   return (
     <a
-      className="relative z-[4] inline-flex w-fit items-center gap-1 text-ink text-sm hover:underline hover:underline-offset-[3px]"
+      // The negative margin grows the tap target to ~36px without moving the layout.
+      className="relative z-[4] -my-2 inline-flex w-fit items-center gap-1 py-2 text-ink text-sm hover:underline hover:underline-offset-[3px]"
       href={project.url}
       rel="noopener noreferrer"
       target="_blank"
@@ -64,6 +65,7 @@ function ProjectMedia({ project, sizes }: ProjectMediaProps) {
           beforeAlt={media.beforeAlt}
           label={`Compare the old and new ${project.title} design`}
           sizes={sizes}
+          start={media.start}
         />
       );
     case "scroll":
@@ -150,7 +152,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
         {project.placeholder ? null : <MyPart>{project.myPart}</MyPart>}
         <p className="text-[15px] text-muted">{project.description}</p>
-        <TechPills primary={project.primaryTech} tech={project.tech} />
+        {/* mt-auto pins pills and link to the bottom, so links line up across a row (as in LearningGrid). */}
+        <TechPills
+          className="mt-auto pt-1"
+          primary={project.primaryTech}
+          tech={project.tech}
+        />
         <ProjectLink project={project} />
       </div>
     </article>

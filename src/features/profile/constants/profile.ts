@@ -53,7 +53,7 @@ export const EXPERIENCE: ExperienceItem[] = [
       "prabhu-adventure",
     ],
     role: "Frontend Developer",
-    start: "February 2026",
+    start: "Feb 2026",
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "TanStack Query"],
   },
   {

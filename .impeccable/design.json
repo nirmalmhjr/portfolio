@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-30T06:13:27.817Z",
+  "generatedAt": "2026-10-30T11:35:56.969Z",
   "title": "Design System: Nirmal Maharjan Portfolio",
   "extensions": {
     "colorMeta": {
@@ -395,6 +395,18 @@
       "accent-serif": {
         "displayName": "Accent Serif",
         "purpose": "One gradient-filled italic word inside a heading; nowhere else."
+      },
+      "caption": {
+        "displayName": "Caption",
+        "purpose": "Fact labels, badges, chip captions, secondary lines."
+      },
+      "card-title": {
+        "displayName": "Card Title",
+        "purpose": "Project and experience card headings."
+      },
+      "micro": {
+        "displayName": "Micro",
+        "purpose": "Status chips, My part, Before/After tags, browser URLs; the 11px floor."
       }
     },
     "shadows": [

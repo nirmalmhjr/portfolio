@@ -104,24 +104,26 @@ export const PROJECTS: Project[] = [
   {
     description:
       "An AI-powered learning platform for schools, colleges, coaching centers and consultancies in Nepal.",
-    displayUrl: "v2.plexler.com",
+    displayUrl: "plexler.com",
     kind: "client",
-    linkLabel: "View v2 preview",
+    linkLabel: "Visit site",
     media: {
       after: plexlerAfter,
       afterAlt: "Redesigned Plexler landing page",
       before: plexlerBefore,
       beforeAlt: "Previous Plexler landing page",
+      // Both headlines start ~8% in, so rest just left of them.
+      start: 6,
       type: "compare",
     },
     myPart: "Landing page redesign",
     primaryTech: ["Next.js", "TypeScript"],
     slug: "plexler",
-    status: "launching-soon",
+    status: "live",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     title: "Plexler",
     // After launch: same as Plex Bit above, with plexler.com.
-    url: "https://v2.plexler.com/",
+    url: "https://plexler.com/",
   },
   {
     description:
@@ -293,10 +295,21 @@ export const WORK_PROJECTS = visible.filter((p) => p.kind === "client");
 /** Personal projects built to learn new tools. */
 export const LEARNING_PROJECTS = visible.filter((p) => p.kind === "personal");
 
-/** The homepage shows featured work plus the next few; /projects shows all. */
+const isLive = (p: Project) => p.status === "live";
+const homeCandidates = WORK_PROJECTS.filter(
+  (p) => !(p.featured || p.placeholder)
+);
+
+/**
+ * The homepage shows featured work plus the next few, live sites first so
+ * visitors can check them; /projects shows all.
+ */
 export const HOME_WORK_PROJECTS = [
   ...WORK_PROJECTS.filter((p) => p.featured),
-  ...WORK_PROJECTS.filter((p) => !(p.featured || p.placeholder)).slice(0, 3),
+  ...[
+    ...homeCandidates.filter(isLive),
+    ...homeCandidates.filter((p) => !isLive(p)),
+  ].slice(0, 3),
 ];
 
 /** Built while teaching myself (late 2022 to mid 2023), before my first job. */

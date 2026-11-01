@@ -5,6 +5,11 @@
     "ultracite/biome/react",
     "ultracite/biome/next"
   ],
+  "files": {
+    // Agent skills (impeccable) are installed into one folder per tool and get
+    // overwritten on every update, so they are vendored code we don't lint.
+    "includes": ["!!.claude/skills", "!!.cursor/skills", "!!.github/skills"]
+  },
   "linter": {
     "rules": {
       "performance": {

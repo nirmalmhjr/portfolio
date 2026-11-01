@@ -30,8 +30,9 @@ export function StrengthsGrid() {
       {STRENGTHS.map((service) => {
         const Icon = STRENGTH_ICONS[service.icon];
         return (
+          // Subgrid rows line up icon, title and text across cards, even when one title wraps.
           <article
-            className="card spot grid content-start gap-3 p-6"
+            className="card spot row-span-3 grid grid-rows-subgrid content-start gap-3 p-6"
             key={service.title}
           >
             <span
@@ -73,7 +74,7 @@ export function SkillsGrid() {
               >
                 {item.name}
                 {item.note ? (
-                  <small className="font-mono text-[10px] text-faint uppercase tracking-[0.04em]">
+                  <small className="font-mono text-[11px] text-faint uppercase tracking-[0.04em]">
                     {item.note}
                   </small>
                 ) : null}

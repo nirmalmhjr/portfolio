@@ -26,6 +26,8 @@ export type ProjectMedia =
       beforeAlt: string;
       afterAlt: string;
       afterLabel?: string;
+      /** Where the slider rests, in %. Pick a gap that cuts no headline. */
+      start?: number;
     }
   /** No screenshot yet (unlaunched work). */
   | { type: "placeholder" };

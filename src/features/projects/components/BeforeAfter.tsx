@@ -11,8 +11,8 @@ import {
 } from "react";
 import { cn } from "@/lib/utils";
 
-/** The slider starts in the middle, showing half of each design. */
-const START_POSITION = 50;
+/** The slider rests mostly on the redesign, the part I built. Projects can override it with `start`. */
+const START_POSITION = 20;
 /** Show the nudge once most of the slider is on screen. */
 const HINT_VISIBILITY_THRESHOLD = 0.6;
 
@@ -25,6 +25,8 @@ interface BeforeAfterProps {
   /** Accessible name for the slider. */
   readonly label: string;
   readonly sizes: string;
+  /** Resting position in %, chosen so the divider cuts no headline. */
+  readonly start?: number;
 }
 
 /**
@@ -41,9 +43,10 @@ export function BeforeAfter({
   afterLabel = "After",
   label,
   sizes,
+  start = START_POSITION,
 }: BeforeAfterProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState(START_POSITION);
+  const [pos, setPos] = useState(start);
   const [hint, setHint] = useState(false);
 
   useEffect(() => {
@@ -75,7 +78,7 @@ export function BeforeAfter({
       className={cn("ba", hint && "ba-hint")}
       onAnimationEnd={stopHint}
       ref={ref}
-      style={{ "--pos": `${pos}%` } as CSSProperties}
+      style={{ "--ba-start": `${start}%`, "--pos": `${pos}%` } as CSSProperties}
     >
       <Image
         alt={afterAlt}

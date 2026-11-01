@@ -81,6 +81,23 @@ typography:
     fontSize: "0.75rem"
     fontWeight: 500
     lineHeight: 1
+  caption:
+    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "13px"
+    fontWeight: 400
+    lineHeight: 1.5
+  card-title:
+    fontFamily: "Geist, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "19px"
+    fontWeight: 600
+    lineHeight: 1.2
+    letterSpacing: "-0.02em"
+  micro:
+    fontFamily: "Geist Mono, ui-monospace, SFMono-Regular, Menlo, monospace"
+    fontSize: "11px"
+    fontWeight: 500
+    lineHeight: 1
+    letterSpacing: "0.06em"
   accent-serif:
     fontFamily: "Instrument Serif, ui-serif, Georgia, serif"
     fontWeight: 400
@@ -235,7 +252,10 @@ All colors are defined in `src/styles/globals.css` as `R G B` channel variables 
 - **Figure** (600, `clamp(1.4rem, 3vw, 1.9rem)`, 1.1, tabular numbers): the four facts under the hero.
 - **Body** (400, 17px, 1.7): paragraphs, max 54–60ch. Blog prose runs at 17px, line-height 1.75.
 - **Label** (Geist Mono 500, 12px, 0.1em, uppercase): eyebrows, led by a 16px rule in Lamplight Ink. Status chips use the same voice at 11px, 0.06em.
-- **Mono** (Geist Mono 500, 11–13px): tech pills, browser URLs, dates, the "Looking for" tag, the hero stack line and the editor card.
+- **Card title** (600, 19px, 1.2): project and experience card headings.
+- **Caption** (400, 13px): fact labels, badges, chip captions, secondary lines.
+- **Micro** (Geist Mono 500, 11px, 0.06em, uppercase): status chips, "My part", Before/After tags, browser URLs. 11px is the floor for readable text; the only smaller text is the decorative "TS" file badge in the editor card.
+- **Mono** (Geist Mono 500, 11–13px): tech pills, browser URLs, dates, the "Looking for" tag, "My part" chips, the hero stack line and the editor card.
 
 ### Named Rules
 **The One Italic Rule.** Instrument Serif appears only as a single gradient-filled italic word inside a heading (currently on the homepage, About and Contact). It is never used for a full heading, a paragraph or a label.
@@ -317,13 +337,13 @@ A 68×38 pill track with sun and moon icons and a 28px foreground knob that slid
 The signature container for real work: a raised frame with a strong hairline, a 32px bar with traffic lights and a mono URL field, over a 16:10 screenshot. On hover-capable devices, full-page screenshots scroll top to bottom over 7s (`cubic-bezier(0.45, 0, 0.3, 1)`) while the card is hovered or focused, and a small "scroll" hint fades out. Project cards set the frame inside an amber radial wash.
 
 ### Before/After Slider
-Two archived full-page screenshots clipped by an animatable `--pos` custom property, with a 2px white divider and a 40px white knob. A dark "Before" tag and an amber→rose "After" tag sit at the top corners. It plays a single hint sweep on load, is driven by an invisible range input (keyboard focus rings the knob), and both images scroll together on hover.
+Two archived full-page screenshots clipped by an animatable `--pos` custom property, with a 2px white divider and a 40px white knob. A dark "Before" tag and an amber→rose "After" tag sit at the top corners, above the divider. The slider rests mostly on the redesign (20% by default); each project can set its own `start` so the divider falls in a gap and never cuts a headline mid-word (Plexler rests at 6%). It plays a single hint sweep on load, relative to that resting point, is driven by an invisible range input (keyboard focus rings the knob), and both images scroll together on hover.
 
 ### Experience Timeline
 A 1px vertical rail that fades from amber at the current role down to hairline. Each 17px node is a hollow ring with a faint dot; the current role's ring and dot turn amber with a glow. Entries are cards. The "small steps first" path on /projects reverses the gradient so the line brightens toward the latest step.
 
 ### Editor Card (hero)
-A typed `nirmal.ts` object in a 22px-rounded editor window with traffic lights and a file tab, syntax-tinted from the theme tokens (keywords in ink, strings in rose, types in sky). It is hidden from screen readers because it repeats the hero text. Two chips bob around it: the live Kathmandu clock and the current stack.
+A typed `nirmal.ts` object in a 22px-rounded editor window with traffic lights and a file tab, syntax-tinted from the theme tokens (keywords in ink, strings in rose, types in sky). It is hidden from screen readers because it repeats the hero text. Two chips bob around it: the live Kathmandu clock and the current stack. It is the hero's chosen visual (confirmed by Nirmal over a live-project screenshot), so keep it.
 
 ## Do's and Don'ts
 
