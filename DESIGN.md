@@ -333,6 +333,9 @@ A floating pill bar, centered 14px below the top edge (respecting the safe area)
 ### Theme Switch
 A 68×38 pill track with sun and moon icons and a 28px foreground knob that slides 30px on a springy curve (`0.35s cubic-bezier(0.3, 0.7, 0.3, 1)`). The icon under the knob takes the canvas color. It is deliberately visible, not hidden in a menu.
 
+### Post Row
+Blog posts are full-width rows in a single stack, never a multi-column grid, so one post looks as finished as twenty. The row is a card (with the cursor spotlight and 3px lift) split into three columns. The left column, 7rem wide, holds the date and reading time in mono at 12px, faint. The middle holds the 19px title, a 15px muted summary, then tags on the left and "Read article →" in Lamplight Ink on the right. The summary and that bottom line share a 40rem cap, so the link lines up whether or not the row has a thumbnail. Only posts with an `image` in their frontmatter get a third column: a 15rem, 16:10 thumbnail (12px radius, hairline border) that zooms slightly on hover. On phones the date line sits above the title, and the thumbnail moves to the top. Thumbnails must be real screenshots or diagrams, never title graphics or stock art.
+
 ### Browser Frame
 The signature container for real work: a raised frame with a strong hairline, a 32px bar with traffic lights and a mono URL field, over a 16:10 screenshot. On hover-capable devices, full-page screenshots scroll top to bottom over 7s (`cubic-bezier(0.45, 0, 0.3, 1)`) while the card is hovered or focused, and a small "scroll" hint fades out. Project cards set the frame inside an amber radial wash.
 
@@ -341,6 +344,9 @@ Two archived full-page screenshots clipped by an animatable `--pos` custom prope
 
 ### Experience Timeline
 A 1px vertical rail that fades from amber at the current role down to hairline. Each 17px node is a hollow ring with a faint dot; the current role's ring and dot turn amber with a glow. Entries are cards. The "small steps first" path on /projects reverses the gradient so the line brightens toward the latest step.
+
+### Post Card
+A block card, built like the project cards: an optional 16:10 cover on top, then a mono date and reading-time line, a 19px title, the description, and tags plus "Read article →" pinned to the bottom so they line up across a row. Posts sit three to a row on desktop, two on tablets, one on phones (`PostGrid`). On the homepage, fewer than three posts never leave empty columns: a dashed "Writing now" tile fills the rest of the row and disappears at three posts. Version numbers stay on the line with their name ("Vue 3").
 
 ### Editor Card (hero)
 A typed `nirmal.ts` object in a 22px-rounded editor window with traffic lights and a file tab, syntax-tinted from the theme tokens (keywords in ink, strings in rose, types in sky). It is hidden from screen readers because it repeats the hero text. Two chips bob around it: the live Kathmandu clock and the current stack. It is the hero's chosen visual (confirmed by Nirmal over a live-project screenshot), so keep it.

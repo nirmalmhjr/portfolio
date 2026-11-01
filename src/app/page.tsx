@@ -4,7 +4,7 @@ import { Section } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { HOME_SECTION_IDS, ROUTES } from "@/configs/routes";
 import { SITE_CONFIG } from "@/configs/site";
-import { PostCard } from "@/features/blog/components/PostCard";
+import { PostCard, PostGrid } from "@/features/blog/components/PostCard";
 import { getPublishedPosts } from "@/features/blog/utils/posts";
 import { ContactCard } from "@/features/contact/components/ContactCard";
 import { BeforeCode } from "@/features/profile/components/BeforeCode";
@@ -144,10 +144,12 @@ export default function HomePage() {
             title="Latest articles"
             watermark="Writing"
           />
-          <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {latestPosts.map((post) => (
-              <PostCard key={post.slug} post={post} />
-            ))}
+          <div className="mt-12">
+            <PostGrid fillRow>
+              {latestPosts.map((post) => (
+                <PostCard key={post.slug} post={post} />
+              ))}
+            </PostGrid>
           </div>
         </Section>
       ) : null}

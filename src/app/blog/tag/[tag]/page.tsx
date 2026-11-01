@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Container, PageHeader } from "@/components/shared/Container";
 import { ROUTES } from "@/configs/routes";
-import { PostCard } from "@/features/blog/components/PostCard";
+import { PostCard, PostGrid } from "@/features/blog/components/PostCard";
 import { TagFilter } from "@/features/blog/components/TagFilter";
 import {
   getAllTags,
@@ -66,11 +66,11 @@ export default async function TagPage({ params }: TagPageProps) {
       </PageHeader>
 
       <Container className="pb-24">
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <PostGrid>
           {posts.map((post) => (
             <PostCard key={post.slug} post={post} />
           ))}
-        </div>
+        </PostGrid>
       </Container>
     </main>
   );

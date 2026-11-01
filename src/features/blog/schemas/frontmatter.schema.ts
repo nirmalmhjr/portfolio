@@ -19,7 +19,10 @@ export const frontmatterSchema = z.object({
     .max(200, "description should be <= 200 chars (used as meta description)"),
   /** Set to true to hide from listings, feeds, and the sitemap. */
   draft: z.boolean().default(false),
-  /** Optional per-post social image, served from /public. */
+  /**
+   * Optional image from /public: the post's card thumbnail and social image.
+   * Use a real screenshot or diagram, not a graphic that repeats the title.
+   */
   image: z.string().optional(),
   tags: z.array(z.string().min(1)).default([]),
   title: z.string().min(1, "title is required"),

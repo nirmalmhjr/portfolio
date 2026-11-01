@@ -157,7 +157,7 @@ export default async function PostPage({ params }: PostPageProps) {
           <h2 className="font-medium font-mono text-faint text-xs uppercase tracking-[0.1em]">
             Keep reading
           </h2>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <div className="mt-4 grid gap-4">
             {more.map((p) => (
               <PostCard key={p.slug} post={p} />
             ))}
