@@ -21,7 +21,7 @@ The site makes two claims that it can back up, in this order:
 1. **Real shipped work.** Nirmal has built production client websites and landing pages, and three admin dashboards end to end: Paradise Hills Resort (solo), the Plex Bit company CMS, and Galli Maps.
 2. **A business head.** Before code, Nirmal spent about 8 years in accounting, finance and pharmaceutical sales, working with clients every day. That background shapes how Nirmal approaches a build: understanding what the client needs before writing code.
 
-Nirmal switched careers into frontend in 2023 and climbed quickly (a solo Vue 2 → Vue 3 migration of a live product in the first year). The switch is part of the story, but the work leads.
+Nirmal switched careers into frontend in 2023 and climbed quickly (in the first year, taking over a live product's Vue 2 → Vue 3 rebuild and doing most of it alone; a senior developer set up the new project and two colleagues built the first pages). The switch is part of the story, but the work leads.
 
 ## Operating Context
 
