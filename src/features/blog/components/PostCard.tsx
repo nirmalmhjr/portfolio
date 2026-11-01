@@ -12,6 +12,8 @@ function keepVersionsTogether(text: string) {
 }
 
 interface PostCardProps {
+  /** h2 where the page has no section heading above the cards (/blog, tag pages). */
+  readonly headingLevel?: "h2" | "h3";
   readonly post: Post;
 }
 
@@ -20,11 +22,15 @@ interface PostCardProps {
  * top, then meta, title and description, with tags and the link pinned to the
  * bottom so they line up across a row.
  */
-export function PostCard({ post }: PostCardProps) {
+export function PostCard({ post, headingLevel = "h3" }: PostCardProps) {
   const { title, description, date, tags, image } = post.frontmatter;
+  const Heading = headingLevel;
+  const titleId = `post-${post.slug}-title`;
 
   return (
+    // Named by the title alone, so screen readers don't read the whole card as the link.
     <Link
+      aria-labelledby={titleId}
       className="card spot project group flex h-full flex-col"
       href={ROUTES.blogPost(post.slug)}
     >
@@ -47,9 +53,12 @@ export function PostCard({ post }: PostCardProps) {
           <span aria-hidden>·</span>
           <span>{post.readingTimeMinutes} min read</span>
         </p>
-        <h3 className="text-balance font-semibold text-[19px] leading-[1.25] tracking-[-0.02em]">
+        <Heading
+          className="text-balance font-semibold text-[19px] leading-[1.25] tracking-[-0.02em]"
+          id={titleId}
+        >
           {keepVersionsTogether(title)}
-        </h3>
+        </Heading>
         <p className="text-[15px] text-muted">
           {keepVersionsTogether(description)}
         </p>
@@ -86,8 +95,16 @@ const LG_COLUMNS = 3;
 const SM_SPAN_CLASS = { 1: "sm:col-span-1", 2: "sm:col-span-2" } as const;
 const LG_SPAN_CLASS = { 1: "lg:col-span-1", 2: "lg:col-span-2" } as const;
 
+/** Grid columns from the sm breakpoint up. */
+const GRID_CLASS = {
+  2: "sm:grid-cols-2",
+  3: "sm:grid-cols-2 lg:grid-cols-3",
+} as const;
+
 interface PostGridProps {
   readonly children: ReactNode;
+  /** 3 on full-width pages; 2 in the narrow post column ("Keep reading"). */
+  readonly columns?: 2 | 3;
   /**
    * Fill a short first row with a "Writing now" tile, so fewer than three
    * posts never leave empty columns (used on the homepage).
@@ -96,12 +113,16 @@ interface PostGridProps {
 }
 
 /** Post cards three to a row on desktop, two on tablets, one on phones. */
-export function PostGrid({ children, fillRow = false }: PostGridProps) {
+export function PostGrid({
+  children,
+  columns = 3,
+  fillRow = false,
+}: PostGridProps) {
   const count = Children.count(children);
-  const showTile = fillRow && count > 0 && count < LG_COLUMNS;
+  const showTile = fillRow && columns === 3 && count > 0 && count < LG_COLUMNS;
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div className={cn("grid gap-4", GRID_CLASS[columns])}>
       {children}
       {showTile ? (
         <div

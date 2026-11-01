@@ -41,7 +41,7 @@ export function BlogListing({ currentPage }: BlogListingProps) {
         {pagePosts.length > 0 ? (
           <PostGrid>
             {pagePosts.map((post) => (
-              <PostCard key={post.slug} post={post} />
+              <PostCard headingLevel="h2" key={post.slug} post={post} />
             ))}
           </PostGrid>
         ) : (

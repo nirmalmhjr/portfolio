@@ -92,13 +92,14 @@ export function getPostBySlug(slug: string): Post | undefined {
 }
 
 /**
- * Lists the unique tags across all posts, sorted, with post counts.
+ * Lists the unique tags across published posts, sorted, with post counts.
+ * Drafts are left out so the counts match the tag pages in dev too.
  *
  * @returns One entry per tag.
  */
 export function getAllTags(): TagCount[] {
   const counts = new Map<string, number>();
-  for (const post of getAllPosts()) {
+  for (const post of getPublishedPosts()) {
     for (const tag of post.frontmatter.tags) {
       counts.set(tag, (counts.get(tag) ?? 0) + 1);
     }

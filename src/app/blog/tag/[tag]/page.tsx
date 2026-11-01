@@ -68,7 +68,7 @@ export default async function TagPage({ params }: TagPageProps) {
       <Container className="pb-24">
         <PostGrid>
           {posts.map((post) => (
-            <PostCard key={post.slug} post={post} />
+            <PostCard headingLevel="h2" key={post.slug} post={post} />
           ))}
         </PostGrid>
       </Container>

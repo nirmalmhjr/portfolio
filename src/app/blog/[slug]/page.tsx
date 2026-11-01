@@ -8,7 +8,7 @@ import { GlowBackdrop } from "@/components/ui/glow-backdrop";
 import { ROUTES } from "@/configs/routes";
 import { SITE_CONFIG } from "@/configs/site";
 import { MdxContent } from "@/features/blog/components/MdxContent";
-import { PostCard } from "@/features/blog/components/PostCard";
+import { PostCard, PostGrid } from "@/features/blog/components/PostCard";
 import {
   getAllPosts,
   getPostBySlug,
@@ -101,9 +101,10 @@ export default async function PostPage({ params }: PostPageProps) {
 
       <header className="relative isolate overflow-hidden pt-[132px] pb-10 sm:pt-[160px]">
         <GlowBackdrop />
-        <Container className="max-w-[52rem]">
+        <Container>
           <Link
-            className="inline-flex items-center gap-1.5 text-muted text-sm transition-colors hover:text-fg"
+            // py-2 with a matching negative margin grows the tap target without moving the layout.
+            className="-my-2 inline-flex items-center gap-1.5 py-2 text-muted text-sm transition-colors hover:text-fg"
             href={ROUTES.blog}
           >
             <ArrowLeft aria-hidden className="h-3.5 w-3.5" />
@@ -145,22 +146,21 @@ export default async function PostPage({ params }: PostPageProps) {
         </Container>
       </header>
 
-      <Container
-        as="article"
-        className="max-w-[52rem] border-line border-t py-12"
-      >
+      <Container as="article" className="border-line border-t py-12">
         <MdxContent source={content} />
       </Container>
 
       {more.length > 0 ? (
-        <Container as="aside" className="max-w-[52rem] pb-24">
+        <Container as="aside" className="pb-24">
           <h2 className="font-medium font-mono text-faint text-xs uppercase tracking-[0.1em]">
             Keep reading
           </h2>
-          <div className="mt-4 grid gap-4">
-            {more.map((p) => (
-              <PostCard key={p.slug} post={p} />
-            ))}
+          <div className="mt-4">
+            <PostGrid columns={2}>
+              {more.map((p) => (
+                <PostCard key={p.slug} post={p} />
+              ))}
+            </PostGrid>
           </div>
         </Container>
       ) : null}
