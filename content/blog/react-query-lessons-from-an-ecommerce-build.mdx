@@ -1,0 +1,163 @@
+---
+title: "Three things React Query taught me on a team e-commerce build"
+description: "Create the client once, don't use the cache as a store, and tell the cache when data changes: three fixes from my own commits on Luxe, a Next.js e-commerce platform."
+date: "2026-11-02"
+tags: ["React", "TanStack Query", "Next.js"]
+image: "/blog/react-query-wishlist.jpg"
+draft: false
+---
+
+From April to June 2026 I was one of several developers on Luxe, a
+multi-vendor e-commerce platform built with Next.js and TanStack Query (React
+Query). I built the account and order pages, search, the blog and the brand
+and sale pages, and I worked on the wishlist and checkout.
+
+React Query looks simple: give it a key and a function, get data back. Most
+of what I learned came from three places where I used it wrong first. The
+snippets below are simplified, but each mistake and each fix comes from my own
+commits.
+
+## 1. Create the QueryClient once
+
+This was in our providers component:
+
+```tsx title="providers.tsx (before)"
+export function Providers({ children }: { children: ReactNode }) {
+  const queryClient = new QueryClient();
+
+  return (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+}
+```
+
+It looks harmless, but this line runs on every render. Each time the
+providers component re-rendered, React Query got a brand-new client with an
+empty cache, so data the app had already fetched could be thrown away and
+fetched again.
+
+The fix keeps one client for the life of the component:
+
+```tsx title="providers.tsx (after)"
+const [queryClient] = useState(() => new QueryClient());
+```
+
+`useState` with a function runs that function only on the first render. This
+is the setup the TanStack Query docs recommend for Next.js, and now I check for
+it first in any project I join.
+
+## 2. Don't use the cache as a store
+
+The wishlist shows a heart on every product card, and a count in the navbar.
+Many components need the same answer: which products has this user saved?
+
+My first version put the saved product IDs in React Query's cache, but the
+query never fetched them:
+
+```ts title="First version"
+const { data: wishlistIds } = useQuery({
+  queryKey: ["wishlist", "productIds", userId],
+  queryFn: () => [],
+  initialData: [],
+  staleTime: Number.POSITIVE_INFINITY,
+});
+```
+
+The list started empty, and the only thing that ever filled it was my own code
+calling `setQueryData` when someone tapped a heart. I was using the cache as a
+global variable. React Query was only holding a value I wrote by hand.
+
+The navbar count read from this list:
+
+```ts
+const wishlistCount = wishlistIds?.length ?? wishlistProducts?.length ?? 0;
+```
+
+After a page reload, `wishlistIds` was `[]`, so its length was `0`. The `??`
+operator only falls back when the left side is `null` or `undefined`, not when
+it is `0`. So the count showed nothing until the user tapped a heart, even when
+their wishlist had items.
+
+The next day I rewrote it so the query does its real job:
+
+```ts title="Second version"
+export function useWishlistProductIds(userId: string | undefined) {
+  return useQuery({
+    queryKey: ["wishlist", "productIds", userId],
+    queryFn: () => fetchWishlistProductIds(userId),
+    enabled: Boolean(userId),
+    staleTime: 1000 * 60 * 5,
+  });
+}
+```
+
+<div className="not-prose my-8 grid gap-4 sm:grid-cols-2">
+  <div className="card p-5">
+    <p className="font-mono text-faint text-xs uppercase tracking-[0.1em]">First version</p>
+    <ol className="mt-3 grid gap-2 text-[15px] text-muted">
+      <li>Page loads, cache starts as <code>[]</code></li>
+      <li>The server is never asked</li>
+      <li>A heart tap writes an ID into the cache</li>
+      <li className="text-fg">Reload: back to <code>[]</code></li>
+    </ol>
+  </div>
+  <div className="card p-5">
+    <p className="font-mono text-ink text-xs uppercase tracking-[0.1em]">Second version</p>
+    <ol className="mt-3 grid gap-2 text-[15px] text-muted">
+      <li>Page loads, the query fetches the saved IDs</li>
+      <li>Every heart and the navbar read that one query</li>
+      <li>A heart tap updates the cache right away</li>
+      <li className="text-fg">After 5 minutes it refetches to stay in sync</li>
+    </ol>
+  </div>
+</div>
+
+Every component now uses this one hook, a heart tap still updates the cache
+instantly, and the data comes from the server instead of from my memory of what
+the user clicked. The change also removed more code than it added: the commit
+deleted 85 more lines than it wrote.
+
+The lesson: `setQueryData` is for updating data the server already gave you,
+not for inventing state the server never sent. If a value has no `queryFn` that
+fetches it, it probably belongs in normal state, not in React Query.
+
+## 3. Tell the cache when data changes
+
+When someone places an order, their order history is now out of date. React
+Query cannot know that on its own. If the order history was already in the
+cache, the user could finish checkout, open "My orders" and not see the order
+they just placed.
+
+The fix is to mark that data as stale after a successful order:
+
+```ts title="useCompletePurchase"
+return useMutation({
+  mutationFn: completePurchase,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ["orderHistory"] });
+  },
+});
+```
+
+`invalidateQueries` matches every key that starts with `["orderHistory"]`,
+whatever page or filter it was for, and marks it as stale. A list that is on
+screen refetches right away; the others refetch the next time they are shown.
+I added the same call after the eSewa payment check, because that is a second
+way to finish an order.
+
+This works because the team kept all query keys in one file, built from a
+shared root. That made it easy to invalidate a whole group of queries with one
+line.
+
+## What ties them together
+
+All three mistakes came from treating React Query as a place to keep variables,
+when it is really a copy of what the server knows:
+
+- Keep one copy for the whole app (one client).
+- Fill it from the server (a real `queryFn`).
+- Tell it when the server's answer has changed (invalidate after a mutation).
+
+None of these needed a new library or a big refactor. Each one was a small
+change once I understood what React Query was responsible for, and what it
+wasn't.
