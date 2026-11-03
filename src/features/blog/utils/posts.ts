@@ -92,6 +92,26 @@ export function getPostBySlug(slug: string): Post | undefined {
 }
 
 /**
+ * Picks other published posts to read next: the ones that share the most tags
+ * with this post come first, and newer posts win ties.
+ *
+ * @param post - The post being read.
+ * @param count - How many posts to return at most.
+ * @returns Up to `count` other posts.
+ */
+export function getRelatedPosts(post: Post, count: number): Post[] {
+  const tags = new Set(post.frontmatter.tags);
+  const sharedTags = (other: Post) =>
+    other.frontmatter.tags.filter((tag) => tags.has(tag)).length;
+
+  // getPublishedPosts is newest first and sort is stable, so ties stay by date.
+  return getPublishedPosts()
+    .filter((other) => other.slug !== post.slug)
+    .sort((a, b) => sharedTags(b) - sharedTags(a))
+    .slice(0, count);
+}
+
+/**
  * Lists the unique tags across published posts, sorted, with post counts.
  * Drafts are left out so the counts match the tag pages in dev too.
  *

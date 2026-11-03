@@ -1,4 +1,4 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -8,11 +8,14 @@ import { GlowBackdrop } from "@/components/ui/glow-backdrop";
 import { ROUTES } from "@/configs/routes";
 import { SITE_CONFIG } from "@/configs/site";
 import { MdxContent } from "@/features/blog/components/MdxContent";
-import { PostCard, PostGrid } from "@/features/blog/components/PostCard";
+import {
+  PostCardCompact,
+  RelatedPostGrid,
+} from "@/features/blog/components/PostCard";
 import {
   getAllPosts,
   getPostBySlug,
-  getPublishedPosts,
+  getRelatedPosts,
   tagSlug,
 } from "@/features/blog/utils/posts";
 import { createMetadata } from "@/lib/seo";
@@ -20,7 +23,7 @@ import { absoluteUrl } from "@/lib/url";
 import { formatDate } from "@/lib/utils";
 
 /** How many other posts the "Keep reading" list shows. */
-const RELATED_POSTS_COUNT = 2;
+const RELATED_POSTS_COUNT = 3;
 
 export const dynamicParams = false;
 
@@ -64,9 +67,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
   const { frontmatter, content, readingTimeMinutes } = post;
   const url = absoluteUrl(ROUTES.blogPost(slug));
-  const more = getPublishedPosts()
-    .filter((p) => p.slug !== slug)
-    .slice(0, RELATED_POSTS_COUNT);
+  const more = getRelatedPosts(post, RELATED_POSTS_COUNT);
 
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -152,15 +153,28 @@ export default async function PostPage({ params }: PostPageProps) {
 
       {more.length > 0 ? (
         <Container as="aside" className="pb-24">
-          <h2 className="font-medium font-mono text-faint text-xs uppercase tracking-[0.1em]">
-            Keep reading
-          </h2>
+          <div className="flex items-baseline justify-between gap-4">
+            <h2 className="font-medium font-mono text-faint text-xs uppercase tracking-[0.1em]">
+              Keep reading
+            </h2>
+            <Link
+              // py-2 with a matching negative margin grows the tap target without moving the layout.
+              className="group -my-2 inline-flex items-center gap-1.5 py-2 text-ink text-sm"
+              href={ROUTES.blog}
+            >
+              All articles
+              <ArrowRight
+                aria-hidden
+                className="h-3.5 w-3.5 transition-transform group-hover:translate-x-[3px]"
+              />
+            </Link>
+          </div>
           <div className="mt-4">
-            <PostGrid columns={2}>
+            <RelatedPostGrid>
               {more.map((p) => (
-                <PostCard key={p.slug} post={p} />
+                <PostCardCompact key={p.slug} post={p} />
               ))}
-            </PostGrid>
+            </RelatedPostGrid>
           </div>
         </Container>
       ) : null}
