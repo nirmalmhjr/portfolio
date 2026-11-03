@@ -1,0 +1,379 @@
+---
+title: "Making an e-commerce site feel fast with TanStack Query"
+description: "Debounced search, page numbers that don't flash empty, infinite scroll and optimistic updates: four TanStack Query patterns from my commits on a Next.js store."
+date: "2026-11-03"
+tags: ["React", "TanStack Query", "Next.js"]
+image: "/blog/tanstack-query-search.jpg"
+draft: false
+---
+
+From April to June 2026 I was one of several developers on a multi-vendor
+e-commerce platform built with Next.js and TanStack Query (React Query). In
+[my last post](/blog/react-query-lessons-from-an-ecommerce-build) I wrote about
+three mistakes I made with React Query on that project. This one is about the
+parts that worked.
+
+A store feels slow when the screen looks broken while it waits: a request on
+every keystroke, a table that turns into a skeleton between pages, a list that
+starts again when you load more, a removed item that stays on the page until
+the server answers.
+TanStack Query has an answer for each of these. The work was picking the right
+one for each screen.
+
+The snippets are simplified, but each pattern comes from my own commits.
+
+## 1. Debounced search with one cache entry per query
+
+The navbar has a search box that suggests products as you type. Without any
+care, typing "sneakers" sends eight requests, one per letter, and only the last
+answer matters.
+
+The fix has two parts. First, debounce the _value_, so the query only sees the
+text once the user stops typing for 600 ms:
+
+```tsx title="NavbarSearch.tsx"
+const [query, setQuery] = useState("");
+const [debouncedQuery] = useDebounce(query, 600);
+const { data: suggestions, isFetching } = useSearch(debouncedQuery);
+```
+
+Second, put the cleaned-up text in the query key:
+
+```ts title="useSearch.ts"
+export function useSearch(query: string) {
+  const normalizedQuery = query.trim();
+
+  return useQuery({
+    queryKey: queryKeys.product.suggestions(normalizedQuery),
+    queryFn: () => getProductSearchSuggestions(normalizedQuery),
+    enabled: normalizedQuery.length > 0,
+    staleTime: 1000 * 60 * 5,
+  });
+}
+```
+
+Each line does one job:
+
+- **`trim()` in the key.** "nike" and "nike " are the same search, so they
+  share one cache entry.
+- **`enabled`.** An empty box never sends a request.
+- **`staleTime` of five minutes.** Every search is cached on its own. If
+  someone searches "nike", then "nike air", then deletes back to "nike", the
+  first results come straight from the cache with no request.
+
+The search hook still has one line I left commented out:
+
+```ts
+// keepPreviousData: true,
+```
+
+That is the TanStack Query v4 option. Version 5, which the project used,
+[removed it](https://tanstack.com/query/latest/docs/framework/react/guides/migrating-to-v5).
+The v5 way to keep old data on screen is in the next section.
+
+## 2. Page numbers that don't flash empty
+
+On desktop, the order history is a table with page numbers. Each page is its
+own query, keyed by its page number:
+
+```ts title="useOrderHistoryList.ts"
+export function useOrderHistoryList(page: number) {
+  return useQuery({
+    queryKey: queryKeys.orderHistory.list(page),
+    queryFn: () => getOrderHistory(page, PAGE_SIZE),
+    placeholderData: keepPreviousData,
+    staleTime: 1000 * 60 * 5,
+  });
+}
+```
+
+Without `placeholderData`, clicking "2" creates a new key with no data yet.
+`isLoading` turns true, and the skeleton replaces the table until page 2
+arrives. With
+[`keepPreviousData`](https://tanstack.com/query/latest/docs/framework/react/guides/paginated-queries),
+page 1 stays on screen until page 2 arrives.
+
+<div className="not-prose my-8 grid gap-4 sm:grid-cols-2">
+  <div className="card p-5">
+    <p className="font-mono text-faint text-xs uppercase tracking-[0.1em]">Without placeholderData</p>
+    <ol className="mt-3 grid gap-2 text-[15px] text-muted">
+      <li>Click page 2</li>
+      <li>The new key has no data yet</li>
+      <li>The skeleton replaces the table</li>
+      <li className="text-fg">Page 2 replaces the skeleton, so the table flashes</li>
+    </ol>
+  </div>
+  <div className="card p-5">
+    <p className="font-mono text-ink text-xs uppercase tracking-[0.1em]">With keepPreviousData</p>
+    <ol className="mt-3 grid gap-2 text-[15px] text-muted">
+      <li>Click page 2</li>
+      <li>Page 1 stays on screen, dimmed</li>
+      <li>Page 2 arrives in the background</li>
+      <li className="text-fg">The rows swap in place, with no flash</li>
+    </ol>
+  </div>
+</div>
+
+The component tells the first load apart from a page change:
+
+```tsx title="OrderHistoryDesktop.tsx (simplified)"
+const [page, setPage] = useState(1);
+const { data, isLoading, isError, isFetching } = useOrderHistoryList(page);
+
+if (isLoading) return <OrderHistoryTableSkeleton />;
+if (isError || !data) return <OrderHistoryError />;
+
+return (
+  <div className={isFetching ? "opacity-70 transition-opacity" : ""}>
+    <DataTable columns={columns} data={data.orders} />
+    <Pagination
+      page={data.page}
+      total={data.total}
+      onPageChange={setPage}
+    />
+  </div>
+);
+```
+
+`isLoading` is only true on the very first load, when there is nothing to
+show, so the skeleton appears once. After that, `isFetching` dims the old rows
+to show that something is happening.
+
+One small detail: the pagination reads the page number from the response
+(`data.page`), not from the `page` state. While page 2 loads, the rows on
+screen are still page 1, and so is the highlighted number. The two never
+disagree.
+
+## 3. Infinite scroll with `useInfiniteQuery`
+
+Page numbers are awkward on a phone, so the mobile order history loads more
+orders as you scroll. The brand page and the product grids scroll the same
+way, and the blog list has a "Load more" button instead. All of them use
+[`useInfiniteQuery`](https://tanstack.com/query/latest/docs/framework/react/guides/infinite-queries):
+
+```ts title="useOrderHistoryInfinite.ts"
+export function useOrderHistoryInfinite() {
+  return useInfiniteQuery({
+    queryKey: queryKeys.orderHistory.infinite(),
+    queryFn: ({ pageParam }) => getOrderHistory(pageParam, MOBILE_PAGE_SIZE),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.nextPage ?? undefined,
+  });
+}
+```
+
+The API sends `nextPage` with each page. `getNextPageParam` passes it on, and
+returning `undefined` tells TanStack Query there are no more pages, which sets
+`hasNextPage` to false. The component joins the pages into one list:
+
+```ts
+const orders = data?.pages.flatMap((page) => page.orders) ?? [];
+```
+
+### Give it its own key
+
+Look at the two order history keys:
+
+```ts title="query-keys.ts"
+orderHistory: {
+  all: ["order-history"] as const,
+  list: (page: number) => [...queryKeys.orderHistory.all, "list", page] as const,
+  infinite: () => [...queryKeys.orderHistory.all, "infinite"] as const,
+},
+```
+
+The desktop table and the mobile list call the same endpoint, but they must
+not share a key. `useQuery` stores one page. `useInfiniteQuery` stores
+`{ pages, pageParams }`. If both used the same key, one hook would read data in
+the other one's shape. The blog hooks follow the same rule and add
+`"infinite"` to the end of their key.
+
+Both keys still start with `["order-history"]`. That is why one
+`invalidateQueries` call after checkout, from the
+[last post](/blog/react-query-lessons-from-an-ecommerce-build), refreshes the
+table and the mobile list together.
+
+### Filters reset the list for free
+
+On the blog page, the search text and sort order go into the key:
+
+```ts
+const blogParams = { search: debouncedSearch.trim() || undefined, dir };
+// key: ["blogs", "list", blogParams, "infinite"]
+```
+
+When either one changes, the key changes, so TanStack Query starts a fresh
+list from `initialPageParam`. There is no code that resets the page count by
+hand.
+
+### The scroll trigger
+
+For infinite scroll, an empty `div` at the end of the list tells us when the
+user is close to the bottom. I moved this into a shared hook so every
+scrolling list uses the same one:
+
+```ts title="useInfiniteScrollTrigger.ts (simplified)"
+export function useInfiniteScrollTrigger({
+  hasNextPage,
+  isFetchingNextPage,
+  fetchNextPage,
+}: Options) {
+  const sentinelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!(el && hasNextPage)) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting && !isFetchingNextPage) fetchNextPage();
+      },
+      { rootMargin: "200px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
+
+  return sentinelRef;
+}
+```
+
+`rootMargin: "200px"` starts loading a little before the user reaches the end,
+so the next orders are often there before they're needed. The
+`isFetchingNextPage` check stops a second request while one is already on its
+way.
+
+## 4. Optimistic updates: where I kept them
+
+An optimistic update changes the screen before the server answers, then puts
+things back if the request fails. It is the fastest a UI can feel. My first
+wishlist went all in on it.
+
+When someone tapped a heart, the first version patched every cache that knew
+whether that product was saved:
+
+```ts title="First version, adding to the wishlist (simplified)"
+onMutate: async ({ productId, slug }) => {
+  // Stop refetches that could overwrite the patch
+  await queryClient.cancelQueries({ queryKey: detailKey(slug) });
+  await queryClient.cancelQueries({ queryKey: ["products"] });
+  await queryClient.cancelQueries({ queryKey: wishlistIdsKey });
+
+  // Save a snapshot of each one for the rollback
+  const previousDetail = queryClient.getQueryData(detailKey(slug));
+  const previousLists = queryClient.getQueriesData({ queryKey: ["products"] });
+  const previousIds = queryClient.getQueryData(wishlistIdsKey);
+
+  // Patch every copy of "is this product saved?"
+  addWishlistId(productId);
+  queryClient.setQueryData(detailKey(slug), (old) =>
+    old ? { ...old, isInWishlist: true } : old
+  );
+  queryClient.setQueriesData({ queryKey: ["products"] }, (old) =>
+    markSavedOnEveryPage(old, productId) // sets isInWishList: true
+  );
+
+  return { previousDetail, previousLists, previousIds };
+},
+```
+
+Removing did all of that again, plus the wishlist page. Each copy had to be
+found, patched and rolled back on error. The product detail and the product
+lists even spelled the flag differently (`isInWishlist` and `isInWishList`).
+The file was 312 lines long.
+
+In [the last post](/blog/react-query-lessons-from-an-ecommerce-build) I
+described the fix that made this unnecessary: every heart now reads one query,
+the list of saved product IDs. Once every heart read from one place, removing
+only had to patch two caches: the saved IDs and the wishlist page. The rewrite
+took the file down to 160 lines.
+
+Removing stayed optimistic. Removing from a product card asks for confirmation
+in a dialog first. Once the user confirms, the heart empties and the product
+leaves the wishlist page straight away, before the server answers:
+
+```ts title="useRemoveFromWishlist (simplified)"
+return useMutation({
+  mutationFn: ({ productId }) => removeFromWishlist(productId),
+
+  onMutate: async ({ productId }) => {
+    await queryClient.cancelQueries({ queryKey: idsKey });
+
+    const previousIds = queryClient.getQueryData<string[]>(idsKey);
+    const previousProducts = queryClient.getQueriesData<Product[]>({
+      queryKey: wishlistProductsKey,
+    });
+
+    queryClient.setQueryData<string[]>(idsKey, (old = []) =>
+      old.filter((id) => id !== productId)
+    );
+    queryClient.setQueriesData<Product[]>(
+      { queryKey: wishlistProductsKey },
+      (old) => old?.filter((p) => p.id !== productId)
+    );
+
+    return { previousIds, previousProducts };
+  },
+
+  onError: (_error, _vars, context) => {
+    if (context?.previousIds) {
+      queryClient.setQueryData(idsKey, context.previousIds);
+    }
+    for (const [key, data] of context?.previousProducts ?? []) {
+      queryClient.setQueryData(key, data);
+    }
+  },
+
+  onSettled: () => {
+    queryClient.invalidateQueries({ queryKey: idsKey });
+    queryClient.invalidateQueries({ queryKey: wishlistProductsKey });
+  },
+});
+```
+
+The four steps are the standard
+[optimistic update](https://tanstack.com/query/latest/docs/framework/react/guides/optimistic-updates)
+recipe:
+
+1. **`cancelQueries`.** A refetch that is already in flight could land after
+   the patch and undo it.
+2. **Snapshot, then patch.** Whatever `onMutate` returns becomes `context`.
+3. **Roll back in `onError`.** Put the snapshots back.
+4. **Invalidate in `onSettled`.** It runs after success or failure, so the
+   cache always ends up matching the server.
+
+Adding is no longer optimistic. The heart button is disabled while the request
+runs. When the server confirms, the cache is invalidated and a toast says
+"Added to favourites!" with a "View Wishlist" button. That button only makes
+sense once the product is really saved.
+
+One more guard sits in front of both: taps less than 300 ms apart are ignored,
+so a double tap can't add and then remove the same product.
+
+```ts
+const now = Date.now();
+if (now - lastToggleRef.current < 300) return;
+lastToggleRef.current = now;
+```
+
+The lesson I took from this: an optimistic update is a trade. You get instant
+feedback, and in return you write code that has to undo itself. It pays off
+when the change is almost certain to succeed and touches one or two caches. If
+you find yourself patching four caches, fix where the data lives first.
+
+## What ties them together
+
+Every pattern here is a decision about what the user sees while they wait:
+
+- **Search:** nothing until they pause, then cached answers for anything
+  they've already searched (`useDebounce`, `enabled`, a trimmed key).
+- **Page numbers:** the old page, dimmed, until the new one arrives
+  (`placeholderData: keepPreviousData`, `isFetching`).
+- **Infinite lists:** the orders they've already seen, plus a spinner at the
+  bottom (`useInfiniteQuery`, its own key, an `IntersectionObserver`).
+- **Removing from the wishlist:** the result right away, with a rollback if it
+  fails (`onMutate`, `onError`, `onSettled`).
+
+None of these needed a new library. TanStack Query already had an option for
+each one. The work was choosing which one fit each screen, and keeping the
+data in one place so the choice stayed simple.

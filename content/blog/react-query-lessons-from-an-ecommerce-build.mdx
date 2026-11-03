@@ -1,13 +1,14 @@
 ---
 title: "Three things React Query taught me on a team e-commerce build"
-description: "Create the client once, don't use the cache as a store, and tell the cache when data changes: three fixes from my own commits on Luxe, a Next.js e-commerce platform."
+description: "Create the client once, don't use the cache as a store, and tell the cache when data changes: three fixes from my own commits on a multi-vendor Next.js e-commerce platform."
 date: "2026-11-02"
+updated: "2026-11-03"
 tags: ["React", "TanStack Query", "Next.js"]
 image: "/blog/react-query-wishlist.jpg"
 draft: false
 ---
 
-From April to June 2026 I was one of several developers on Luxe, a
+From April to June 2026 I was one of several developers on a
 multi-vendor e-commerce platform built with Next.js and TanStack Query (React
 Query). I built the account and order pages, search, the blog and the brand
 and sale pages, and I worked on the wishlist and checkout.
@@ -106,14 +107,14 @@ export function useWishlistProductIds(userId: string | undefined) {
     <ol className="mt-3 grid gap-2 text-[15px] text-muted">
       <li>Page loads, the query fetches the saved IDs</li>
       <li>Every heart and the navbar read that one query</li>
-      <li>A heart tap updates the cache right away</li>
+      <li>A heart tap updates that query, so every heart agrees</li>
       <li className="text-fg">After 5 minutes it refetches to stay in sync</li>
     </ol>
   </div>
 </div>
 
-Every component now uses this one hook, a heart tap still updates the cache
-instantly, and the data comes from the server instead of from my memory of what
+Every component now uses this one hook, every heart shows the same answer, and
+the data comes from the server instead of from my memory of what
 the user clicked. The change also removed more code than it added: the commit
 deleted 85 more lines than it wrote.
 
@@ -134,12 +135,12 @@ The fix is to mark that data as stale after a successful order:
 return useMutation({
   mutationFn: completePurchase,
   onSuccess: () => {
-    queryClient.invalidateQueries({ queryKey: ["orderHistory"] });
+    queryClient.invalidateQueries({ queryKey: ["order-history"] });
   },
 });
 ```
 
-`invalidateQueries` matches every key that starts with `["orderHistory"]`,
+`invalidateQueries` matches every key that starts with `["order-history"]`,
 whatever page or filter it was for, and marks it as stale. A list that is on
 screen refetches right away; the others refetch the next time they are shown.
 I added the same call after the eSewa payment check, because that is a second
@@ -161,3 +162,7 @@ when it is really a copy of what the server knows:
 None of these needed a new library or a big refactor. Each one was a small
 change once I understood what React Query was responsible for, and what it
 wasn't.
+
+Once these were fixed, the rest was about speed. I wrote a follow-up on
+[making the same store feel fast with TanStack Query](/blog/tanstack-query-ecommerce-patterns):
+debounced search, pagination, infinite scroll and optimistic updates.
