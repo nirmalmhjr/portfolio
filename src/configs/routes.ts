@@ -1,3 +1,4 @@
+import { SOCIAL_LINKS } from "@/configs/site";
 import type { NavItem } from "@/types/nav.types";
 
 /** Prefix for links that scroll to a section on the homepage ("/#projects"). */
@@ -50,7 +51,8 @@ export function getHomeSectionId(href: string): string | null {
 
 /**
  * Header navigation. Section items scroll to a section on the homepage (and
- * light up while that section is on screen); the rest are separate pages.
+ * light up while that section is on screen); the rest are separate pages,
+ * except Notes, which goes to the notes site.
  */
 export const MAIN_NAV: readonly NavItem[] = [
   { href: ROUTES.homeSection(HOME_SECTION_IDS.projects), title: "Projects" },
@@ -61,5 +63,6 @@ export const MAIN_NAV: readonly NavItem[] = [
   { href: ROUTES.homeSection(HOME_SECTION_IDS.about), title: "About" },
   { href: ROUTES.homeSection(HOME_SECTION_IDS.skills), title: "Skills" },
   { href: ROUTES.blog, title: "Blog" },
+  { external: true, href: SOCIAL_LINKS.notes, title: "Notes" },
   { href: ROUTES.contact, title: "Contact" },
 ];

@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { ICON_BUTTON_CLASS } from "@/components/ui/button";
 import { SITE_CONFIG, SOCIAL_LINKS } from "@/configs/site";
@@ -39,7 +39,14 @@ export function Footer() {
           </ul>
         </nav> */}
 
-        <div className="flex gap-1.5">
+        <div className="flex items-center gap-1.5">
+          <a
+            className="mr-2 inline-flex items-center gap-0.5 py-2 hover:text-fg"
+            href={SOCIAL_LINKS.notes}
+          >
+            Notes
+            <ArrowUpRight aria-hidden className="h-3.5 w-3.5" />
+          </a>
           <a
             aria-label="GitHub profile"
             className={ICON_BUTTON_CLASS}

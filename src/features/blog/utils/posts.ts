@@ -112,6 +112,19 @@ export function getRelatedPosts(post: Post, count: number): Post[] {
 }
 
 /**
+ * Published posts about one project (frontmatter `project`), oldest first so
+ * a follow-up comes after the post it builds on.
+ *
+ * @param projectSlug - A slug from PROJECTS.
+ * @returns The project's posts, possibly none.
+ */
+export function getPostsByProject(projectSlug: string): Post[] {
+  return getPublishedPosts()
+    .filter((post) => post.frontmatter.project === projectSlug)
+    .reverse();
+}
+
+/**
  * Lists the unique tags across published posts, sorted, with post counts.
  * Drafts are left out so the counts match the tag pages in dev too.
  *

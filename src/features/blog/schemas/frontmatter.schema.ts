@@ -1,4 +1,7 @@
 import { z } from "zod";
+import { PROJECTS } from "@/features/projects/constants/projects";
+
+const PROJECT_SLUGS = PROJECTS.map((project) => project.slug);
 
 /**
  * Frontmatter contract for every file in /content/blog.
@@ -24,6 +27,19 @@ export const frontmatterSchema = z.object({
    * Use a real screenshot or diagram, not a graphic that repeats the title.
    */
   image: z.string().optional(),
+  /**
+   * Optional slug of the project this post is about (from PROJECTS). The
+   * project's card then links to the post.
+   */
+  project: z
+    .string()
+    .refine(
+      (slug) => PROJECT_SLUGS.includes(slug),
+      (slug) => ({
+        message: `project "${slug}" is not a project slug. Use one of: ${PROJECT_SLUGS.join(", ")}`,
+      })
+    )
+    .optional(),
   tags: z.array(z.string().min(1)).default([]),
   title: z.string().min(1, "title is required"),
   /** Optional last-updated date. */

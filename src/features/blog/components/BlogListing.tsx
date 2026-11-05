@@ -1,10 +1,11 @@
+import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Container, PageHeader } from "@/components/shared/Container";
 import { buttonClass } from "@/components/ui/button";
 import { Pagination } from "@/components/ui/pagination";
 import { HOME_SECTION_IDS, ROUTES } from "@/configs/routes";
-import { SITE_CONFIG } from "@/configs/site";
+import { SITE_CONFIG, SOCIAL_LINKS } from "@/configs/site";
 import { PostCard, PostGrid } from "@/features/blog/components/PostCard";
 import { TagFilter } from "@/features/blog/components/TagFilter";
 import { getPublishedPosts, getTotalPages } from "@/features/blog/utils/posts";
@@ -32,6 +33,17 @@ export function BlogListing({ currentPage }: BlogListingProps) {
         title="Notes on React and the web"
         watermark="Writing"
       >
+        <p className="mt-5 max-w-[56ch] text-[15px] text-muted">
+          Shorter reference notes, grouped by topic, live on my{" "}
+          <a
+            className="inline-flex items-center gap-0.5 text-ink underline-offset-[3px] hover:underline"
+            href={SOCIAL_LINKS.notes}
+          >
+            notes site
+            <ArrowUpRight aria-hidden className="h-3.5 w-3.5" />
+          </a>
+          .
+        </p>
         <div className="mt-8">
           <TagFilter />
         </div>

@@ -48,6 +48,11 @@ export interface Project {
   media: ProjectMedia;
   /** What Nirmal personally built. */
   myPart: string;
+  /**
+   * Pages on the notes site that come from this project, shown under
+   * "From my notes". `path` is relative to the notes site.
+   */
+  notes?: { title: string; path: string }[];
   /** Placeholder cards (e.g. unlaunched work) have no link or "my part". */
   placeholder?: boolean;
   primaryTech?: string[];

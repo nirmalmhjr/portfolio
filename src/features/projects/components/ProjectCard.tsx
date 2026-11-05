@@ -1,7 +1,11 @@
-import { ArrowUpRight, Star } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Star } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { TechPills } from "@/components/ui/pills";
+import { ROUTES } from "@/configs/routes";
+import { notesUrl } from "@/configs/site";
+import { getPostsByProject } from "@/features/blog/utils/posts";
 import { BeforeAfter } from "@/features/projects/components/BeforeAfter";
 import { BrowserFrame } from "@/features/projects/components/BrowserFrame";
 import { StatusBadge } from "@/features/projects/components/StatusBadge";
@@ -20,6 +24,73 @@ function MyPart({ children }: MyPartProps) {
       </span>
       {children}
     </p>
+  );
+}
+
+// Above the card's spotlight rim (z-3), like ProjectLink. py-1 grows the tap target.
+const WRITING_LINK_CLASS =
+  "group/post relative z-[4] -mx-1 flex items-start gap-1.5 rounded-md px-1 py-1 text-fg text-sm leading-snug transition-colors hover:text-ink";
+const WRITING_LABEL_CLASS =
+  "font-medium font-mono text-[11px] text-faint uppercase leading-none tracking-[0.08em]";
+
+interface ProjectWritingProps {
+  readonly project: Project;
+}
+
+/**
+ * Blog posts (frontmatter `project`) and notes-site pages (`project.notes`)
+ * about this project, so a reader looking at the work can go straight to how
+ * it was built. Renders nothing when there are neither.
+ */
+function ProjectWriting({ project }: ProjectWritingProps) {
+  const posts = getPostsByProject(project.slug);
+  const notes = project.notes ?? [];
+  if (posts.length === 0 && notes.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="grid gap-3 border-line border-t pt-3">
+      {posts.length > 0 ? (
+        <div className="grid gap-2">
+          <h4 className={WRITING_LABEL_CLASS}>From the blog</h4>
+          <ul className="grid gap-1">
+            {posts.map((post) => (
+              <li key={post.slug}>
+                <Link
+                  className={WRITING_LINK_CLASS}
+                  href={ROUTES.blogPost(post.slug)}
+                >
+                  <span className="text-pretty">{post.frontmatter.title}</span>
+                  <ArrowRight
+                    aria-hidden
+                    className="mt-[3px] h-3.5 w-3.5 flex-none text-ink transition-transform group-hover/post:translate-x-[3px]"
+                  />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+      {notes.length > 0 ? (
+        <div className="grid gap-2">
+          <h4 className={WRITING_LABEL_CLASS}>From my notes</h4>
+          <ul className="grid gap-1">
+            {notes.map((note) => (
+              <li key={note.path}>
+                <a className={WRITING_LINK_CLASS} href={notesUrl(note.path)}>
+                  <span className="text-pretty">{note.title}</span>
+                  <ArrowUpRight
+                    aria-hidden
+                    className="mt-[3px] h-3.5 w-3.5 flex-none text-ink transition-transform group-hover/post:translate-x-[2px] group-hover/post:-translate-y-[2px]"
+                  />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
+    </div>
   );
 }
 
@@ -152,6 +223,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </div>
         {project.placeholder ? null : <MyPart>{project.myPart}</MyPart>}
         <p className="text-[15px] text-muted">{project.description}</p>
+        <ProjectWriting project={project} />
         {/* mt-auto pins pills and link to the bottom, so links line up across a row (as in LearningGrid). */}
         <TechPills
           className="mt-auto pt-1"
@@ -255,6 +327,7 @@ export function FeaturedProjectCard({
           </div>
         ) : null}
 
+        <ProjectWriting project={project} />
         <TechPills primary={project.primaryTech} tech={project.tech} />
         <ProjectLink project={project} />
       </div>

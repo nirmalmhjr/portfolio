@@ -63,4 +63,16 @@ export const SOCIAL_LINKS = {
   linkedin: SITE_CONFIG.author.linkedin
     ? `https://www.linkedin.com/in/${SITE_CONFIG.author.linkedin}`
     : null,
+  /** Workbench, the reference notes site (a separate Fumadocs app). */
+  notes: "https://notes.nirmal-maharjan.com.np",
 } as const;
+
+/**
+ * Builds a link to a page on the notes site.
+ *
+ * @param path - The page path, e.g. "/docs/tanstack-query/data-tables".
+ * @returns The full URL.
+ */
+export function notesUrl(path: string): string {
+  return `${SOCIAL_LINKS.notes}${path}`;
+}

@@ -50,6 +50,16 @@ export const PROJECTS: Project[] = [
       type: "compare",
     },
     myPart: "Company website + CMS dashboard",
+    notes: [
+      {
+        path: "/docs/tanstack-query/data-tables",
+        title: "One table component behind 67 CMS tables",
+      },
+      {
+        path: "/docs/tanstack-query/mutations",
+        title: "Mutation hooks for every CMS save",
+      },
+    ],
     primaryTech: ["Next.js", "TypeScript", "TanStack Query"],
     slug: "plex-bit",
     status: "launching-soon",
@@ -75,7 +85,17 @@ export const PROJECTS: Project[] = [
       image: paradiseHills,
       type: "scroll",
     },
-    myPart: "Website + admin dashboard, built solo",
+    myPart: "Website + admin dashboard",
+    notes: [
+      {
+        path: "/docs/tanstack-query/server-prefetching",
+        title: "Server prefetching and hydration",
+      },
+      {
+        path: "/docs/tanstack-query/query-boundary",
+        title: "Loading and error states per section",
+      },
+    ],
     primaryTech: ["Next.js", "TypeScript", "TanStack Query"],
     slug: "paradise-hills",
     status: "launching-soon",
@@ -191,6 +211,12 @@ export const PROJECTS: Project[] = [
       type: "scroll",
     },
     myPart: "Rebuilt most of the app in Vue 3",
+    notes: [
+      {
+        path: "/docs/migrations/vue-2-to-vue-3",
+        title: "Vue 2 to Vue 3 migration checklist",
+      },
+    ],
     slug: "meromenu",
     status: "live",
     tech: ["Vue 3", "Nuxt 3"],

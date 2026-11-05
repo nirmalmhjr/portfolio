@@ -18,7 +18,7 @@ This is the personal portfolio of Nirmal Maharjan, a Frontend Developer in Kathm
 
 The site makes two claims that it can back up, in this order:
 
-1. **Real shipped work.** Nirmal has built production client websites and landing pages, and three admin dashboards end to end: Paradise Hills Resort (solo), the Plex Bit company CMS, and Galli Maps.
+1. **Real shipped work.** Nirmal has built production client websites and landing pages, and three admin dashboards end to end: Paradise Hills Resort, the Plex Bit company CMS, and Galli Maps. On Paradise Hills, teammates set up the project base (tooling, UI components, themes, data table); Nirmal built the website's pages and the whole dashboard. Don't call it "solo".
 2. **A business head.** Before code, Nirmal spent about 8 years in accounting, finance and pharmaceutical sales, working with clients every day. That background shapes how Nirmal approaches a build: understanding what the client needs before writing code.
 
 Nirmal switched careers into frontend in 2023 and climbed quickly (in the first year, taking over a live product's Vue 2 → Vue 3 rebuild and doing most of it alone; a senior developer set up the new project and two colleagues built the first pages). The switch is part of the story, but the work leads.
@@ -34,7 +34,8 @@ Nirmal switched careers into frontend in 2023 and climbed quickly (in the first 
 - Stack: Next.js 15 (App Router), React 19, TypeScript, Tailwind CSS 3, next-themes (light/dark), MDX blog, @react-pdf/renderer for the résumé PDF. Linting is Ultracite (Biome). Hosted on Vercel; the live site updates only after a push.
 - Routes: `/` (projects, experience, about and skills highlights), `/projects` (full showcase), `/about`, `/contact`, `/resume` (also opens as a dialog from the nav), `/resume.pdf`, `/uses`, `/blog`, plus the RSS feed, sitemap and robots.
 - Content is data-driven: `src/configs/site.ts` and `src/features/*/constants/`.
-- The blog stays out of the nav and sitemap until Nirmal publishes a real post; the current sample posts are drafts.
+- Reference notes live on a separate Fumadocs site, Workbench, at notes.nirmal-maharjan.com.np (repo `nirmalmhjr/fumadocs-notes-portfolio`). The portfolio links to it from the nav ("Notes ↗"), the footer, the blog page and the project cards ("From my notes"). The blog holds narrative posts; the notes hold shorter reference pages grouped by topic. The same naming rule applies there: unlaunched client projects are described, not named.
+- The blog is live, in the nav and in the sitemap. Every post is about Nirmal's own work, drawn from real commits: no generic tutorials. A post names its project in frontmatter (`project`), and that project's card links to it. Unlaunched client projects aren't named in posts, because their names may change; a post describes them instead (e.g. "a multi-vendor e-commerce platform").
 - Undecided: the testimonials section is built but stays hidden until at least one real quote exists.
 
 ## Evidence on Hand

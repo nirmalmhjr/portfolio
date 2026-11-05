@@ -1,6 +1,6 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -87,6 +87,24 @@ export function Header({ items }: HeaderProps) {
               }}
             />
             {items.map((item) => {
+              if (item.external) {
+                // Only from lg: between md and lg the bar has no room for it.
+                // The footer links to the notes at every width.
+                return (
+                  <li className="relative hidden lg:block" key={item.href}>
+                    <a
+                      className="flex items-center gap-0.5 rounded-full px-3 py-1.5 text-muted text-sm transition-colors hover:text-fg"
+                      href={item.href}
+                    >
+                      {item.title}
+                      <ArrowUpRight
+                        aria-hidden
+                        className="h-3 w-3 text-faint"
+                      />
+                    </a>
+                  </li>
+                );
+              }
               const active = item.href === activeHref;
               return (
                 <li className="relative" key={item.href}>
@@ -139,6 +157,21 @@ export function Header({ items }: HeaderProps) {
           id={MOBILE_MENU_ID}
         >
           {items.map((item) => {
+            if (item.external) {
+              return (
+                <a
+                  className="flex items-center gap-1 rounded-xl px-3.5 py-3 text-muted hover:bg-raised hover:text-fg"
+                  href={item.href}
+                  key={item.href}
+                >
+                  {item.title}
+                  <ArrowUpRight
+                    aria-hidden
+                    className="h-3.5 w-3.5 text-faint"
+                  />
+                </a>
+              );
+            }
             const active = item.href === activeHref;
             return (
               <SectionLink

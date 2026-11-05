@@ -38,7 +38,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     current: true,
     end: "Present",
     highlights: [
-      "Built the Paradise Hills Resort website and its admin dashboard entirely on my own (launching soon).",
+      "Built the Paradise Hills Resort website and its admin dashboard (launching soon).",
       "Built the entire CMS admin dashboard that powers the company's new website, and about half of the site's frontend.",
       "On the Luxe multi-vendor e-commerce team, built the account and order pages, product search, blog, and brand, category and sale pages, and worked on checkout, Google sign-in and the wishlist.",
       "Redesigned the landing pages for Plexler (an AI learning platform), Sierra Adventurer and Prabhu Adventure, plus reusable inner-page components for Prabhu.",
@@ -194,7 +194,7 @@ export const STRENGTHS: Strength[] = [
   },
   {
     description:
-      "I built the admin dashboards for Paradise Hills Resort (solo), the new Plex Bit website and Galli Maps.",
+      "I built the admin dashboards for Paradise Hills Resort, the new Plex Bit website and Galli Maps.",
     icon: "dashboard",
     title: "Dashboards end to end",
   },

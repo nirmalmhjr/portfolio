@@ -35,11 +35,16 @@ export async function generateMetadata({
     return {};
   }
 
-  return createMetadata({
-    description: `All blog posts about ${tag}.`,
-    path: ROUTES.blogTag(tagSlug(tag)),
-    title: `Posts about ${tag}`,
-  });
+  return {
+    ...createMetadata({
+      description: `All blog posts about ${tag}.`,
+      path: ROUTES.blogTag(tagSlug(tag)),
+      title: `Posts about ${tag}`,
+    }),
+    // Tag pages only repeat posts, so keep them out of search results but let
+    // crawlers follow their links (they're left out of the sitemap too).
+    robots: { follow: true, index: false },
+  };
 }
 
 export default async function TagPage({ params }: TagPageProps) {
